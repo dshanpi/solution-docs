@@ -1,0 +1,13 @@
+digraph G {
+  graph [rankdir=LR, bgcolor="white", margin=0.2, nodesep=0.3];
+  node [shape=box, style="rounded,filled", fontname="Noto Sans CJK SC", fontsize=13, color="#334155", margin="0.15,0.09"];
+  edge [color="#DC2626", fontname="Noto Sans CJK SC", fontsize=12, penwidth=1.5, arrowsize=0.8];
+  active [label="Error Active\n正常参与通信", fillcolor="#DCFCE7"];
+  passive [label="Error Passive\n错误计数已经很高", fillcolor="#FEF3C7"];
+  off [label="Bus-Off\n停止向总线发送", fillcolor="#FEE2E2"];
+  recover [label="等待总线恢复条件\n再受控恢复", fillcolor="#DBEAFE"];
+  active -> passive [label="错误持续累积"];
+  passive -> off [label="发送错误继续累积"];
+  off -> recover [label="发起恢复"];
+  recover -> active [label="恢复完成"];
+}

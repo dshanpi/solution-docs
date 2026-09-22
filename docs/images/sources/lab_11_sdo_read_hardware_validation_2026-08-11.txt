@@ -1,0 +1,73 @@
+Lab 11 read-only SDO hardware validation
+Date: 2026-08-11
+Board: ESP32-C3
+Serial port used during validation: /dev/ttyUSB0
+ESP-IDF: v5.5.4
+CAN TX/RX: GPIO19/GPIO18
+CAN bitrate: 500000 bit/s
+Motor Node-ID: 0x01
+
+Flash result:
+Chip is ESP32-C3 (QFN32) (revision v0.4)
+Wrote 209296 bytes at 0x00010000
+Hash of data verified.
+Hard resetting via RTS pin...
+
+Application and TWAI initialization:
+I lab_11_sdo_read: First read-only CANopen SDO experiment
+I lab_11_sdo_read: Target esp32c3, TX GPIO19, RX GPIO18, bitrate 500000 bit/s
+I lab_11_sdo_read: Motor Node-ID 0x01; SDO request 0x601, response 0x581
+W lab_11_sdo_read: Read-only: this program has no SDO write or motor command
+I can_bus: TWAI ready: TX GPIO19, RX GPIO18, 500000 bit/s, normal mode
+
+Device Type:
+I canopen_sdo: Read request: Node-ID 0x01, object 0x1000:00
+I can_bus: TX CAN-ID 0x601 DLC 8 DATA [40 00 10 00 00 00 00 00]
+I can_bus: TX acknowledged: CAN-ID 0x601
+I can_bus: RX CAN-ID 0x581 DLC 8 DATA [43 00 10 00 92 01 04 00]
+I lab_11_sdo_read: Device Type 0x1000:00 = 0x00040192 (262546)
+
+Error Register:
+I can_bus: TX CAN-ID 0x601 DLC 8 DATA [40 01 10 00 00 00 00 00]
+I can_bus: TX acknowledged: CAN-ID 0x601
+I can_bus: RX CAN-ID 0x581 DLC 8 DATA [4F 01 10 00 00 00 00 00]
+I lab_11_sdo_read: Error Register 0x1001:00 = 0x00 (0)
+
+Identity Object:
+I can_bus: TX CAN-ID 0x601 DLC 8 DATA [40 18 10 00 00 00 00 00]
+I can_bus: TX acknowledged: CAN-ID 0x601
+I can_bus: RX CAN-ID 0x581 DLC 8 DATA [4F 18 10 00 04 00 00 00]
+I lab_11_sdo_read: Identity entries 0x1018:00 = 0x04 (4)
+
+I can_bus: RX CAN-ID 0x581 DLC 8 DATA [43 18 10 01 CD 04 00 00]
+I lab_11_sdo_read: Vendor ID 0x1018:01 = 0x000004CD (1229)
+
+I can_bus: RX CAN-ID 0x581 DLC 8 DATA [43 18 10 02 B9 5A 00 00]
+I lab_11_sdo_read: Product Code 0x1018:02 = 0x00005AB9 (23225)
+
+I can_bus: RX CAN-ID 0x581 DLC 8 DATA [43 18 10 03 34 12 90 78]
+I lab_11_sdo_read: Revision Number 0x1018:03 = 0x78901234 (2022707764)
+
+I can_bus: RX CAN-ID 0x581 DLC 8 DATA [43 18 10 04 12 90 78 56]
+I lab_11_sdo_read: Serial Number 0x1018:04 = 0x56789012 (1450741778)
+
+Abort handling:
+I lab_11_sdo_read: Abort demo: read unsupported Identity sub-index 0x05
+I can_bus: TX CAN-ID 0x601 DLC 8 DATA [40 18 10 05 00 00 00 00]
+I can_bus: TX acknowledged: CAN-ID 0x601
+I can_bus: RX CAN-ID 0x581 DLC 8 DATA [80 18 10 05 11 00 09 06]
+W canopen_sdo: SDO Abort 0x06090011: sub-index does not exist
+I lab_11_sdo_read: Abort was handled; program continues normally
+
+Heartbeat after SDO reads:
+I can_bus: RX CAN-ID 0x701 DLC 1 DATA [05]
+I can_bus: RX CAN-ID 0x701 DLC 1 DATA [05]
+I can_bus: RX CAN-ID 0x701 DLC 1 DATA [05]
+
+Validation conclusion:
+- Firmware flashing and hash verification succeeded.
+- The motor acknowledged every shown 0x601 request.
+- Matching 0x581 expedited SDO responses were received and decoded.
+- Abort 0x06090011 was decoded and did not stop the application.
+- Motor heartbeat 0x701 DATA 05 continued once per second.
+- No SDO download, NMT command, Controlword, mode, position, or velocity command was sent.

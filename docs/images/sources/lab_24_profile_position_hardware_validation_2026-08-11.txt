@@ -1,0 +1,25 @@
+Hardware validation date: 2026-08-11
+Project: examples/lab_24_profile_position
+ESP-IDF: v5.5.4
+Target: ESP32-C3 revision v0.4
+Serial port: /dev/ttyUSB0
+Firmware size: 243840 bytes
+Command used: test
+
+Observed motion result:
+
+W canopennode_motor: Motion plan: +4096 count(s), then return. 16384 count(s)/rev means this jog is about 90 degrees
+I canopennode_motor: Motor 0x6064 Position actual = 0x00002596 (9622)
+W canopennode_motor: Profile Position jog start=9622, outbound target=13718, return target=9622
+I canopennode_motor: Motor 0x6064 Position actual = 0x00003598 (13720)
+I canopennode_motor: Profile Position jog outbound: target=13718, actual=13720, distance=2 count(s)
+W canopennode_motor: Profile Position jog outbound reached: target=13718, actual=13720, tolerance=64 count(s)
+I canopennode_motor: Motor 0x6064 Position actual = 0x00002598 (9624)
+I canopennode_motor: Profile Position jog return: target=9622, actual=9624, distance=2 count(s)
+W canopennode_motor: Profile Position jog return reached: target=9622, actual=9624, tolerance=64 count(s)
+W canopennode_motor: Profile Position jog test finished successfully
+W canopennode_motor: Command result: success
+
+Result:
+- Build, flash, serial command parsing, SDO download, forward move, return move, and position readback: PASS.
+- Outbound and return errors were both 2 counts, inside the configured 64-count tolerance.

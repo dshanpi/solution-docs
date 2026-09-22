@@ -1,0 +1,11 @@
+{
+  "label": "编写 V4L2 采集程序",
+  "position": 5,
+  "collapsed": true,
+  "link": {
+    "type": "generated-index",
+    "title": "编写 V4L2 采集程序",
+    "description": "从查询格式开始，独立保存原始图像并完成连续采集。",
+    "slug": "/course/stages/capture"
+  }
+}

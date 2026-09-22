@@ -1,0 +1,12 @@
+digraph G {
+  graph [rankdir=LR, bgcolor="white", margin=0.18, nodesep=0.28, ranksep=0.35];
+  node [shape=box, style="rounded,filled", fontname="Noto Sans CJK SC", fontsize=13, color="#334155", margin="0.18,0.10"];
+  edge [color="#2563EB", fontcolor="#1E3A8A", fontname="Noto Sans CJK SC", fontsize=11, penwidth=1.6, arrowsize=0.78];
+  create [label="create-project\n生成标准工程骨架", fillcolor="#DBEAFE"];
+  source [label="修改 main/ 源码\n写 app_main()", fillcolor="#DCFCE7"];
+  target [label="set-target esp32c3\n确定芯片和 sdkconfig", fillcolor="#FEF3C7"];
+  build [label="build\n编译并生成 .bin", fillcolor="#FCE7F3"];
+  flash [label="flash\n写入 ESP32-C3", fillcolor="#EDE9FE"];
+  monitor [label="monitor\n查看真实运行日志", fillcolor="#F1F5F9"];
+  create -> source -> target -> build -> flash -> monitor;
+}

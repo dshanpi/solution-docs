@@ -1,0 +1,10 @@
+digraph G {
+  graph [rankdir=LR, bgcolor="white", margin=0.2, nodesep=0.35];
+  node [shape=box, style="rounded,filled", fontname="Noto Sans CJK SC", fontsize=14, color="#334155", margin="0.16,0.10"];
+  edge [color="#475569", penwidth=1.5, arrowsize=0.8];
+  motor [label="电机 Node 0x01\n发送 0x701", fillcolor="#DCFCE7"];
+  can [label="同一套 TWAI / CANopenNode 接收通道", fillcolor="#DBEAFE"];
+  app [label="应用层监听槽\n记录状态和最后接收时间", fillcolor="#FEF3C7"];
+  sdo [label="SDO 时临时监听 0x581\n结束后恢复 0x701", fillcolor="#FCE7F3"];
+  motor -> can -> app; sdo -> can [dir=both];
+}

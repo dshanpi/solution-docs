@@ -1,0 +1,37 @@
+digraph twai_receive_flow {
+    graph [
+        bgcolor="white",
+        rankdir=TB,
+        pad="0.25",
+        nodesep="0.35",
+        ranksep="0.55"
+    ];
+    node [
+        shape=box,
+        style="rounded,filled",
+        fontname="Noto Sans CJK SC",
+        fontsize=16,
+        margin="0.18,0.12",
+        color="#334155",
+        penwidth=1.3
+    ];
+    edge [color="#64748b", penwidth=1.4, arrowsize=0.75];
+
+    bus [label="CANH / CANL\n电机发来的报文", fillcolor="#dcfce7", color="#16a34a"];
+    transceiver [label="TJA1050\n差分信号变为 RX 电平", fillcolor="#fef3c7", color="#ca8a04"];
+    twai [label="ESP32-C3 TWAI\n检查并接收 CAN 帧", fillcolor="#dbeafe", color="#2563eb"];
+    callback [label="接收回调\n快速复制到队列", fillcolor="#e0e7ff", color="#4f46e5"];
+    queue [label="FreeRTOS 队列\n暂存 CAN-ID / DLC / DATA", fillcolor="#fce7f3", color="#db2777"];
+    task [label="app_main 主任务\n从队列取出并打印", fillcolor="#ffedd5", color="#ea580c"];
+    uart [label="串口日志\n0x701 [1] 05", fillcolor="#f1f5f9", color="#475569"];
+
+    { rank=same; bus; transceiver; twai; }
+    { rank=same; callback; queue; }
+    { rank=same; task; uart; }
+
+    bus -> transceiver -> twai;
+    twai -> callback;
+    callback -> queue;
+    queue -> task;
+    task -> uart;
+}

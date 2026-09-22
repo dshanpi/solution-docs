@@ -1,0 +1,11 @@
+digraph G {
+  graph [rankdir=LR, bgcolor="white", margin=0.18, nodesep=0.3, ranksep=0.4];
+  node [shape=box, style="rounded,filled", fontname="Noto Sans CJK SC", fontsize=14, color="#334155", margin="0.16,0.10"];
+  edge [color="#475569", penwidth=1.5, arrowsize=0.75];
+  timer [label="计算本轮经过时间", fillcolor="#E0F2FE"];
+  process [label="CO_process()\nNMT / Heartbeat / SDO", fillcolor="#DCFCE7"];
+  rpdo [label="CO_process_RPDO()\n接收过程数据", fillcolor="#FEF3C7"];
+  tpdo [label="CO_process_TPDO()\n发送过程数据", fillcolor="#FCE7F3"];
+  delay [label="短暂让出 CPU", fillcolor="#F1F5F9"];
+  timer -> process -> rpdo -> tpdo -> delay -> timer;
+}

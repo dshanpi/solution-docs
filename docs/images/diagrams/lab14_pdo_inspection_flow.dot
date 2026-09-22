@@ -1,0 +1,11 @@
+digraph G {
+  graph [rankdir=LR, bgcolor="white", margin=0.2, nodesep=0.3, ranksep=0.34];
+  node [shape=box, style="rounded,filled", fontname="Noto Sans CJK SC", fontsize=13, color="#334155", margin="0.18,0.10"];
+  edge [color="#475569", penwidth=1.5, arrowsize=0.75];
+  comm [label="读 0x1800\nTPDO1 通信参数", fillcolor="#DBEAFE"];
+  cob [label="解释 COB-ID\n检查 bit31 是否禁用", fillcolor="#DCFCE7"];
+  map [label="读 0x1A00:00\n得到映射数量", fillcolor="#FEF3C7"];
+  entries [label="逐项读 0x1A00:01...\n拆 Index / Sub-index / bit 长度", fillcolor="#FCE7F3"];
+  conclusion [label="得出 TPDO 是否启用\n以及 DATA 每个字节代表什么", fillcolor="#EDE9FE"];
+  comm -> cob -> map -> entries -> conclusion;
+}

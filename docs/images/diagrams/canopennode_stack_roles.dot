@@ -1,0 +1,10 @@
+digraph G {
+  graph [rankdir=TB, bgcolor="white", margin=0.18, nodesep=0.3, ranksep=0.35];
+  node [shape=box, style="rounded,filled", fontname="Noto Sans CJK SC", fontsize=15, color="#334155", penwidth=1.4, margin="0.18,0.12"];
+  edge [color="#475569", penwidth=1.5, arrowsize=0.8];
+  app [label="应用代码\n决定读取哪个参数、何时使能、移动多少", fillcolor="#DBEAFE"];
+  stack [label="CANopenNode\n处理 NMT、Heartbeat、SDO、PDO 和超时状态", fillcolor="#DCFCE7"];
+  driver [label="ESP-IDF TWAI 驱动\n收发 CAN 帧，管理控制器和队列", fillcolor="#FEF3C7"];
+  phy [label="TJA1050 + CANH/CANL\n把数字信号变成总线差分电平", fillcolor="#FCE7F3"];
+  app -> stack [dir=both]; stack -> driver [dir=both]; driver -> phy [dir=both];
+}

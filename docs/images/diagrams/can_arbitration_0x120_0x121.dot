@@ -1,0 +1,44 @@
+digraph can_arbitration {
+    graph [
+        bgcolor="white",
+        rankdir=TB,
+        pad="0.25",
+        nodesep="0.35",
+        ranksep="0.45"
+    ];
+    node [shape=plain, fontname="Noto Sans CJK SC"];
+
+    bits [label=<
+        <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="9" COLOR="#475569">
+            <TR>
+                <TD BGCOLOR="#f1f5f9"><FONT POINT-SIZE="14"><B>发送者</B></FONT></TD>
+                <TD COLSPAN="10" BGCOLOR="#f8fafc"><FONT POINT-SIZE="14"><B>前 10 位相同，双方继续发送</B></FONT></TD>
+                <TD BGCOLOR="#fef3c7"><FONT POINT-SIZE="14"><B>第 11 位</B></FONT></TD>
+                <TD BGCOLOR="#f1f5f9"><FONT POINT-SIZE="14"><B>结果</B></FONT></TD>
+            </TR>
+            <TR>
+                <TD BGCOLOR="#dbeafe"><FONT POINT-SIZE="15"><B>A：0x120</B></FONT></TD>
+                <TD>0</TD><TD>0</TD><TD>1</TD><TD>0</TD><TD>0</TD><TD>1</TD><TD>0</TD><TD>0</TD><TD>0</TD><TD>0</TD>
+                <TD BGCOLOR="#fee2e2"><FONT COLOR="#b91c1c" POINT-SIZE="16"><B>0 显性</B></FONT></TD>
+                <TD BGCOLOR="#dcfce7"><FONT COLOR="#166534"><B>赢得仲裁</B></FONT></TD>
+            </TR>
+            <TR>
+                <TD BGCOLOR="#e0e7ff"><FONT POINT-SIZE="15"><B>B：0x121</B></FONT></TD>
+                <TD>0</TD><TD>0</TD><TD>1</TD><TD>0</TD><TD>0</TD><TD>1</TD><TD>0</TD><TD>0</TD><TD>0</TD><TD>0</TD>
+                <TD BGCOLOR="#f1f5f9"><FONT COLOR="#475569" POINT-SIZE="16"><B>1 隐性</B></FONT></TD>
+                <TD BGCOLOR="#ffedd5"><FONT COLOR="#9a3412"><B>读到 0，退出发送</B></FONT></TD>
+            </TR>
+            <TR>
+                <TD BGCOLOR="#f1f5f9"><FONT POINT-SIZE="15"><B>总线</B></FONT></TD>
+                <TD>0</TD><TD>0</TD><TD>1</TD><TD>0</TD><TD>0</TD><TD>1</TD><TD>0</TD><TD>0</TD><TD>0</TD><TD>0</TD>
+                <TD BGCOLOR="#fee2e2"><FONT COLOR="#b91c1c" POINT-SIZE="16"><B>0</B></FONT></TD>
+                <TD BGCOLOR="#f8fafc"><FONT POINT-SIZE="13">A 不用重发，继续传完</FONT></TD>
+            </TR>
+        </TABLE>
+    >];
+
+    note [shape=box, style="rounded,filled", fillcolor="#f8fafc", color="#94a3b8",
+          fontname="Noto Sans CJK SC", fontsize=15,
+          label="仲裁失败不是报文出错：B 转为接收，等总线空闲后再发送"];
+    bits -> note [color="#94a3b8", arrowsize=0.7];
+}

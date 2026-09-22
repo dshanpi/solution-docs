@@ -1,0 +1,93 @@
+Lab 12 read-only PDO inspection hardware validation
+Date: 2026-08-11
+Project: examples/lab_12_pdo_inspect
+Board: ESP32-C3 revision v0.4
+Serial port used during validation: /dev/ttyUSB0
+ESP-IDF: v5.5.4
+CAN TX/RX: GPIO19/GPIO18
+CAN bitrate: 500000 bit/s
+Motor: IG35EC020, Node-ID 0x01
+
+Build and flash:
+lab_12_pdo_inspect.bin binary size 0x33890 bytes
+Project build complete.
+Wrote 211088 bytes at 0x00010000
+Hash of data verified.
+Hard resetting via RTS pin...
+
+Application start:
+I lab_12_pdo_inspect: Read-only CANopen PDO inspection
+I lab_12_pdo_inspect: Target esp32c3, TX GPIO19, RX GPIO18, bitrate 500000 bit/s
+I lab_12_pdo_inspect: Motor Node-ID 0x01
+W lab_12_pdo_inspect: Safety: no SDO write, NMT, SYNC, RPDO, or motor command
+I can_bus: TWAI ready: TX GPIO19, RX GPIO18, 500000 bit/s, normal mode
+
+RPDO1 communication parameters:
+TX 0x601 [40 00 14 00 00 00 00 00]
+RX 0x581 [4F 00 14 00 06 00 00 00]
+RPDO1 communication highest sub-index = 6
+
+TX 0x601 [40 00 14 01 00 00 00 00]
+RX 0x581 [43 00 14 01 01 02 00 80]
+RPDO1 COB-ID raw=0x80000201, CAN-ID=0x201, enabled=no, frame=standard
+
+TX 0x601 [40 00 14 02 00 00 00 00]
+RX 0x581 [4F 00 14 02 00 00 00 00]
+RPDO1 transmission type = 0 (synchronous, acyclic)
+
+RPDO1 mapping:
+TX 0x601 [40 00 16 00 00 00 00 00]
+RX 0x581 [4F 00 16 00 02 00 00 00]
+RPDO1 mapped object count = 2
+
+RX 0x581 [43 00 16 01 20 00 83 60]
+RPDO1 map 1 raw=0x60830020 -> object 0x6083:00, 32 bits
+
+RX 0x581 [43 00 16 02 20 00 84 60]
+RPDO1 map 2 raw=0x60840020 -> object 0x6084:00, 32 bits
+RPDO1 mapped payload = 64 bits (8 bytes)
+
+TPDO1 communication parameters:
+TX 0x601 [40 00 18 00 00 00 00 00]
+RX 0x581 [4F 00 18 00 06 00 00 00]
+TPDO1 communication highest sub-index = 6
+
+TX 0x601 [40 00 18 01 00 00 00 00]
+RX 0x581 [43 00 18 01 81 01 00 80]
+TPDO1 COB-ID raw=0x80000181, CAN-ID=0x181, enabled=no, frame=standard
+
+TX 0x601 [40 00 18 02 00 00 00 00]
+RX 0x581 [4F 00 18 02 01 00 00 00]
+TPDO1 transmission type = 1 (synchronous, cyclic)
+
+TPDO1 mapping:
+TX 0x601 [40 00 1A 00 00 00 00 00]
+RX 0x581 [4F 00 1A 00 02 00 00 00]
+TPDO1 mapped object count = 2
+
+RX 0x581 [43 00 1A 01 20 00 62 60]
+TPDO1 map 1 raw=0x60620020 -> object 0x6062:00, 32 bits
+
+RX 0x581 [43 00 1A 02 20 00 64 60]
+TPDO1 map 2 raw=0x60640020 -> object 0x6064:00, 32 bits
+TPDO1 mapped payload = 64 bits (8 bytes)
+
+Five-second observation:
+RX 0x701 [05]
+RX 0x701 [05]
+RX 0x701 [05]
+RX 0x701 [05]
+RX 0x701 [05]
+Observation result: heartbeat=5, matching TPDO=0
+TPDO1 is disabled, so no TPDO was expected or observed
+
+Validation conclusion:
+- Build, flash, hash verification, and application startup succeeded.
+- Every SDO request shown above was acknowledged by another CAN node.
+- The motor implemented the standard RPDO1 and TPDO1 parameter objects.
+- RPDO1 was configured with CAN-ID 0x201 but disabled by COB-ID bit 31.
+- TPDO1 was configured with CAN-ID 0x181 but disabled by COB-ID bit 31.
+- RPDO1 mapped 0x6083:00 and 0x6084:00, 32 bits each.
+- TPDO1 mapped 0x6062:00 and 0x6064:00, 32 bits each.
+- Five motor heartbeats and zero matching TPDO1 frames were observed in five seconds.
+- No SDO download, NMT, SYNC, RPDO, Controlword, mode, position, or velocity command was sent.

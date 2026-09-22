@@ -1,0 +1,58 @@
+digraph canopen_sdo_upload_sequence {
+    graph [
+        bgcolor="white",
+        rankdir=TB,
+        pad="0.28",
+        nodesep="0.35",
+        ranksep="0.48"
+    ];
+    node [
+        shape=box,
+        style="rounded,filled",
+        fontname="Noto Sans CJK SC",
+        fontsize=15,
+        margin="0.24,0.16",
+        color="#334155",
+        penwidth=1.4,
+        width=7.4
+    ];
+    edge [
+        fontname="Noto Sans CJK SC",
+        fontsize=12,
+        color="#64748b",
+        fontcolor="#475569",
+        penwidth=1.5,
+        arrowsize=0.75
+    ];
+
+    client [
+        label="ESP32：SDO Client\n准备读取电机对象 0x1000:00",
+        fillcolor="#dbeafe",
+        color="#2563eb"
+    ];
+    request [
+        label="请求帧\nCAN-ID 0x601   DLC 8\nDATA 40 | 00 10 | 00 | 00 00 00 00\n      命令   Index   Sub    未使用",
+        fillcolor="#f1f5f9"
+    ];
+    server [
+        label="电机 Node-ID 0x01：SDO Server\n查找对象 0x1000:00",
+        fillcolor="#ffedd5",
+        color="#ea580c"
+    ];
+    response [
+        label="成功响应帧\nCAN-ID 0x581   DLC 8\nDATA 43 | 00 10 | 00 | 92 01 04 00\n      命令   Index   Sub    对象数据",
+        fillcolor="#ecfccb",
+        color="#65a30d"
+    ];
+    result [
+        label="ESP32 核对 CAN-ID、Index、Sub-index 和命令字\n按 UNSIGNED32、小端序得到 0x00040192",
+        fillcolor="#dcfce7",
+        color="#16a34a",
+        penwidth=2.0
+    ];
+
+    client -> request [label="构造 8 字节 DATA"];
+    request -> server [label="CANH / CANL"];
+    server -> response [label="对象存在，返回当前值"];
+    response -> result [label="CANH / CANL"];
+}

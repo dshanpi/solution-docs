@@ -1,0 +1,11 @@
+{
+  "label": "适配 HDMI 采集驱动",
+  "position": 4,
+  "collapsed": true,
+  "link": {
+    "type": "generated-index",
+    "title": "适配 HDMI 采集驱动",
+    "description": "构建底层软件，将原理图连接对应到设备树和驱动。",
+    "slug": "/course/stages/drivers"
+  }
+}

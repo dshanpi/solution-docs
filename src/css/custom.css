@@ -1,0 +1,539 @@
+:root {
+  --ifm-color-primary: #1769aa;
+  --ifm-color-primary-dark: #155f99;
+  --ifm-color-primary-darker: #145a91;
+  --ifm-color-primary-darkest: #104a77;
+  --ifm-color-primary-light: #1973bb;
+  --ifm-color-primary-lighter: #1a78c3;
+  --ifm-color-primary-lightest: #2489db;
+  --ifm-background-color: #ffffff;
+  --ifm-background-surface-color: #f7f9fc;
+  --ifm-font-family-base: Inter, "Noto Sans SC", "PingFang SC", "Microsoft YaHei", system-ui, -apple-system, sans-serif;
+  --ifm-font-family-monospace: "Cascadia Code", "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+  --ifm-font-size-base: 16px;
+  --ifm-line-height-base: 1.78;
+  --ifm-heading-font-family: var(--ifm-font-family-base);
+  --ifm-heading-font-weight: 700;
+  --ifm-heading-line-height: 1.35;
+  --ifm-code-font-size: 0.9rem;
+  --ifm-navbar-height: 4rem;
+  --ifm-menu-color: #52606d;
+  --ifm-toc-border-color: #e7ecf2;
+  --site-border: #e5eaf0;
+  --site-muted: #64748b;
+  --site-soft: #f6f8fb;
+  --site-soft-blue: #eef6fc;
+  --site-shadow: 0 8px 28px rgba(30, 64, 96, 0.08);
+  --docusaurus-highlighted-code-line-bg: rgba(23, 105, 170, 0.12);
+}
+
+[data-theme='dark'] {
+  --ifm-color-primary: #68b5f0;
+  --ifm-color-primary-dark: #4aa5eb;
+  --ifm-color-primary-darker: #3b9de9;
+  --ifm-color-primary-darkest: #1682d4;
+  --ifm-color-primary-light: #86c5f5;
+  --ifm-color-primary-lighter: #95cdf7;
+  --ifm-color-primary-lightest: #c2e3fb;
+  --ifm-background-color: #111821;
+  --ifm-background-surface-color: #18212c;
+  --ifm-menu-color: #c4ced8;
+  --ifm-toc-border-color: #2b3744;
+  --site-border: #2b3744;
+  --site-muted: #9eacba;
+  --site-soft: #18212c;
+  --site-soft-blue: #162737;
+  --site-shadow: 0 10px 30px rgba(0, 0, 0, 0.24);
+  --docusaurus-highlighted-code-line-bg: rgba(104, 181, 240, 0.15);
+}
+
+html {
+  scroll-padding-top: calc(var(--ifm-navbar-height) + 1rem);
+}
+
+body {
+  color: var(--ifm-font-color-base);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  color: inherit;
+  background: rgba(61, 152, 219, 0.22);
+}
+
+/* 顶部导航 */
+.navbar {
+  border-bottom: 1px solid var(--site-border);
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 2px 14px rgba(29, 48, 68, 0.06);
+  backdrop-filter: blur(12px);
+}
+
+[data-theme='dark'] .navbar {
+  background: rgba(17, 24, 33, 0.96);
+}
+
+.navbar__brand {
+  margin-right: 1.5rem;
+}
+
+.navbar__logo {
+  height: 2.35rem;
+}
+
+.navbar__title {
+  color: var(--ifm-font-color-base);
+  font-size: 1.05rem;
+  letter-spacing: 0.02em;
+}
+
+.navbar__link {
+  font-weight: 600;
+}
+
+.navbar__link:hover,
+.navbar__link--active {
+  color: var(--ifm-color-primary);
+}
+
+/* 左侧课程目录 */
+.theme-doc-sidebar-container {
+  border-right: 1px solid var(--site-border) !important;
+  background: var(--site-soft);
+}
+
+.theme-doc-sidebar-menu {
+  padding: 1.1rem 0.8rem 2rem;
+}
+
+.menu__list-item {
+  margin-top: 0.15rem;
+}
+
+.menu__link {
+  border-radius: 0.5rem;
+  font-size: 0.92rem;
+  line-height: 1.45;
+  transition: color 0.16s ease, background 0.16s ease, transform 0.16s ease;
+}
+
+.menu__link:hover {
+  color: var(--ifm-color-primary);
+  background: rgba(23, 105, 170, 0.08);
+}
+
+.menu__link--active:not(.menu__link--sublist) {
+  color: var(--ifm-color-primary);
+  background: rgba(23, 105, 170, 0.11);
+  font-weight: 650;
+}
+
+.menu__caret::before,
+.menu__link--sublist-caret::after {
+  opacity: 0.68;
+}
+
+/* 正文阅读区：限制行宽，避免宽屏阅读疲劳 */
+.theme-doc-markdown,
+.theme-doc-breadcrumbs,
+.theme-doc-footer,
+.pagination-nav {
+  width: 100%;
+  max-width: 920px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.theme-doc-markdown {
+  padding-bottom: 1rem;
+  font-size: 1rem;
+  line-height: 1.82;
+}
+
+.theme-doc-markdown > header + *,
+.theme-doc-markdown > h1 + * {
+  margin-top: 1.25rem;
+}
+
+.theme-doc-markdown p {
+  margin: 0 0 1.1rem;
+}
+
+.theme-doc-markdown > h1:first-child,
+.theme-doc-markdown header h1 {
+  margin: 0.35rem 0 1.5rem;
+  font-size: clamp(2rem, 3.1vw, 2.65rem);
+  line-height: 1.22;
+  letter-spacing: -0.035em;
+}
+
+.theme-doc-markdown h2 {
+  position: relative;
+  margin-top: 3.1rem;
+  margin-bottom: 1.25rem;
+  padding: 0 0 0.62rem 0.9rem;
+  border-bottom: 1px solid var(--site-border);
+  font-size: 1.58rem;
+  line-height: 1.35;
+  letter-spacing: -0.015em;
+}
+
+.theme-doc-markdown h2::before {
+  position: absolute;
+  top: 0.2em;
+  bottom: 0.82rem;
+  left: 0;
+  width: 4px;
+  border-radius: 4px;
+  background: var(--ifm-color-primary);
+  content: '';
+}
+
+.theme-doc-markdown h3 {
+  margin-top: 2.25rem;
+  margin-bottom: 0.9rem;
+  font-size: 1.24rem;
+  line-height: 1.45;
+}
+
+.theme-doc-markdown h4 {
+  margin-top: 1.8rem;
+  font-size: 1.06rem;
+}
+
+.theme-doc-markdown strong {
+  font-weight: 700;
+  color: var(--ifm-color-emphasis-900);
+}
+
+.theme-doc-markdown ul,
+.theme-doc-markdown ol {
+  margin: 0.65rem 0 1.25rem;
+  padding-left: 1.55rem;
+}
+
+.theme-doc-markdown li {
+  margin: 0.32rem 0;
+  padding-left: 0.12rem;
+}
+
+.theme-doc-markdown li::marker {
+  color: var(--ifm-color-primary);
+  font-weight: 700;
+}
+
+.theme-doc-markdown hr {
+  margin: 2.8rem 0;
+  border: 0;
+  border-top: 1px solid var(--site-border);
+}
+
+.theme-doc-markdown a:not(.hash-link) {
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+}
+
+/* 面包屑与右侧页内目录 */
+.theme-doc-breadcrumbs {
+  margin-bottom: 1.35rem;
+}
+
+.breadcrumbs__link {
+  border-radius: 999px;
+  font-size: 0.84rem;
+}
+
+.table-of-contents {
+  padding-left: 1rem;
+  font-size: 0.82rem;
+  line-height: 1.55;
+}
+
+.table-of-contents__link {
+  display: block;
+  padding: 0.2rem 0;
+  color: var(--site-muted);
+}
+
+.table-of-contents__link--active {
+  color: var(--ifm-color-primary);
+  font-weight: 650;
+}
+
+/* 行内代码与代码块 */
+.theme-doc-markdown :not(pre) > code {
+  padding: 0.12rem 0.38rem;
+  border: 1px solid rgba(23, 105, 170, 0.16);
+  border-radius: 0.32rem;
+  color: #145f96;
+  background: var(--site-soft-blue);
+  font-size: 0.88em;
+  word-break: break-word;
+}
+
+[data-theme='dark'] .theme-doc-markdown :not(pre) > code {
+  color: #8ac9f5;
+}
+
+.theme-code-block,
+.theme-doc-markdown pre {
+  margin: 1.25rem 0 1.6rem;
+  border: 1px solid var(--site-border);
+  border-radius: 0.7rem;
+  box-shadow: 0 6px 20px rgba(26, 52, 77, 0.07);
+}
+
+.theme-code-block pre {
+  margin: 0;
+  border: 0;
+  box-shadow: none;
+}
+
+/* 表格 */
+.theme-doc-markdown table {
+  display: table;
+  width: 100%;
+  margin: 1.25rem 0 1.8rem;
+  overflow-x: auto;
+  border: 1px solid var(--site-border);
+  border-radius: 0.7rem;
+  border-spacing: 0;
+  box-shadow: 0 5px 18px rgba(31, 58, 83, 0.05);
+}
+
+.theme-doc-markdown thead {
+  background: var(--site-soft-blue);
+}
+
+.theme-doc-markdown th {
+  color: var(--ifm-color-emphasis-900);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.theme-doc-markdown th,
+.theme-doc-markdown td {
+  padding: 0.72rem 0.85rem;
+  border-color: var(--site-border);
+  vertical-align: top;
+}
+
+.theme-doc-markdown tbody tr:nth-child(even) {
+  background: var(--site-soft);
+}
+
+.theme-doc-markdown tbody tr:hover {
+  background: rgba(23, 105, 170, 0.055);
+}
+
+/* 图片、引用和提示框 */
+.theme-doc-markdown img {
+  display: block;
+  max-width: min(100%, 860px);
+  max-height: 46rem;
+  margin: 1.6rem auto 2rem;
+  border: 1px solid var(--site-border);
+  border-radius: 0.75rem;
+  background: #fff;
+  box-shadow: var(--site-shadow);
+  object-fit: contain;
+}
+
+.theme-doc-markdown blockquote {
+  margin: 1.3rem 0;
+  padding: 0.85rem 1.15rem;
+  border-left: 4px solid var(--ifm-color-primary);
+  border-radius: 0 0.55rem 0.55rem 0;
+  color: var(--ifm-color-emphasis-800);
+  background: var(--site-soft);
+}
+
+.theme-doc-markdown blockquote > :last-child {
+  margin-bottom: 0;
+}
+
+.theme-admonition {
+  margin: 1.4rem 0;
+  border: 1px solid var(--site-border);
+  border-left-width: 5px;
+  border-radius: 0.7rem;
+  box-shadow: 0 5px 16px rgba(31, 58, 83, 0.05);
+}
+
+.theme-admonition > div:last-child > :last-child {
+  margin-bottom: 0;
+}
+
+/* 每课页头信息 */
+.lesson-meta {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.8rem;
+  margin: 0.9rem 0 2rem;
+}
+
+.lesson-meta__item {
+  min-height: 5.1rem;
+  padding: 0.9rem 1rem;
+  border: 1px solid var(--site-border);
+  border-radius: 0.72rem;
+  background: linear-gradient(145deg, var(--site-soft-blue), var(--ifm-background-color));
+  box-shadow: 0 4px 14px rgba(28, 63, 96, 0.055);
+}
+
+.lesson-meta__label,
+.lesson-meta__value {
+  display: block;
+}
+
+.lesson-meta__label {
+  margin-bottom: 0.34rem;
+  color: var(--site-muted);
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.lesson-meta__value {
+  font-size: 0.92rem;
+  line-height: 1.45;
+}
+
+.lesson-meta__value--safe {
+  color: #16734b;
+}
+
+[data-theme='dark'] .lesson-meta__value--safe {
+  color: #68d39b;
+}
+
+/* 课程首页引导卡 */
+.course-map-intro {
+  position: relative;
+  margin: 0.8rem 0 1.6rem;
+  padding: 1.35rem 1.55rem 1.35rem 1.7rem;
+  overflow: hidden;
+  border: 1px solid rgba(23, 105, 170, 0.16);
+  border-radius: 0.8rem;
+  background: linear-gradient(135deg, var(--site-soft-blue), var(--ifm-background-color));
+  box-shadow: 0 8px 24px rgba(28, 69, 105, 0.07);
+}
+
+.course-map-intro::before {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 5px;
+  background: var(--ifm-color-primary);
+  content: '';
+}
+
+.course-map-intro strong {
+  font-size: 1.06rem;
+}
+
+.course-map-intro p {
+  margin: 0.55rem 0 0;
+  color: var(--ifm-color-emphasis-800);
+}
+
+/* 上一篇 / 下一篇保留并增强可读性 */
+.theme-doc-footer {
+  margin-top: 2.5rem;
+}
+
+.pagination-nav {
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.pagination-nav__link {
+  border: 1px solid var(--site-border);
+  border-radius: 0.72rem;
+  background: var(--ifm-background-color);
+  box-shadow: 0 4px 16px rgba(31, 58, 83, 0.05);
+  transition: border-color 0.16s ease, box-shadow 0.16s ease, transform 0.16s ease;
+}
+
+.pagination-nav__link:hover {
+  border-color: var(--ifm-color-primary);
+  box-shadow: 0 8px 22px rgba(31, 87, 132, 0.11);
+  transform: translateY(-1px);
+}
+
+.pagination-nav__sublabel {
+  color: var(--site-muted);
+  font-size: 0.78rem;
+}
+
+.pagination-nav__label {
+  font-size: 0.94rem;
+}
+
+.footer {
+  border-top: 1px solid var(--site-border);
+}
+
+@media (max-width: 996px) {
+  /* 移动菜单使用 fixed 铺满视口，避免导航栏滤镜将其限制到栏高。 */
+  .navbar {
+    backdrop-filter: none;
+  }
+  .theme-doc-markdown,
+  .theme-doc-breadcrumbs,
+  .theme-doc-footer,
+  .pagination-nav {
+    max-width: 100%;
+  }
+
+}
+
+@media (min-width: 1600px) {
+  .lesson-meta {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+/* 平板宽度下仍显示课程入口，同时保留原有品牌 Logo 与“东山Π”标题。 */
+@media (min-width: 600px) and (max-width: 996px) {
+  .navbar-course-link {
+    display: flex !important;
+  }
+}
+
+@media (max-width: 700px) {
+  :root {
+    --ifm-font-size-base: 15px;
+  }
+
+  .theme-doc-markdown > h1:first-child,
+  .theme-doc-markdown header h1 {
+    font-size: 1.85rem;
+  }
+
+  .theme-doc-markdown h2 {
+    margin-top: 2.5rem;
+    font-size: 1.38rem;
+  }
+
+  .theme-doc-markdown table {
+    display: block;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 599px) {
+  .lesson-meta {
+    grid-template-columns: 1fr;
+  }
+
+  .course-map-intro {
+    padding: 1.1rem 1.1rem 1.1rem 1.35rem;
+  }
+
+  .pagination-nav {
+    grid-template-columns: 1fr;
+  }
+}

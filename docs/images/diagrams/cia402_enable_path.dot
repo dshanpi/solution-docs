@@ -1,0 +1,12 @@
+digraph G {
+  graph [rankdir=LR, bgcolor="white", margin=0.2, nodesep=0.35, ranksep=0.3];
+  node [shape=box, style="rounded,filled", fontname="Noto Sans CJK SC", fontsize=13, color="#334155", margin="0.16,0.10"];
+  edge [color="#2563EB", fontcolor="#1E3A8A", fontname="Noto Sans CJK SC", fontsize=12, penwidth=1.7, arrowsize=0.8];
+  disabled [label="Switch on disabled\n常见掩码结果 0x0040", fillcolor="#F1F5F9"];
+  ready [label="Ready to switch on\n常见掩码结果 0x0021", fillcolor="#DBEAFE"];
+  on [label="Switched on\n常见掩码结果 0x0023", fillcolor="#FEF3C7"];
+  enabled [label="Operation enabled\n常见掩码结果 0x0027", fillcolor="#DCFCE7"];
+  disabled -> ready [label="写 0x6040 = 0x0006"];
+  ready -> on [label="写 0x6040 = 0x0007"];
+  on -> enabled [label="写 0x6040 = 0x000F"];
+}

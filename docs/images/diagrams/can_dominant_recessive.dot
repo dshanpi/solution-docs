@@ -1,0 +1,30 @@
+digraph can_dominant_recessive {
+    graph [
+        bgcolor="white",
+        rankdir=LR,
+        pad="0.25",
+        nodesep="0.45",
+        ranksep="0.65"
+    ];
+    node [
+        shape=box,
+        style="rounded,filled",
+        fontname="Noto Sans CJK SC",
+        fontsize=18,
+        margin="0.22,0.14",
+        color="#334155",
+        penwidth=1.4
+    ];
+    edge [
+        color="#64748b",
+        penwidth=1.5,
+        arrowsize=0.8
+    ];
+
+    tx0 [label="节点 A\n发送 0", fillcolor="#fee2e2", color="#dc2626", fontcolor="#991b1b"];
+    tx1 [label="节点 B\n发送 1", fillcolor="#f1f5f9", color="#64748b", fontcolor="#334155"];
+    bus [label="总线实际读到 0\n0 & 1 = 0", fillcolor="#dcfce7", color="#16a34a", fontcolor="#166534", penwidth=2.0];
+
+    tx0 -> bus;
+    tx1 -> bus;
+}

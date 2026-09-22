@@ -1,0 +1,13 @@
+digraph G {
+  graph [rankdir=LR, bgcolor="white", margin=0.2, nodesep=0.28, ranksep=0.34];
+  node [shape=box, style="rounded,filled", fontname="Noto Sans CJK SC", fontsize=13, color="#334155", margin="0.18,0.10"];
+  edge [color="#475569", penwidth=1.5, arrowsize=0.75];
+  serial [label="motor_commands.c\n逐字符收命令并解析参数", fillcolor="#DBEAFE"];
+  queue [label="FreeRTOS 命令队列\n完整命令才交给主循环", fillcolor="#DCFCE7"];
+  app [label="canopennode_motor.c\n安全检查、SDO、CiA 402 状态机", fillcolor="#FEF3C7"];
+  od [label="OD.c / OD.h\n本地 CANopen 对象字典", fillcolor="#FCE7F3"];
+  motor [label="IG35EC020\n执行 Profile Position", fillcolor="#EDE9FE"];
+  serial -> queue -> app -> motor;
+  od -> app;
+  motor -> app [label="状态字和实际位置", fontname="Noto Sans CJK SC", fontsize=11];
+}

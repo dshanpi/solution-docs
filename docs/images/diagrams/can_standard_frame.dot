@@ -1,0 +1,30 @@
+digraph can_standard_frame {
+    graph [
+        bgcolor="white",
+        pad="0.25"
+    ];
+    node [shape=plain, fontname="Noto Sans CJK SC"];
+
+    frame [label=<
+        <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="12" COLOR="#334155">
+            <TR>
+                <TD BGCOLOR="#dbeafe"><FONT POINT-SIZE="17"><B>SOF</B></FONT><BR/><FONT POINT-SIZE="13">开始</FONT></TD>
+                <TD BGCOLOR="#fef3c7"><FONT POINT-SIZE="17"><B>Arbitration</B></FONT><BR/><FONT POINT-SIZE="13">11 位 CAN-ID + RTR</FONT></TD>
+                <TD BGCOLOR="#e0e7ff"><FONT POINT-SIZE="17"><B>Control</B></FONT><BR/><FONT POINT-SIZE="13">IDE + 保留位 + DLC</FONT></TD>
+                <TD BGCOLOR="#dcfce7"><FONT POINT-SIZE="17"><B>Data</B></FONT><BR/><FONT POINT-SIZE="13">0～8 字节数据</FONT></TD>
+                <TD BGCOLOR="#fce7f3"><FONT POINT-SIZE="17"><B>CRC</B></FONT><BR/><FONT POINT-SIZE="13">传输校验</FONT></TD>
+                <TD BGCOLOR="#ffedd5"><FONT POINT-SIZE="17"><B>ACK</B></FONT><BR/><FONT POINT-SIZE="13">接收确认</FONT></TD>
+                <TD BGCOLOR="#f1f5f9"><FONT POINT-SIZE="17"><B>EOF</B></FONT><BR/><FONT POINT-SIZE="13">结束</FONT></TD>
+            </TR>
+            <TR>
+                <TD><FONT POINT-SIZE="12">1 位</FONT></TD>
+                <TD><FONT POINT-SIZE="12">12 位</FONT></TD>
+                <TD><FONT POINT-SIZE="12">6 位</FONT></TD>
+                <TD><FONT POINT-SIZE="12">0～64 位</FONT></TD>
+                <TD><FONT POINT-SIZE="12">16 位</FONT></TD>
+                <TD><FONT POINT-SIZE="12">2 位</FONT></TD>
+                <TD><FONT POINT-SIZE="12">7 位</FONT></TD>
+            </TR>
+        </TABLE>
+    >];
+}

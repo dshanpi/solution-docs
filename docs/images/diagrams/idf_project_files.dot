@@ -1,0 +1,13 @@
+digraph G {
+  graph [rankdir=TB, bgcolor="white", margin=0.18, nodesep=0.24, ranksep=0.25];
+  node [shape=box, style="rounded,filled", fontname="Noto Sans CJK SC", fontsize=13, color="#334155", margin="0.18,0.09"];
+  edge [color="#475569", penwidth=1.5, arrowsize=0.75];
+  root [label="顶层 CMakeLists.txt\n告诉 ESP-IDF：这是哪个工程", fillcolor="#DBEAFE"];
+  maincmake [label="main/CMakeLists.txt\n告诉构建系统：编译哪些源码", fillcolor="#DCFCE7"];
+  source [label="main/app_main.c\n程序从 app_main() 开始运行", fillcolor="#FEF3C7"];
+  sdk [label="sdkconfig\n目标芯片和工程配置", fillcolor="#FCE7F3"];
+  build [label="build/\n生成 ELF、BIN 和烧录参数", fillcolor="#EDE9FE"];
+  root -> maincmake -> source;
+  source -> build;
+  sdk -> build;
+}

@@ -1,0 +1,32 @@
+digraph pdo_direction_from_motor {
+    graph [
+        bgcolor="white",
+        rankdir=LR,
+        pad="0.25",
+        nodesep="0.35",
+        ranksep="0.45"
+    ];
+    node [
+        shape=box,
+        style="rounded,filled",
+        fontname="Noto Sans CJK SC",
+        fontsize=15,
+        margin="0.25,0.16",
+        color="#334155",
+        penwidth=1.35
+    ];
+    edge [
+        fontname="Noto Sans CJK SC",
+        fontsize=13,
+        color="#64748b",
+        fontcolor="#334155",
+        penwidth=1.6,
+        arrowsize=0.8
+    ];
+
+    controller [label="ESP32 / 控制器", fillcolor="#dbeafe", color="#2563eb"];
+    motor [label="电机节点\nNode-ID 0x01", fillcolor="#ffedd5", color="#ea580c"];
+
+    controller -> motor [label="RPDO：电机接收的过程数据\n默认 RPDO1 CAN-ID 0x201"];
+    motor -> controller [label="TPDO：电机发送的过程数据\n默认 TPDO1 CAN-ID 0x181"];
+}

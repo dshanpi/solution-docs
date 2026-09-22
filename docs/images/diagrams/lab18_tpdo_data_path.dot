@@ -1,0 +1,11 @@
+digraph G {
+  graph [rankdir=LR, bgcolor="white", margin=0.18, nodesep=0.28, ranksep=0.3];
+  node [shape=box, style="rounded,filled", fontname="Noto Sans CJK SC", fontsize=13, color="#334155", margin="0.18,0.10"];
+  edge [color="#2563EB", fontcolor="#1E3A8A", fontname="Noto Sans CJK SC", fontsize=11, penwidth=1.6, arrowsize=0.78];
+  app [label="app_main()\n计数器每次加 1", fillcolor="#DBEAFE"];
+  variable [label="OD_RAM.x2000_testCNT\n普通 C 变量", fillcolor="#DCFCE7"];
+  address [label="对象字典 0x2000:00\n给变量一个 CANopen 入口", fillcolor="#FEF3C7"];
+  map [label="TPDO1 映射\n取低 32 位，共 4 字节", fillcolor="#FCE7F3"];
+  frame [label="CAN-ID 0x1A0\nDATA 按小端序发送", fillcolor="#EDE9FE"];
+  app -> variable -> address -> map -> frame;
+}

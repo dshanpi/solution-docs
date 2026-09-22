@@ -1,0 +1,57 @@
+digraph canopen_object_address {
+    graph [
+        bgcolor="white",
+        rankdir=TB,
+        pad="0.28",
+        nodesep="0.35",
+        ranksep="0.45"
+    ];
+    node [
+        shape=plain,
+        fontname="Noto Sans CJK SC"
+    ];
+
+    address [label=<
+        <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="12" COLOR="#334155">
+            <TR>
+                <TD COLSPAN="2" BGCOLOR="#F1F5F9"><FONT POINT-SIZE="18"><B>完整对象地址：0x1018:02</B></FONT></TD>
+            </TR>
+            <TR>
+                <TD BGCOLOR="#DBEAFE"><FONT POINT-SIZE="17"><B>Index 0x1018</B></FONT></TD>
+                <TD BGCOLOR="#FFEDD5"><FONT POINT-SIZE="17"><B>Sub-index 0x02</B></FONT></TD>
+            </TR>
+            <TR>
+                <TD><FONT POINT-SIZE="14">16 位主索引<BR/>找到 Identity Object</FONT></TD>
+                <TD><FONT POINT-SIZE="14">8 位子索引<BR/>选中 Product Code</FONT></TD>
+            </TR>
+        </TABLE>
+    >];
+
+    identity [label=<
+        <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="10" COLOR="#475569">
+            <TR>
+                <TD COLSPAN="3" BGCOLOR="#E0E7FF"><FONT POINT-SIZE="17"><B>0x1018 Identity Object</B></FONT></TD>
+            </TR>
+            <TR>
+                <TD BGCOLOR="#F8FAFC"><B>Sub-index</B></TD>
+                <TD BGCOLOR="#F8FAFC"><B>内容</B></TD>
+                <TD BGCOLOR="#F8FAFC"><B>数据类型</B></TD>
+            </TR>
+            <TR><TD>00</TD><TD>支持的最高子索引</TD><TD>UNSIGNED8</TD></TR>
+            <TR><TD>01</TD><TD>Vendor ID</TD><TD>UNSIGNED32</TD></TR>
+            <TR><TD BGCOLOR="#FFEDD5"><B>02</B></TD><TD BGCOLOR="#FFEDD5"><B>Product Code</B></TD><TD BGCOLOR="#FFEDD5"><B>UNSIGNED32</B></TD></TR>
+            <TR><TD>03</TD><TD>Revision Number</TD><TD>UNSIGNED32</TD></TR>
+            <TR><TD>04</TD><TD>Serial Number</TD><TD>UNSIGNED32</TD></TR>
+        </TABLE>
+    >];
+
+    address -> identity [
+        label="先找 Index，再选 Sub-index",
+        fontname="Noto Sans CJK SC",
+        fontsize=13,
+        color="#64748B",
+        fontcolor="#475569",
+        penwidth=1.4,
+        arrowsize=0.75
+    ];
+}

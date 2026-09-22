@@ -1,0 +1,12 @@
+digraph G {
+  graph [rankdir=LR, bgcolor="white", margin=0.18, nodesep=0.32, ranksep=0.3];
+  node [shape=box, style="rounded,filled", fontname="Noto Sans CJK SC", fontsize=13, color="#334155", margin="0.18,0.10"];
+  edge [color="#2563EB", fontcolor="#1E3A8A", fontname="Noto Sans CJK SC", fontsize=11, penwidth=1.7, arrowsize=0.8];
+  check [label="先读 0x6041\n确认无 Fault", fillcolor="#DBEAFE"];
+  write [label="写一次 0x6040\n0x0006 / 0x0007 / 0x000F", fillcolor="#FEF3C7"];
+  ack [label="收到 SDO 下载成功响应\n只证明写入被接受", fillcolor="#FCE7F3"];
+  read [label="再次读 0x6041\n确认电机实际状态", fillcolor="#DCFCE7"];
+  decide [label="状态符合预期？\n是：下一步；否：停止", shape=diamond, fillcolor="#EDE9FE"];
+  check -> write -> ack -> read -> decide;
+  decide -> write [label="是，还有下一步"];
+}

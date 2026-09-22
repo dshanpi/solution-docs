@@ -1,0 +1,71 @@
+digraph canopen_bootup_heartbeat_timeline {
+    graph [
+        bgcolor="white",
+        rankdir=TB,
+        pad="0.25",
+        nodesep="0.28",
+        ranksep="0.55"
+    ];
+    node [
+        shape=box,
+        style="rounded,filled",
+        fontname="Noto Sans CJK SC",
+        fontsize=15,
+        margin="0.20,0.14",
+        color="#334155",
+        penwidth=1.4
+    ];
+    edge [
+        fontname="Noto Sans CJK SC",
+        fontsize=12,
+        color="#64748b",
+        fontcolor="#475569",
+        penwidth=1.5,
+        arrowsize=0.75
+    ];
+
+    power [
+        label="电机上电或复位",
+        fillcolor="#f1f5f9"
+    ];
+    init [
+        label="CANopen 初始化\n读取配置，启动通信",
+        fillcolor="#dbeafe",
+        color="#2563eb"
+    ];
+    boot [
+        label="Boot-up：只发送一次\nCAN-ID 0x701  DLC 1  DATA 00",
+        fillcolor="#ffedd5",
+        color="#ea580c",
+        penwidth=2.1
+    ];
+    running [
+        label="节点进入配置允许的 NMT 状态\n本项目当前观察到 OPERATIONAL",
+        fillcolor="#dcfce7",
+        color="#16a34a"
+    ];
+    hb1 [
+        label="Heartbeat\n0x701  [1]  05",
+        fillcolor="#ecfccb",
+        color="#65a30d"
+    ];
+    hb2 [
+        label="Heartbeat\n0x701  [1]  05",
+        fillcolor="#ecfccb",
+        color="#65a30d"
+    ];
+    hb3 [
+        label="Heartbeat\n0x701  [1]  05",
+        fillcolor="#ecfccb",
+        color="#65a30d"
+    ];
+
+    power -> init;
+    init -> boot [label="初始化完成"];
+    boot -> running;
+    running -> hb1 [label="按配置周期发送"];
+    hb1 -> hb2 [label="约 1000 ms"];
+    hb2 -> hb3 [label="约 1000 ms"];
+
+    {rank=same; hb1; hb2; hb3;}
+}

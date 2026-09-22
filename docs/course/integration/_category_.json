@@ -1,0 +1,11 @@
+{
+  "label": "接入现有网络服务",
+  "position": 8,
+  "collapsed": true,
+  "link": {
+    "type": "generated-index",
+    "title": "接入现有网络服务",
+    "description": "通过进程间接口接入 Go 服务，在浏览器中查看画面并操作设备。",
+    "slug": "/course/stages/integration"
+  }
+}

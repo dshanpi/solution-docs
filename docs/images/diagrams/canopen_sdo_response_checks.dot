@@ -1,0 +1,54 @@
+digraph canopen_sdo_response_checks {
+    graph [
+        bgcolor="white",
+        rankdir=TB,
+        pad="0.28",
+        nodesep="0.28",
+        ranksep="0.34"
+    ];
+    node [
+        shape=box,
+        style="rounded,filled",
+        fontname="Noto Sans CJK SC",
+        fontsize=14,
+        margin="0.22,0.13",
+        color="#334155",
+        penwidth=1.35,
+        width=5.5
+    ];
+    edge [
+        fontname="Noto Sans CJK SC",
+        fontsize=11,
+        color="#64748b",
+        fontcolor="#475569",
+        penwidth=1.4,
+        arrowsize=0.72
+    ];
+
+    receive [label="收到一帧 CAN 报文", fillcolor="#dbeafe", color="#2563eb"];
+    canid [label="CAN-ID 是不是 0x580 + Node-ID？", shape=diamond, fillcolor="#f8fafc"];
+    address [label="Index 和 Sub-index 是否与当前请求相同？", shape=diamond, fillcolor="#f8fafc"];
+    abort [label="命令字是不是 0x80？", shape=diamond, fillcolor="#f8fafc"];
+    success [label="命令字是否为 0x4F、0x4B、0x43 或 0x42？", shape=diamond, fillcolor="#f8fafc"];
+    ignore [label="不是当前请求的响应\n忽略这一帧，回到接收处继续等待", fillcolor="#f1f5f9"];
+    abort_result [label="读取 DATA[4..7]\n按小端序得到 Abort Code", fillcolor="#fee2e2", color="#dc2626"];
+    decode [label="确定有效数据长度\n复制 DATA[4..7] 并按对象类型解码", fillcolor="#dcfce7", color="#16a34a"];
+    invalid [label="响应格式不支持或不合法\n报告错误", fillcolor="#ffedd5", color="#ea580c"];
+    timeout [label="截止时间到仍无匹配响应\n返回超时", fillcolor="#fef3c7", color="#d97706"];
+
+    receive -> canid;
+    canid -> address [label="是"];
+    canid -> ignore [label="否", constraint=false];
+    address -> abort [label="是"];
+    address -> ignore [label="否", constraint=false];
+    abort -> success [label="不是 0x80"];
+    abort -> abort_result [label="是 0x80", constraint=false];
+    success -> decode [label="是"];
+    success -> invalid [label="否", constraint=false];
+    ignore -> receive [label="尚未超时", constraint=false];
+    ignore -> timeout [label="到达截止时间", constraint=false];
+
+    {rank=same; canid; ignore;}
+    {rank=same; abort; abort_result;}
+    {rank=same; success; invalid;}
+}

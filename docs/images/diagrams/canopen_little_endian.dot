@@ -1,0 +1,66 @@
+digraph canopen_little_endian {
+    graph [
+        bgcolor="white",
+        rankdir=TB,
+        pad="0.28",
+        nodesep="0.35",
+        ranksep="0.4"
+    ];
+    node [
+        shape=plain,
+        fontname="Noto Sans CJK SC"
+    ];
+
+    value [label=<
+        <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="11" COLOR="#334155">
+            <TR>
+                <TD COLSPAN="4" BGCOLOR="#F1F5F9"><FONT POINT-SIZE="18"><B>32 位数值：0x12345678</B></FONT></TD>
+            </TR>
+            <TR>
+                <TD BGCOLOR="#E0E7FF"><B>最高字节</B></TD>
+                <TD BGCOLOR="#E0E7FF"> </TD>
+                <TD BGCOLOR="#E0E7FF"> </TD>
+                <TD BGCOLOR="#E0E7FF"><B>最低字节</B></TD>
+            </TR>
+            <TR>
+                <TD><FONT POINT-SIZE="18"><B>12</B></FONT></TD>
+                <TD><FONT POINT-SIZE="18"><B>34</B></FONT></TD>
+                <TD><FONT POINT-SIZE="18"><B>56</B></FONT></TD>
+                <TD BGCOLOR="#FFEDD5"><FONT POINT-SIZE="18"><B>78</B></FONT></TD>
+            </TR>
+        </TABLE>
+    >];
+
+    data [label=<
+        <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="11" COLOR="#334155">
+            <TR>
+                <TD COLSPAN="4" BGCOLOR="#DCFCE7"><FONT POINT-SIZE="17"><B>CANopen 数据区按低字节在前排列</B></FONT></TD>
+            </TR>
+            <TR>
+                <TD BGCOLOR="#F8FAFC">DATA[0]</TD>
+                <TD BGCOLOR="#F8FAFC">DATA[1]</TD>
+                <TD BGCOLOR="#F8FAFC">DATA[2]</TD>
+                <TD BGCOLOR="#F8FAFC">DATA[3]</TD>
+            </TR>
+            <TR>
+                <TD BGCOLOR="#FFEDD5"><FONT POINT-SIZE="18"><B>78</B></FONT></TD>
+                <TD><FONT POINT-SIZE="18"><B>56</B></FONT></TD>
+                <TD><FONT POINT-SIZE="18"><B>34</B></FONT></TD>
+                <TD><FONT POINT-SIZE="18"><B>12</B></FONT></TD>
+            </TR>
+            <TR>
+                <TD COLSPAN="4"><FONT POINT-SIZE="14">接收后重新组合：78 + (56 &lt;&lt; 8) + (34 &lt;&lt; 16) + (12 &lt;&lt; 24)</FONT></TD>
+            </TR>
+        </TABLE>
+    >];
+
+    value -> data [
+        label="先放最低字节",
+        fontname="Noto Sans CJK SC",
+        fontsize=13,
+        color="#64748B",
+        fontcolor="#475569",
+        penwidth=1.4,
+        arrowsize=0.75
+    ];
+}

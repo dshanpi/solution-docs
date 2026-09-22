@@ -1,0 +1,11 @@
+digraph G {
+  graph [rankdir=TB, bgcolor="white", margin=0.18, nodesep=0.28, ranksep=0.28];
+  node [shape=box, style="rounded,filled", fontname="Noto Sans CJK SC", fontsize=14, color="#334155", margin="0.18,0.09"];
+  edge [color="#475569", penwidth=1.4, arrowsize=0.75];
+  setup [label="1  setup：选择电机 Node-ID 0x01\n请求 0x601，响应 0x581", fillcolor="#DBEAFE"];
+  start [label="2  UploadInitiate：填写 Index / Sub-index 和超时", fillcolor="#DCFCE7"];
+  loop [label="3  循环调用 CO_process() 与 Upload()\n返回值 > 0 表示仍在等待", fillcolor="#FEF3C7"];
+  result [label="4  返回 0：读出数据\n返回负数：查看 Abort Code", fillcolor="#FCE7F3"];
+  close [label="5  Close：结束本次会话", fillcolor="#F1F5F9"];
+  setup -> start -> loop -> result -> close;
+}

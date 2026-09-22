@@ -1,0 +1,12 @@
+digraph G {
+  graph [rankdir=LR, bgcolor="white", margin=0.18, nodesep=0.28, ranksep=0.32];
+  node [shape=box, style="rounded,filled", fontname="Noto Sans CJK SC", fontsize=13, color="#334155", margin="0.18,0.10"];
+  edge [color="#475569", penwidth=1.5, arrowsize=0.75];
+  app [label="app_main.c\n列出要读的对象\n初始化并打印结果", fillcolor="#DBEAFE"];
+  api [label="course_sdo_client.h\n声明结果结构和函数", fillcolor="#DCFCE7"];
+  impl [label="course_sdo_client.c\n驱动官方 SDO Client 状态机", fillcolor="#FEF3C7"];
+  stack [label="CANopenNode 0.1.0\n生成 0x601 / 接收 0x581", fillcolor="#FCE7F3"];
+  motor [label="IG35EC020\nSDO Server，Node-ID 0x01", fillcolor="#EDE9FE"];
+  app -> api -> impl -> stack -> motor;
+  motor -> stack [label="响应", fontname="Noto Sans CJK SC", fontsize=11];
+}

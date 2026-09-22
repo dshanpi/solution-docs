@@ -1,0 +1,11 @@
+{
+  "label": "认识硬件与实验环境",
+  "position": 3,
+  "collapsed": true,
+  "link": {
+    "type": "generated-index",
+    "title": "认识硬件与实验环境",
+    "description": "完成硬件、串口、网络与开发工具准备，使用参考镜像完成一次 KVM 操作。",
+    "slug": "/course/stages/preparation"
+  }
+}

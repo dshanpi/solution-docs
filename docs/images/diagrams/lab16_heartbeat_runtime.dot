@@ -1,0 +1,13 @@
+digraph G {
+  graph [rankdir=TB, bgcolor="white", margin=0.18, nodesep=0.24, ranksep=0.25];
+  node [shape=box, style="rounded,filled", fontname="Noto Sans CJK SC", fontsize=13, color="#334155", margin="0.18,0.09"];
+  edge [color="#2563EB", penwidth=1.6, arrowsize=0.78];
+  params [label="1  写参数\nGPIO19/18、500 kbit/s、Node-ID 0x20、1000 ms", fillcolor="#DBEAFE"];
+  twai [label="2  twai_new_node_onchip()\n创建唯一的片内 CAN 控制器节点", fillcolor="#DCFCE7"];
+  stack [label="3  CO_new() + CO_CANinit() + CO_CANopenInit()\n对象字典和 TWAI 接入 CANopenNode", fillcolor="#FEF3C7"];
+  normal [label="4  CO_CANsetNormalMode()\n节点开始参与总线", fillcolor="#FCE7F3"];
+  loop [label="5  每约 10 ms 调用 CO_process()\n累积真实经过时间", fillcolor="#EDE9FE"];
+  frames [label="Boot-up：0x720 [1] 00\nHeartbeat：每 1000 ms 发送 0x720", fillcolor="#F1F5F9"];
+  params -> twai -> stack -> normal -> loop -> frames;
+  loop -> loop [label="继续运行", fontname="Noto Sans CJK SC", fontsize=11];
+}

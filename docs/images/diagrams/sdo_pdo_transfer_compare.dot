@@ -1,0 +1,57 @@
+digraph sdo_pdo_transfer_compare {
+    graph [
+        bgcolor="white",
+        rankdir=LR,
+        pad="0.28",
+        nodesep="0.28",
+        ranksep="0.55"
+    ];
+    node [
+        shape=box,
+        style="rounded,filled",
+        fontname="Noto Sans CJK SC",
+        fontsize=14,
+        margin="0.22,0.14",
+        color="#334155",
+        penwidth=1.3
+    ];
+    edge [
+        fontname="Noto Sans CJK SC",
+        fontsize=12,
+        color="#64748b",
+        fontcolor="#475569",
+        penwidth=1.4,
+        arrowsize=0.75
+    ];
+
+    subgraph cluster_sdo {
+        label="SDO：每次读取都要一问一答";
+        fontname="Noto Sans CJK SC";
+        fontsize=16;
+        color="#93c5fd";
+        style="rounded";
+
+        sdo_client [label="控制器\nSDO Client", fillcolor="#dbeafe", color="#2563eb"];
+        sdo_request [label="请求帧\nCAN-ID 0x601\n命令 + Index + Sub-index", fillcolor="#f1f5f9"];
+        sdo_server [label="电机\nSDO Server", fillcolor="#ffedd5", color="#ea580c"];
+        sdo_response [label="响应帧\nCAN-ID 0x581\n命令 + Index + Sub-index + 数据", fillcolor="#dcfce7", color="#16a34a"];
+        sdo_result [label="控制器收到响应\n核对地址并解码", fillcolor="#dbeafe", color="#2563eb"];
+
+        sdo_client -> sdo_request -> sdo_server;
+        sdo_server -> sdo_response -> sdo_result;
+    }
+
+    subgraph cluster_pdo {
+        label="TPDO：映射配置完成后，发送一帧过程数据";
+        fontname="Noto Sans CJK SC";
+        fontsize=16;
+        color="#86efac";
+        style="rounded";
+
+        pdo_motor [label="电机\nTPDO Producer", fillcolor="#ffedd5", color="#ea580c"];
+        pdo_frame [label="一帧 CAN 报文\n例如 CAN-ID 0x181\nDATA 全部用于已映射的数据", fillcolor="#dcfce7", color="#16a34a"];
+        pdo_controller [label="一个或多个接收节点\n按预先知道的映射解码", fillcolor="#dbeafe", color="#2563eb"];
+
+        pdo_motor -> pdo_frame -> pdo_controller;
+    }
+}

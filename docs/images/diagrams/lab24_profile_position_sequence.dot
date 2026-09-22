@@ -1,0 +1,12 @@
+digraph G {
+  graph [rankdir=TB, bgcolor="white", margin=0.18, nodesep=0.22, ranksep=0.24];
+  node [shape=box, style="rounded,filled", fontname="Noto Sans CJK SC", fontsize=13, color="#334155", margin="0.18,0.09"];
+  edge [color="#475569", penwidth=1.5, arrowsize=0.75];
+  ready [label="确认 0x6041 = Operation enabled\n确认 0x6061 = Profile Position", fillcolor="#DBEAFE"];
+  clear1 [label="写 0x6040 = 0x000F\n先清除旧的 new set-point 位", fillcolor="#DCFCE7"];
+  target [label="写 0x607A\n设置新的绝对目标位置", fillcolor="#FEF3C7"];
+  trigger [label="写 0x6040 = 0x001F\n置位 new set-point，触发移动", fillcolor="#FCE7F3"];
+  clear2 [label="写 0x6040 = 0x000F\n清除 new set-point，准备下次命令", fillcolor="#EDE9FE"];
+  poll [label="反复读取 0x6041 与 0x6064\n目标到达或超时后结束", fillcolor="#F1F5F9"];
+  ready -> clear1 -> target -> trigger -> clear2 -> poll;
+}

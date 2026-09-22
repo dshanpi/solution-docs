@@ -1,0 +1,10 @@
+digraph G {
+  graph [rankdir=TB, bgcolor="white", margin=0.2, nodesep=0.28, ranksep=0.28];
+  node [shape=box, style="rounded,filled", fontname="Noto Sans CJK SC", fontsize=13, color="#334155", margin="0.18,0.10"];
+  edge [color="#2563EB", fontcolor="#1E3A8A", fontname="Noto Sans CJK SC", fontsize=11, penwidth=1.6, arrowsize=0.78];
+  main [label="app_main() 栈帧一直存在", fillcolor="#DBEAFE"];
+  config [label="CO_config_t co_config\n生命周期覆盖整个程序", fillcolor="#DCFCE7"];
+  new [label="CO_new(&co_config, ...)\n协议栈保存这个地址", fillcolor="#FEF3C7"];
+  process [label="后续 CO_process()\n仍能读取有效配置", fillcolor="#EDE9FE"];
+  main -> config -> new -> process;
+}

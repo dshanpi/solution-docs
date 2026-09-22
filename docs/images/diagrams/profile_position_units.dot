@@ -1,0 +1,10 @@
+digraph G {
+  graph [rankdir=LR, bgcolor="white", margin=0.2, nodesep=0.35, ranksep=0.4];
+  node [shape=box, style="rounded,filled", fontname="Noto Sans CJK SC", fontsize=14, color="#334155", margin="0.18,0.10"];
+  edge [color="#475569", fontname="Noto Sans CJK SC", fontsize=12, penwidth=1.5, arrowsize=0.8];
+  human [label="人输入\njog rev 2\njog deg 90", fillcolor="#DBEAFE"];
+  convert [label="程序换算\n1 圈 = 16384 counts\n90° = 4096 counts", fillcolor="#FEF3C7"];
+  target [label="目标位置 0x607A\nINTEGER32，单位 counts", fillcolor="#DCFCE7"];
+  actual [label="实际位置 0x6064\n读取后核对是否到位", fillcolor="#FCE7F3"];
+  human -> convert -> target -> actual;
+}

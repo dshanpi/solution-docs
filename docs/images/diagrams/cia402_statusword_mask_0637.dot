@@ -1,0 +1,13 @@
+digraph G {
+  graph [rankdir=TB, bgcolor="white", margin=0.18, nodesep=0.22, ranksep=0.24];
+  node [shape=box, style="rounded,filled", fontname="Noto Sans Mono CJK SC", fontsize=14, color="#334155", margin="0.22,0.11"];
+  edge [color="#2563EB", fontcolor="#1E3A8A", fontname="Noto Sans CJK SC", fontsize=12, penwidth=1.6, arrowsize=0.78];
+  raw [label="原始值  0x0637\n0000 0110 0011 0111", fillcolor="#DBEAFE"];
+  mask [label="状态掩码 0x006F\n0000 0000 0110 1111", fillcolor="#FEF3C7"];
+  and [label="逐位 AND：两边都是 1 才保留", shape=diamond, fillcolor="#FCE7F3"];
+  result [label="状态结果 0x0027\n0000 0000 0010 0111", fillcolor="#DCFCE7"];
+  meaning [label="查状态模式表\n0x0027 = Operation enabled", fillcolor="#EDE9FE"];
+  raw -> and;
+  mask -> and;
+  and -> result -> meaning;
+}

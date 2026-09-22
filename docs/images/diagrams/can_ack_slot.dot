@@ -1,0 +1,28 @@
+digraph can_ack_slot {
+    graph [
+        bgcolor="white",
+        rankdir=LR,
+        pad="0.25",
+        nodesep="0.45",
+        ranksep="0.65"
+    ];
+    node [
+        shape=box,
+        style="rounded,filled",
+        fontname="Noto Sans CJK SC",
+        fontsize=17,
+        margin="0.22,0.14",
+        color="#334155",
+        penwidth=1.4
+    ];
+    edge [color="#64748b", penwidth=1.5, arrowsize=0.8];
+
+    sender [label="发送节点\nACK Slot 发送 1（隐性）", fillcolor="#f1f5f9", color="#64748b"];
+    receiver [label="任一正确收帧的节点\nACK Slot 发送 0（显性）", fillcolor="#dbeafe", color="#2563eb"];
+    bus [label="总线实际值 = 0", fillcolor="#fee2e2", color="#dc2626", fontcolor="#991b1b", penwidth=2.0];
+    result [label="发送节点读到 0\n知道至少有一个节点正确收帧", fillcolor="#dcfce7", color="#16a34a", fontcolor="#166534"];
+
+    sender -> bus;
+    receiver -> bus;
+    bus -> result;
+}

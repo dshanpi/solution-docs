@@ -1,0 +1,12 @@
+digraph G {
+  graph [rankdir=TB, bgcolor="white", margin=0.18, nodesep=0.22, ranksep=0.25];
+  node [shape=box, style="rounded,filled", fontname="Noto Sans CJK SC", fontsize=13, color="#334155", margin="0.18,0.09"];
+  edge [color="#475569", penwidth=1.5, arrowsize=0.75];
+  od [label="先改 OD\n加入 0x2000 和 TPDO1 映射", fillcolor="#DBEAFE"];
+  config [label="再开 Kconfig\nCONFIG_CO_PDO=y", fillcolor="#DCFCE7"];
+  init [label="初始化通信层\nCO_CANopenInit()", fillcolor="#FEF3C7"];
+  pdo [label="初始化 PDO\nCO_CANopenInitPDO()", fillcolor="#FCE7F3"];
+  nmt [label="切到 Operational\nPDO 才允许正常发送", fillcolor="#EDE9FE"];
+  loop [label="循环更新变量\n调用 CO_process_SYNC/RPDO/TPDO", fillcolor="#F1F5F9"];
+  od -> config -> init -> pdo -> nmt -> loop;
+}

@@ -1,0 +1,22 @@
+digraph G {
+  graph [rankdir=TB, bgcolor="white", margin=0.16, nodesep=0.18, ranksep=0.22];
+  node [shape=plain, fontname="Noto Sans CJK SC", fontsize=12];
+  title [label=<<TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0"><TR><TD><FONT POINT-SIZE="16"><B>实测 Statusword 0x0637 中的关键位</B></FONT></TD></TR><TR><TD>二进制：0000 0110 0011 0111</TD></TR></TABLE>>];
+  bits [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="7" COLOR="#334155">
+    <TR>
+      <TD BGCOLOR="#F1F5F9"><B>bit</B></TD>
+      <TD>11</TD><TD>10</TD><TD>9</TD><TD>8</TD><TD>7</TD><TD>6</TD><TD>5</TD><TD>4</TD><TD>3</TD><TD>2</TD><TD>1</TD><TD>0</TD>
+    </TR>
+    <TR>
+      <TD BGCOLOR="#F1F5F9"><B>值</B></TD>
+      <TD BGCOLOR="#F8FAFC">0</TD><TD BGCOLOR="#DCFCE7">1</TD><TD BGCOLOR="#DCFCE7">1</TD><TD BGCOLOR="#F8FAFC">0</TD><TD BGCOLOR="#F8FAFC">0</TD><TD BGCOLOR="#F8FAFC">0</TD><TD BGCOLOR="#DCFCE7">1</TD><TD BGCOLOR="#DCFCE7">1</TD><TD BGCOLOR="#F8FAFC">0</TD><TD BGCOLOR="#DCFCE7">1</TD><TD BGCOLOR="#DCFCE7">1</TD><TD BGCOLOR="#DCFCE7">1</TD>
+    </TR>
+    <TR>
+      <TD BGCOLOR="#F1F5F9"><B>含义</B></TD>
+      <TD>内部<BR/>限位</TD><TD>目标<BR/>到达</TD><TD>远程<BR/>控制</TD><TD>厂家<BR/>定义</TD><TD>警告</TD><TD>禁止<BR/>使能</TD><TD>Quick<BR/>stop</TD><TD>电压<BR/>使能</TD><TD>故障</TD><TD>运行<BR/>使能</TD><TD>Switched<BR/>on</TD><TD>Ready to<BR/>switch on</TD>
+    </TR>
+  </TABLE>>];
+  note [shape=box, style="rounded,filled", color="#334155", fillcolor="#FEF3C7", label="绿色的 1 不等于都属于状态机名称\nbit 9、bit 10 等是附加信息"];
+  title -> bits [style=invis];
+  bits -> note [color="#475569", arrowsize=0.7];
+}

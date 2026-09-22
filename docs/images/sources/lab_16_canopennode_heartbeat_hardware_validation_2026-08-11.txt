@@ -1,0 +1,20 @@
+Hardware validation date: 2026-08-11
+Project: examples/lab_16_canopennode_heartbeat
+ESP-IDF: v5.5.4
+Target: ESP32-C3 revision v0.4
+Serial port: /dev/ttyUSB0
+Serial adapter: Silicon Labs CP2102, VID:PID 10C4:EA60, serial 0001
+Firmware size: 174592 bytes
+
+Observed application log:
+
+I lab_16_heartbeat: ESP32-C3 CANopenNode heartbeat node
+I lab_16_heartbeat: TWAI TX GPIO19, RX GPIO18, bitrate 500000 bit/s
+I lab_16_heartbeat: Local Node-ID 0x20, Producer Heartbeat 1000 ms
+I lab_16_heartbeat: CANopenNode heap used: 488 bytes
+I lab_16_heartbeat: CANopenNode running: Boot-up/Heartbeat CAN-ID 0x720
+
+Result:
+- Build, flash, boot, TWAI/CANopenNode initialization: PASS.
+- The serial log confirms the configured COB-ID, but it is not an independent CAN capture.
+- A second CAN receiver is still required to prove 0x720 DATA 00 and the 1000 ms period on the wire.

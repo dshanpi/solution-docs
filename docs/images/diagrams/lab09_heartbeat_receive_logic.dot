@@ -1,0 +1,19 @@
+digraph G {
+  graph [rankdir=TB, bgcolor="white", margin=0.18, nodesep=0.25, ranksep=0.26];
+  node [shape=box, style="rounded,filled", fontname="Noto Sans CJK SC", fontsize=13, color="#334155", margin="0.18,0.09"];
+  edge [color="#2563EB", fontcolor="#1E3A8A", fontname="Noto Sans CJK SC", fontsize=11, penwidth=1.6, arrowsize=0.78];
+  rx [label="TWAI 收到一帧标准 CAN 报文", fillcolor="#DBEAFE"];
+  id [label="CAN-ID 是否为 0x700 + 目标 Node-ID？", shape=diamond, fillcolor="#FEF3C7"];
+  dlc [label="DLC 是否为 1？", shape=diamond, fillcolor="#FCE7F3"];
+  data [label="读取 DATA[0]", fillcolor="#DCFCE7"];
+  boot [label="00：Boot-up\n节点刚完成启动", fillcolor="#EDE9FE"];
+  hb [label="04 / 05 / 7F 等\nHeartbeat 中的 NMT 状态", fillcolor="#F1F5F9"];
+  other [label="按普通 CAN 帧记录\n不冒充目标节点状态", fillcolor="#FEE2E2"];
+  rx -> id;
+  id -> dlc [label="是"];
+  id -> other [label="否"];
+  dlc -> data [label="是"];
+  dlc -> other [label="否"];
+  data -> boot [label="DATA=00"];
+  data -> hb [label="DATA≠00"];
+}

@@ -1,0 +1,52 @@
+digraph canopen_value_source_flow {
+    graph [
+        bgcolor="white",
+        rankdir=TB,
+        pad="0.28",
+        nodesep="0.28",
+        ranksep="0.42"
+    ];
+    node [
+        shape=box,
+        style="rounded,filled",
+        fontname="Noto Sans CJK SC",
+        fontsize=15,
+        margin="0.24,0.15",
+        color="#334155",
+        penwidth=1.4,
+        width=6.5
+    ];
+    edge [
+        fontname="Noto Sans CJK SC",
+        fontsize=12,
+        color="#64748b",
+        fontcolor="#475569",
+        penwidth=1.5,
+        arrowsize=0.75
+    ];
+
+    docs [
+        label="第一步：查协议资料和当前设备资料\n确认 0x1000:00 是 Device Type、类型和访问权限",
+        fillcolor="#dbeafe",
+        color="#2563eb"
+    ];
+    request [
+        label="第二步：ESP32 发送读取请求\n请求中带上对象地址 0x1000:00",
+        fillcolor="#f1f5f9"
+    ];
+    response [
+        label="第三步：电机返回实际字节\n92 01 04 00",
+        fillcolor="#ffedd5",
+        color="#ea580c"
+    ];
+    result [
+        label="第四步：程序按资料规定的小端序和 UNSIGNED32 解释\n得到 Device Type = 0x00040192",
+        fillcolor="#dcfce7",
+        color="#16a34a",
+        penwidth=2.0
+    ];
+
+    docs -> request [label="知道该访问哪个地址"];
+    request -> response [label="CANH / CANL 上的 CANopen 通信"];
+    response -> result [label="原始字节 + 资料中的解释规则"];
+}

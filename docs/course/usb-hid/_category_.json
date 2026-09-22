@@ -1,0 +1,11 @@
+{
+  "label": "实现 USB 键盘鼠标",
+  "position": 7,
+  "collapsed": true,
+  "link": {
+    "type": "generated-index",
+    "title": "实现 USB 键盘鼠标",
+    "description": "通过本地 C 程序发送键鼠报告，处理 USB 占用与重连。",
+    "slug": "/course/stages/usb-hid"
+  }
+}

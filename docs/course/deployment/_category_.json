@@ -1,0 +1,11 @@
+{
+  "label": "部署与系统验收",
+  "position": 9,
+  "collapsed": true,
+  "link": {
+    "type": "generated-index",
+    "title": "部署与系统验收",
+    "description": "完成开机启动、分层排障和可复现交付。",
+    "slug": "/course/stages/deployment"
+  }
+}

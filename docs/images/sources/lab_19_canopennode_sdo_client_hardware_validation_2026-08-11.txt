@@ -1,0 +1,32 @@
+Hardware validation date: 2026-08-11
+Project: examples/lab_19_canopennode_sdo_client
+ESP-IDF: v5.5.4
+CANopenNode component: espressif/canopennode 0.1.0
+Target: ESP32-C3 revision v0.4
+Serial port: /dev/ttyUSB0
+Fixed firmware size: 208000 bytes
+
+Failure found by the first hardware run:
+- The first build booted, then raised Load access fault in CO_SDOserver_process().
+- addr2line resolved the call path to CO_process() called by course_sdo_upload().
+- init_canopen() had passed a stack-local CO_config_t to CO_new().
+- CO_new() retains that pointer, so the object became invalid after init_canopen() returned.
+
+Fix:
+- CO_config_t now lives in app_main() for the entire CANopenNode lifetime.
+- CO_CANmodule_disable() is called before CO_CANinit(), matching the official initialization sequence.
+
+Observed successful application log:
+
+I lab_19_sdo_client: CANopenNode SDO Client: local 0x20 -> motor 0x01
+W lab_19_sdo_client: Read-only experiment: no object is written and no motion command is sent
+I lab_19_sdo_client: 0x1000:00 Device Type      = 0x00040192 (262546)
+I lab_19_sdo_client: 0x1001:00 Error Register   = 0x00 (0)
+I lab_19_sdo_client: 0x6041:00 Statusword       = 0x0637 (1591)
+I lab_19_sdo_client: 0x6061:00 Mode display     = 0x01 (1)
+I lab_19_sdo_client: 0x6064:00 Position actual  = 0x0000259A (9626)
+I lab_19_sdo_client: Read-only SDO experiment finished; CANopen processing continues
+
+Result:
+- Build, flash, boot, CANopenNode SDO Client, and real motor reads: PASS.
+- The 0x581 responses prove that motor Node-ID 0x01 and 500 kbit/s are correct for this setup.

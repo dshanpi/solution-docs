@@ -1,0 +1,51 @@
+digraph can_canopen_layers {
+    graph [
+        bgcolor="white",
+        rankdir=TB,
+        pad="0.25",
+        nodesep="0.35",
+        ranksep="0.42"
+    ];
+    node [
+        shape=box,
+        style="rounded,filled",
+        fontname="Noto Sans CJK SC",
+        fontsize=17,
+        margin="0.22,0.14",
+        color="#334155",
+        penwidth=1.4,
+        width=7.2
+    ];
+    edge [color="#64748b", penwidth=1.5, arrowsize=0.75];
+
+    app [
+        label="电机应用\n当前位置、运行状态、厂家参数",
+        fillcolor="#fce7f3",
+        color="#db2777"
+    ];
+    cia402 [
+        label="CiA 402：运动控制设备规则\n状态字、控制字、位置与速度模式",
+        fillcolor="#ffedd5",
+        color="#ea580c"
+    ];
+    canopen [
+        label="CANopen：给报文规定用途和数据含义\nNode-ID、Heartbeat、SDO、对象字典",
+        fillcolor="#e0e7ff",
+        color="#4f46e5"
+    ];
+    can [
+        label="Classical CAN：可靠传送一帧\nCAN-ID 0x701 / DLC 1 / DATA 05 / 仲裁 / CRC / ACK",
+        fillcolor="#dbeafe",
+        color="#2563eb"
+    ];
+    hardware [
+        label="实验硬件\nESP32-C3 TWAI -> TJA1050 -> CANH / CANL -> 电机",
+        fillcolor="#dcfce7",
+        color="#16a34a"
+    ];
+
+    app -> cia402 [dir=both];
+    cia402 -> canopen [dir=both];
+    canopen -> can [dir=both];
+    can -> hardware [dir=both];
+}

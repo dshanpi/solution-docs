@@ -1,0 +1,14 @@
+digraph G {
+  graph [rankdir=TB, bgcolor="white", margin=0.2, nodesep=0.35, ranksep=0.32];
+  node [shape=box, style="rounded,filled", fontname="Noto Sans CJK SC", fontsize=14, color="#334155", margin="0.20,0.11"];
+  edge [color="#475569", fontcolor="#334155", fontname="Noto Sans CJK SC", fontsize=12, penwidth=1.5, arrowsize=0.78];
+  motor [label="同一台 CANopen 电机", fillcolor="#F1F5F9"];
+  nmt [label="通信节点状态\n从 0x701 Heartbeat DATA 观察", fillcolor="#DBEAFE"];
+  drive [label="CiA 402 驱动状态\n通过 SDO 读取 0x6041", fillcolor="#FEF3C7"];
+  nmt_result [label="例如：05\nNMT Operational\n说明网络通信可以工作", fillcolor="#DCFCE7"];
+  drive_result [label="例如：0x0040\nSwitch on disabled\n说明功率级尚未使能", fillcolor="#FCE7F3"];
+  motor -> nmt;
+  motor -> drive;
+  nmt -> nmt_result;
+  drive -> drive_result;
+}

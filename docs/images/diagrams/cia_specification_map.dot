@@ -1,0 +1,101 @@
+digraph cia_specification_map {
+    graph [
+        bgcolor="white",
+        rankdir=TB,
+        pad="0.25",
+        nodesep="0.35",
+        ranksep="0.5"
+    ];
+    node [
+        shape=box,
+        style="rounded,filled",
+        fontname="Noto Sans CJK SC",
+        fontsize=16,
+        margin="0.22,0.14",
+        color="#334155",
+        penwidth=1.4
+    ];
+    edge [
+        fontname="Noto Sans CJK SC",
+        fontsize=13,
+        color="#64748b",
+        fontcolor="#475569",
+        penwidth=1.5,
+        arrowsize=0.75
+    ];
+
+    canopen [
+        label="本教程使用的 CANopen 设备\n基于 Classical CAN",
+        fillcolor="#dbeafe",
+        color="#2563eb",
+        width=4.0
+    ];
+
+    cia301 [
+        label="CiA 301：共同的通信基础\nNode-ID / NMT / Heartbeat / SDO / PDO\n对象字典与通信参数的基本规则",
+        fillcolor="#e0e7ff",
+        color="#4f46e5",
+        width=7.5
+    ];
+
+    choose [
+        label="再根据设备类型采用相应的设备规范",
+        shape=plaintext,
+        fillcolor="white",
+        color="white",
+        fontcolor="#334155"
+    ];
+
+    cia401 [
+        label="CiA 401：通用 I/O 设备\n数字量输入输出\n模拟量输入输出",
+        fillcolor="#dcfce7",
+        color="#16a34a",
+        width=3.4
+    ];
+
+    cia402 [
+        label="CiA 402：驱动与运动控制\n状态字和控制字\n运行模式、位置和速度",
+        fillcolor="#ffedd5",
+        color="#ea580c",
+        width=3.8,
+        penwidth=2.2
+    ];
+
+    others [
+        label="其他设备规范\n例如测量设备、编码器\n按实际产品资料选择",
+        fillcolor="#f3e8ff",
+        color="#9333ea",
+        width=3.4
+    ];
+
+    io [
+        label="I/O 模块",
+        fillcolor="#f0fdf4",
+        color="#16a34a"
+    ];
+
+    motor [
+        label="本教程：IG35EC020 电机",
+        fillcolor="#fff7ed",
+        color="#ea580c",
+        penwidth=2.2
+    ];
+
+    device_other [
+        label="传感器、编码器等设备",
+        fillcolor="#faf5ff",
+        color="#9333ea"
+    ];
+
+    canopen -> cia301 [label="共同通信规则"];
+    cia301 -> choose;
+    choose -> cia401;
+    choose -> cia402 [color="#ea580c", penwidth=2.2];
+    choose -> others;
+    cia401 -> io;
+    cia402 -> motor [label="本教程使用", color="#ea580c", fontcolor="#c2410c", penwidth=2.2];
+    others -> device_other;
+
+    {rank=same; cia401; cia402; others;}
+    {rank=same; io; motor; device_other;}
+}

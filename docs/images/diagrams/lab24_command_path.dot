@@ -1,0 +1,12 @@
+digraph G {
+  graph [rankdir=TB, bgcolor="white", margin=0.18, nodesep=0.24, ranksep=0.25];
+  node [shape=box, style="rounded,filled", fontname="Noto Sans CJK SC", fontsize=13, color="#334155", margin="0.18,0.09"];
+  edge [color="#2563EB", penwidth=1.6, arrowsize=0.78];
+  input [label="用户输入：jog deg 90", fillcolor="#DBEAFE"];
+  parse [label="命令解析\n识别 jog + deg + 90", fillcolor="#DCFCE7"];
+  convert [label="单位换算\n16384 × 90 / 360 = 4096 counts", fillcolor="#FEF3C7"];
+  current [label="读取 0x6064\n得到当前位置", fillcolor="#FCE7F3"];
+  target [label="当前位置 + 4096\n得到绝对目标 0x607A", fillcolor="#EDE9FE"];
+  move [label="触发 Profile Position\n轮询 0x6041 和 0x6064", fillcolor="#F1F5F9"];
+  input -> parse -> convert -> current -> target -> move;
+}

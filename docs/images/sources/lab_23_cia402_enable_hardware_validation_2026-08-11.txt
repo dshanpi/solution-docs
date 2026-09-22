@@ -1,0 +1,23 @@
+Hardware validation date: 2026-08-11
+Project: examples/lab_23_cia402_enable
+ESP-IDF: v5.5.4
+Target: ESP32-C3 revision v0.4
+Serial port: /dev/ttyUSB0
+Firmware size: 210192 bytes
+
+Observed application log:
+
+I lab_23_cia402: CiA 402 enable-only experiment: motor Node-ID 0x01
+W lab_23_cia402: No mode, target position, target velocity, or motion PDO is written
+I lab_23_cia402: 0x6041 Statusword = 0x0637 (Operation enabled)
+W lab_23_cia402: Write 0x6040:00 = 0x0006 (Shutdown)
+I lab_23_cia402: 0x6041 Statusword = 0x0231 (Ready to switch on)
+W lab_23_cia402: Write 0x6040:00 = 0x0007 (Switch on)
+I lab_23_cia402: 0x6041 Statusword = 0x0233 (Switched on)
+W lab_23_cia402: Write 0x6040:00 = 0x000F (Enable operation)
+I lab_23_cia402: 0x6041 Statusword = 0x0637 (Operation enabled)
+W lab_23_cia402: PASS: motor reached Operation enabled without a motion command
+
+Result:
+- Build, flash, SDO writes, and statusword verification: PASS.
+- No operation mode, target position, target velocity, or motion PDO was written by this lesson.
