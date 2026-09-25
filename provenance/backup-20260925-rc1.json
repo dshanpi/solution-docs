@@ -1,0 +1,84 @@
+{
+  "schemaVersion": 1,
+  "createdAt": "2026-09-25T14:18:51Z",
+  "deliveryStatus": "DRAFT_RELEASE_ONLY",
+  "backupBranch": "backup/t527-ai-learning-20260925",
+  "release": {
+    "repository": "dshanpi/solution-docs",
+    "tag": "t527-ai-learning-v1.0.0-rc.1",
+    "draftRequired": true,
+    "stableReleaseAuthorized": false,
+    "documentationDeploymentAuthorized": false
+  },
+  "repositories": {
+    "course": {
+      "remote": "https://github.com/dshanpi/solution-docs.git",
+      "baselineCommit": "2506ce90d149f97b3f573d41c25c2c2c160944f3",
+      "packageContentCommit": "062c522676fd171017773da593d009fe3da91978"
+    },
+    "lynx": {
+      "remote": "https://github.com/dshanpi/lynx.git",
+      "baselineBranch": "release/v0.9.2",
+      "baselineCommit": "5ce6e6180e0e859ea2a1c14b77eae806eedd557c",
+      "implementationCommit": "2389a1460802ed44751daddb963426c886225de1",
+      "packageVersion": "0.9.3"
+    }
+  },
+  "coursePackage": {
+    "courseId": "t527-web-kvm-ai-learning",
+    "version": "1.0.0-rc.1",
+    "manifestSchemaVersion": 2,
+    "file": "t527-web-kvm-ai-learning-1.0.0-rc.1.lynx-course",
+    "bytes": 7035699,
+    "md5": "3be9ae1beb3b297695f7dfe32f0fd282",
+    "sha256": "f0e040eadaaf4b33e33785e45c405aa078d6ae8532220fd284d9333124e1e6b3",
+    "courseSourceSha256": "b4250b31eccfb3aa4b2ef8723a92b3a3e5c00ecb02db0cc4ff33fec0ab801a38",
+    "signerFingerprintSha256": "032d9ba7654356c957b6433ab4ec81ff05ceda23770f4a4511cb85bd7b21d7af"
+  },
+  "recordedImage": {
+    "sdkPath": "out/t527/avaota_a1/buildroot/t527_linux_avaota_a1_uart0.img",
+    "bytes": 718863360,
+    "md5": "c2b21dad6a052e83332ab5adfc26db1e",
+    "sha256": "ecf3e222beaf24e7ddb89bc1caf1a5b340e9286ad49456c53824493aeefc111b"
+  },
+  "sdkReference": {
+    "root": "/home/ubuntu/T527/AvaotaA1-Tina5-SDK_V1",
+    "profile": "t527/avaota_a1/buildroot/linux-5.15",
+    "provenanceFile": "provenance/sdk-reference/provenance.lock.json",
+    "provenanceSha256": "ee70284706d6e7aab802c5d08a50a83fd555258ab8272d4f479491bde1ae74f2",
+    "manifestSha256": "789bddacbd187b96ce2bf368087941a5c66521d1f5a9102c38179c42e954bcef",
+    "statusSha256": "9fb74f0cb3a75cfaba567eb1c9ee353e4ea4d28f6b112640e7b142aaad3f3154",
+    "dirtyPatchSha256": "94155ea3744533824c1dacf41875f7f8dbe7ef767943c85c5f78be6258e1370a",
+    "projectCount": 65,
+    "artifactCount": 3,
+    "imageCount": 10
+  },
+  "verification": {
+    "courseBuild": "PASS",
+    "courseValidation": "3/3 PASS",
+    "lynxProductionBuild": "PASS",
+    "lynxTypeScript": "PASS",
+    "lynxLint": "PASS_WITH_13_PREEXISTING_WARNINGS",
+    "lynxPackageValidation": "PASS",
+    "lynxUiContracts": "191/191 PASS",
+    "lynxRust": "349 PASS / 5 IGNORED / 0 FAILED",
+    "lynxProductionCourseFixture": "PASS",
+    "appleSiliconBuild": "NOT_VERIFIED",
+    "avaotaA1HardwareInLoop": "NOT_VERIFIED",
+    "twoHourSoak": "NOT_VERIFIED"
+  },
+  "hilPolicy": {
+    "requiredLabNumbers": [2, 3, 4, 8, 24],
+    "approvalTokenSingleUse": true,
+    "approvalTokenLifetimeSeconds": 600,
+    "boardUidRequired": true,
+    "fullAcceptanceMinimumSoakSeconds": 7200,
+    "aiMaySetHilPass": false
+  },
+  "excludedFromGitAndRelease": [
+    ".local/course-signing private key",
+    "node_modules and build outputs",
+    "runtime databases and operating-system keyring credentials",
+    "718863360-byte SDK image payload; the course records only its immutable digests"
+  ]
+}
