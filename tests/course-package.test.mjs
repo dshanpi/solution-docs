@@ -6,6 +6,8 @@ import crypto from 'node:crypto';
 import {course, labs} from '../tools/course/course-definition.mjs';
 
 test('course exposes exactly 24 stable core labs', () => {
+  assert.equal(course.schemaVersion, 2);
+  assert.equal(course.version, '1.0.0-rc.1');
   assert.equal(labs.length, 24);
   assert.deepEqual(labs.map((lab) => lab.number), Array.from({length: 24}, (_, i) => i + 1));
   assert.equal(new Set(labs.map((lab) => lab.stepId)).size, 24);
@@ -15,12 +17,24 @@ test('course exposes exactly 24 stable core labs', () => {
     assert.ok(fs.existsSync(path.resolve(`docs/course/${lab.path}.md`)));
   }
   assert.equal(course.boardProfile, 'avaota-a1-t527-lt6911c');
+  const hilLabs = labs.filter((lab) => lab.hilVerification);
+  assert.deepEqual(hilLabs.map((lab) => lab.number), [2, 3, 4, 8, 24]);
+  for (const lab of hilLabs) {
+    assert.match(lab.hilVerification.actionId, /^[a-z0-9-]+$/);
+    assert.ok(lab.hilVerification.requiredEvidenceKinds.length > 0);
+    assert.ok(lab.hilVerification.expectedObservations.length > 0);
+  }
+  const finalHil = labs[23].hilVerification;
+  assert.equal(finalHil.minimumDurationSeconds, 7200);
+  assert.equal(finalHil.image.md5, 'c2b21dad6a052e83332ab5adfc26db1e');
+  assert.equal(finalHil.image.sha256, 'ecf3e222beaf24e7ddb89bc1caf1a5b340e9286ad49456c53824493aeefc111b');
 });
 
 test('built envelope signature detects payload tampering', () => {
   const dir = path.resolve('dist-course');
-  const file = fs.existsSync(dir) && fs.readdirSync(dir).find((name) => name.endsWith('.lynx-course'));
-  assert.ok(file, 'run npm run course:pack first');
+  const file = `${course.courseId}-${course.version}.lynx-course`;
+  const exists = fs.existsSync(path.join(dir, file));
+  assert.ok(exists, 'run npm run course:pack first');
   const envelope = JSON.parse(fs.readFileSync(path.join(dir, file), 'utf8'));
   const payload = Buffer.from(envelope.payload, 'base64');
   const digest = crypto.createHash('sha256').update(payload).digest();
