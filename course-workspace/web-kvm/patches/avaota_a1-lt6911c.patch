@@ -1,0 +1,18 @@
+--- a/device/config/chips/t527/configs/avaota_a1/linux-5.15/board.dts
++++ b/device/config/chips/t527/configs/avaota_a1/linux-5.15/board.dts
+@@ -1659,12 +1659,12 @@
+ 
+ 	sensor0:sensor@5812000 {
+ 		device_type = "sensor0";
+-		sensor0_mname = "tp2815_mipi";
+-		sensor0_twi_cci_id = <2>;
+-		sensor0_twi_addr = <0x88>;
++		sensor0_mname = "lt6911c_mipi";
++		sensor0_twi_cci_id = <3>;
++		sensor0_twi_addr = <0x56>;
+ 		sensor0_mclk_id = <0>;
+-		sensor0_pos = "rear";
++		sensor0_pos = "external";
+ 		sensor0_isp_used = <0>;
+ 		sensor0_fmt = <0>;
+ 		sensor0_stby_mode = <0>;

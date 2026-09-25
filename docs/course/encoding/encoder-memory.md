@@ -76,3 +76,36 @@ grep '\[PERF\]' /tmp/kvm_video.log | tail -3
 输出回调中的码流由编码库管理。回调返回后库可复用该空间，因此发送或保存必须在有效期内完成，不能把裸指针交给另一个线程后立即返回。
 
 本章完成后，记录导入数量、输入布局和 buffer 归还时机，再进入编码参数与码流保存。
+
+<!-- LYNX-LAB:BEGIN -->
+
+## AI 辅助实践闭环
+
+- **稳定步骤**：`t527-kvm-12`
+- **学习目标**：理解“把采集缓冲区交给硬件编码器”在 T527 Web KVM 链路中的职责，并能用证据解释结果。
+- **理解检查**：说明本章输入、输出以及失败时最先检查的证据。
+- **学生操作**：在锁定的 Avaota A1 SDK 学习工作区完成“把采集缓冲区交给硬件编码器”实验，不直接修改其他板型。
+- **工具范围**：`code`
+- **风险级别**：`software-safe`
+- **预期现象**：命令退出码为 0，并生成带 SHA-256 的结构化证据。
+
+确定性验证：
+
+```bash
+cd tutorial-examples/web-kvm
+./scripts/run_simulation.sh encoder-memory
+```
+
+必须保存命令退出码、产物摘要和证据来源；模拟结果只能标记为 `simulation`。完成后回答：解释本章结果为何可信，并指出哪些结论仍需要真实硬件。
+
+<details>
+<summary>分级提示</summary>
+
+1. 先确认本章输入、输出与证据来源。
+2. 检查 ./scripts/run_simulation.sh encoder-memory 的首个失败阶段。
+3. 只对当前步骤相关文件做最小修改，并重新生成一次独立 attempt。
+4. 参考已签名课程包中的 solution/12，报告标记为 ASSISTED_PASS。
+
+</details>
+
+<!-- LYNX-LAB:END -->

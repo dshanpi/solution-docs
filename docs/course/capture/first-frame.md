@@ -91,3 +91,36 @@ ffplay -f rawvideo -pixel_format nv12 -video_size 1920x1080 first-frame.nv12
 | 图像倾斜或错行 | bytesperline、对齐和文件实际长度 |
 
 验收时保存一帧、格式日志和播放截图。下一章让同一组缓冲区循环使用。
+
+<!-- LYNX-LAB:BEGIN -->
+
+## AI 辅助实践闭环
+
+- **稳定步骤**：`t527-kvm-10`
+- **学习目标**：理解“用 MMAP 获取并保存第一帧”在 T527 Web KVM 链路中的职责，并能用证据解释结果。
+- **理解检查**：说明本章输入、输出以及失败时最先检查的证据。
+- **学生操作**：在锁定的 Avaota A1 SDK 学习工作区完成“用 MMAP 获取并保存第一帧”实验，不直接修改其他板型。
+- **工具范围**：`code`
+- **风险级别**：`software-safe`
+- **预期现象**：命令退出码为 0，并生成带 SHA-256 的结构化证据。
+
+确定性验证：
+
+```bash
+cd tutorial-examples/web-kvm
+./scripts/run_simulation.sh first-frame
+```
+
+必须保存命令退出码、产物摘要和证据来源；模拟结果只能标记为 `simulation`。完成后回答：解释本章结果为何可信，并指出哪些结论仍需要真实硬件。
+
+<details>
+<summary>分级提示</summary>
+
+1. 先确认本章输入、输出与证据来源。
+2. 检查 ./scripts/run_simulation.sh first-frame 的首个失败阶段。
+3. 只对当前步骤相关文件做最小修改，并重新生成一次独立 attempt。
+4. 参考已签名课程包中的 solution/10，报告标记为 ASSISTED_PASS。
+
+</details>
+
+<!-- LYNX-LAB:END -->

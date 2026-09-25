@@ -110,3 +110,36 @@ wifi -a enable
 | 能打开网页但下载不到虚拟机文件 | 虚拟机网络模式、HTTP 服务绑定地址、端口与防火墙 |
 
 完成后记录板端 IP 和虚拟机 IP。下一课[准备开发环境](./development-environment.md)检查 SDK 与编译器，随后通过网络把文件传到板端。
+
+<!-- LYNX-LAB:BEGIN -->
+
+## AI 辅助实践闭环
+
+- **稳定步骤**：`t527-kvm-04`
+- **学习目标**：理解“连接 WiFi 与确认网络”在 T527 Web KVM 链路中的职责，并能用证据解释结果。
+- **理解检查**：说明本章输入、输出以及失败时最先检查的证据。
+- **学生操作**：在锁定的 Avaota A1 SDK 学习工作区完成“连接 WiFi 与确认网络”实验，不直接修改其他板型。
+- **工具范围**：`terminal`
+- **风险级别**：`hardware-confirmation`
+- **预期现象**：软件合同通过；接入实机后获得对应设备观测。
+
+确定性验证：
+
+```bash
+cd tutorial-examples/web-kvm
+./scripts/verify_network_contract.sh
+```
+
+必须保存命令退出码、产物摘要和证据来源；模拟结果只能标记为 `simulation`。完成后回答：解释本章结果为何可信，并指出哪些结论仍需要真实硬件。
+
+<details>
+<summary>分级提示</summary>
+
+1. 先确认本章输入、输出与证据来源。
+2. 检查 ./scripts/verify_network_contract.sh 的首个失败阶段。
+3. 只对当前步骤相关文件做最小修改，并重新生成一次独立 attempt。
+4. 参考已签名课程包中的 solution/04，报告标记为 ASSISTED_PASS。
+
+</details>
+
+<!-- LYNX-LAB:END -->

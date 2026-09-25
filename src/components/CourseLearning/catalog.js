@@ -32,27 +32,6 @@ export const stages = [
         "href": "/docs/course/preparation/wifi-network",
         "shortTitle": "连接 WiFi",
         "stage": "preparation"
-      },
-      {
-        "title": "准备主机、SDK 和调试环境",
-        "number": 5,
-        "href": "/docs/course/preparation/development-environment",
-        "shortTitle": "准备开发环境",
-        "stage": "preparation"
-      },
-      {
-        "title": "从开发主机传输核心程序",
-        "number": 6,
-        "href": "/docs/course/preparation/file-transfer",
-        "shortTitle": "传输核心程序",
-        "stage": "preparation"
-      },
-      {
-        "title": "使用参考镜像运行完整 KVM",
-        "number": 7,
-        "href": "/docs/course/preparation/reference-image",
-        "shortTitle": "运行参考镜像",
-        "stage": "preparation"
       }
     ]
   },
@@ -64,28 +43,28 @@ export const stages = [
     "lessons": [
       {
         "title": "构建内核、设备树和应用",
-        "number": 8,
+        "number": 5,
         "href": "/docs/course/drivers/sdk-build",
         "shortTitle": "构建与部署",
         "stage": "drivers"
       },
       {
         "title": "把原理图连接写进设备树",
-        "number": 9,
+        "number": 6,
         "href": "/docs/course/drivers/device-tree",
         "shortTitle": "适配设备树",
         "stage": "drivers"
       },
       {
         "title": "适配 LT6911C 子设备驱动",
-        "number": 10,
+        "number": 7,
         "href": "/docs/course/drivers/lt6911c-driver",
         "shortTitle": "适配 LT6911C 驱动",
         "stage": "drivers"
       },
       {
         "title": "判断 HDMI 是否真的有输入",
-        "number": 11,
+        "number": 8,
         "href": "/docs/course/drivers/hdmi-signal",
         "shortTitle": "检查 HDMI 输入",
         "stage": "drivers"
@@ -100,21 +79,21 @@ export const stages = [
     "lessons": [
       {
         "title": "查询设备能力和图像格式",
-        "number": 12,
+        "number": 9,
         "href": "/docs/course/capture/video-format",
         "shortTitle": "查询采集格式",
         "stage": "capture"
       },
       {
         "title": "用 MMAP 获取并保存第一帧",
-        "number": 13,
+        "number": 10,
         "href": "/docs/course/capture/first-frame",
         "shortTitle": "采集第一帧图像",
         "stage": "capture"
       },
       {
         "title": "连续采集、超时与资源释放",
-        "number": 14,
+        "number": 11,
         "href": "/docs/course/capture/capture-loop",
         "shortTitle": "连续采集与释放",
         "stage": "capture"
@@ -129,21 +108,21 @@ export const stages = [
     "lessons": [
       {
         "title": "把采集缓冲区交给硬件编码器",
-        "number": 15,
+        "number": 12,
         "href": "/docs/course/encoding/encoder-memory",
         "shortTitle": "准备编码缓冲区",
         "stage": "encoding"
       },
       {
         "title": "编写 HDMI 转 H.264 文件程序",
-        "number": 16,
+        "number": 13,
         "href": "/docs/course/encoding/h264-file",
         "shortTitle": "保存 H.264 视频",
         "stage": "encoding"
       },
       {
         "title": "测量帧率、码率与延迟",
-        "number": 17,
+        "number": 14,
         "href": "/docs/course/encoding/video-performance",
         "shortTitle": "测量视频性能",
         "stage": "encoding"
@@ -158,28 +137,28 @@ export const stages = [
     "lessons": [
       {
         "title": "让 T527 枚举成 USB HID 设备",
-        "number": 18,
+        "number": 15,
         "href": "/docs/course/usb-hid/gadget-config",
         "shortTitle": "配置 USB Gadget",
         "stage": "usb-hid"
       },
       {
         "title": "编写 USB 键盘报告程序",
-        "number": 19,
+        "number": 16,
         "href": "/docs/course/usb-hid/keyboard-reports",
         "shortTitle": "编写键盘程序",
         "stage": "usb-hid"
       },
       {
         "title": "编写相对鼠标和绝对鼠标程序",
-        "number": 20,
+        "number": 17,
         "href": "/docs/course/usb-hid/mouse-reports",
         "shortTitle": "编写鼠标程序",
         "stage": "usb-hid"
       },
       {
         "title": "处理 USB 冲突、断线与状态",
-        "number": 21,
+        "number": 18,
         "href": "/docs/course/usb-hid/usb-recovery",
         "shortTitle": "处理 USB 异常",
         "stage": "usb-hid"
@@ -194,21 +173,21 @@ export const stages = [
     "lessons": [
       {
         "title": "理解 Go 服务和网页的系统职责",
-        "number": 22,
+        "number": 19,
         "href": "/docs/course/integration/service-architecture",
         "shortTitle": "认识服务架构",
         "stage": "integration"
       },
       {
         "title": "通过视频 Socket 接入网页",
-        "number": 23,
+        "number": 20,
         "href": "/docs/course/integration/video-socket",
         "shortTitle": "接入视频 Socket",
         "stage": "integration"
       },
       {
         "title": "控制采集启停与远程操作",
-        "number": 24,
+        "number": 21,
         "href": "/docs/course/integration/capture-control",
         "shortTitle": "控制采集与远程操作",
         "stage": "integration"
@@ -223,21 +202,21 @@ export const stages = [
     "lessons": [
       {
         "title": "组织运行文件并实现开机启动",
-        "number": 25,
+        "number": 22,
         "href": "/docs/course/deployment/startup",
         "shortTitle": "部署与开机启动",
         "stage": "deployment"
       },
       {
         "title": "按链路定位无画面与无键鼠",
-        "number": 26,
+        "number": 23,
         "href": "/docs/course/deployment/troubleshooting",
         "shortTitle": "分层定位故障",
         "stage": "deployment"
       },
       {
         "title": "完整验收与课程项目交付",
-        "number": 27,
+        "number": 24,
         "href": "/docs/course/deployment/acceptance",
         "shortTitle": "验收与交付",
         "stage": "deployment"
@@ -284,3 +263,8 @@ export const stageLabels = ['阶段一', '阶段二', '阶段三', '阶段四', 
 export const lessons = stages.flatMap(stage => stage.lessons);
 export const shortStageNames = ["硬件准备", "驱动适配", "图像采集", "视频编码", "USB 键鼠", "服务集成", "部署验收", "进阶专题"];
 
+export const preparationGuides = [
+  {title: '准备主机、SDK 和调试环境', href: '/docs/course/preparation/development-environment'},
+  {title: '从开发主机传输核心程序', href: '/docs/course/preparation/file-transfer'},
+  {title: '使用参考镜像运行完整 KVM', href: '/docs/course/preparation/reference-image'},
+];

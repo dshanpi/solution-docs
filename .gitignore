@@ -8,6 +8,8 @@
 # Generated files
 .docusaurus
 .cache-loader
+.local/
+dist-course/
 
 # Misc
 .DS_Store

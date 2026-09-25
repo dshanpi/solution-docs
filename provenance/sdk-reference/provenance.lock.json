@@ -1,0 +1,187 @@
+{
+  "schemaVersion": 1,
+  "capturedAt": "2026-09-25T08:48:46.868Z",
+  "courseGitCommit": "2506ce90d149f97b3f573d41c25c2c2c160944f3",
+  "courseGitStatusSha256": "8adaf0104ac58e84dc6ba81737c1eefe26e79871ffa2ac029f0935c8992142e9",
+  "courseSourceSha256": "58210f9850722aba25cd312504bd0b069a0d1485248e437d9e279bebb881dea7",
+  "sdk": {
+    "root": "/home/ubuntu/T527/AvaotaA1-Tina5-SDK_V1",
+    "profile": "t527/avaota_a1/buildroot/linux-5.15",
+    "manifestSha256": "789bddacbd187b96ce2bf368087941a5c66521d1f5a9102c38179c42e954bcef",
+    "statusSha256": "9fb74f0cb3a75cfaba567eb1c9ee353e4ea4d28f6b112640e7b142aaad3f3154",
+    "dirtyPatchSha256": "94155ea3744533824c1dacf41875f7f8dbe7ef767943c85c5f78be6258e1370a",
+    "projects": 65
+  },
+  "sourceFiles": [
+    {
+      "path": "Makefile",
+      "sha256": "1b545840498cd838a2fa7161ca49f6aacff4eb16885fd54e9d3d4a05c3406a0c"
+    },
+    {
+      "path": "README.md",
+      "sha256": "dc62ef3854331b4ec75a385543cd1359e6d16a37b3ab0eaa08d3d7223f02c8e1"
+    },
+    {
+      "path": "include/kvm2_protocol.h",
+      "sha256": "5d1ed289ff065a6942b906591ec5a8f571f8c9fa6eb22fe25b064dd6b8ca72ac"
+    },
+    {
+      "path": "patches/avaota_a1-lt6911c.patch",
+      "sha256": "9d1113daf451344011efe32056125a7b74cbe9e74caf6398ab18eb1a71225fe3"
+    },
+    {
+      "path": "scripts/acceptance.sh",
+      "sha256": "fa5e1c783ef7d10567cfcc797ac9a3197e436ffb865e5cf59c6f962fc6783291"
+    },
+    {
+      "path": "scripts/build_all.sh",
+      "sha256": "ea54ac13b6c7a8f72dd8ee434f3282c2b263c2687b373330554821ea50411612"
+    },
+    {
+      "path": "scripts/capture_provenance.mjs",
+      "sha256": "6d09e7f4d17d65828fea2bbcd7a7adb572a4d5cafa3e5fbafbe4fee61646c19e"
+    },
+    {
+      "path": "scripts/common.sh",
+      "sha256": "1e40d010ae2c951bcb7ef9995c4a4ef3282ba67cbc2cca03a9da42bbd0a972cb"
+    },
+    {
+      "path": "scripts/run_simulation.sh",
+      "sha256": "8ff48de829b962a4483bcc83422779d6833fcdb49da11a72481e52c4dc450441"
+    },
+    {
+      "path": "scripts/verify_architecture.sh",
+      "sha256": "6deb59dffbfd55cc7c336599aab01450bee61b5ef8c8ef0efcc4c67345144873"
+    },
+    {
+      "path": "scripts/verify_driver.sh",
+      "sha256": "0ba90e7ade4ca25664a3c15c01e1debec66aebe34fb225558926bb247fa1ea3a"
+    },
+    {
+      "path": "scripts/verify_dts.sh",
+      "sha256": "204058fe73e95a305111a41b2a2efd9b43eee43c24c0353b97a2e5a0b9967c4e"
+    },
+    {
+      "path": "scripts/verify_hdmi_contract.sh",
+      "sha256": "01e17f69405d4ddff252831203c5abf56b71f83cd86d25028816b1eccc995b70"
+    },
+    {
+      "path": "scripts/verify_network_contract.sh",
+      "sha256": "460e98a1ff6423f962a1356a2cd7386c9106e43ae9df4379fa7013a0df91e36e"
+    },
+    {
+      "path": "scripts/verify_serial_contract.sh",
+      "sha256": "85b5ba0fa035efd806dddb75fb9b7487775cdc5a6ef1dc6c54919d8410d3800c"
+    },
+    {
+      "path": "scripts/verify_startup.sh",
+      "sha256": "20ad1be597d59b325424c54aaa4e1d38df8d5a5256e4b5f9f58c7128cc8bc22e"
+    },
+    {
+      "path": "scripts/verify_wiring_contract.sh",
+      "sha256": "bcd88d7604ac2260745df2319d3076e4ced0b49d742884eb3968a93404f11de0"
+    },
+    {
+      "path": "src/hid_reports.c",
+      "sha256": "3373fbae9c52af63501a3d69ee91f3c92927703fcf6b0ddc5c03c344d7953b5c"
+    },
+    {
+      "path": "src/kvm2_protocol.c",
+      "sha256": "c9ddcc8e62aacfe0da4a32cb5515b2be9c53d6bc71f647b0aff2eba2559bcdc9"
+    },
+    {
+      "path": "src/kvm_video.cpp",
+      "sha256": "33375651aaff99808778c8cf3d5eaf62b8f52fc5b9e4a7740efb8650f52f0d8c"
+    },
+    {
+      "path": "src/v4l2_probe.c",
+      "sha256": "3e4a22ea70a91900a3c83c162504894642e313bb7ee224a1a94001dba5b364cf"
+    },
+    {
+      "path": "tests/protocol_test.c",
+      "sha256": "283170df89565d4578039b002bc030911861645b19c0f494b2f455e859ad8612"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "build/arm64/hid_reports",
+      "bytes": 15416,
+      "md5": "f048d140f676729d872434ce3cc66038",
+      "sha256": "da04434a3f4779d24d5c7eb07ae5823801938dc3a7ef09c16458303a2660a60f"
+    },
+    {
+      "path": "build/arm64/kvm_video",
+      "bytes": 40792,
+      "md5": "a228c5f7db2fa32217cfa86a25204e06",
+      "sha256": "8ee48d8cb5eb73d811c6bcc5d8c35a65289b462bb0ee23ab3969e92973c0b613"
+    },
+    {
+      "path": "build/arm64/v4l2_probe",
+      "bytes": 15752,
+      "md5": "a26d71b859657f180b97867558877250",
+      "sha256": "9d72741400e615f6ebcceea3d5b032b9e98b7e8e5991a7fb63719550f3e9d3f0"
+    }
+  ],
+  "images": [
+    {
+      "path": "out/t527/avaota_a1/buildroot/boot.img",
+      "bytes": 23953408,
+      "md5": "49aa88fa4b5cf22cf815c0a05c19a2ca",
+      "sha256": "81a836dd9639a5ed324f7c250b3f6c26a0dd4eab9b19a7a69cc325d99f8a7aef"
+    },
+    {
+      "path": "out/t527/avaota_a1/buildroot/buildroot/build/host-util-linux-2.38/tests/ts/cramfs/cramfs-big.img",
+      "bytes": 4096,
+      "md5": "bc0b7bbef02765d32e07faa735d2e0c6",
+      "sha256": "702137826905d1acadb36785ea7cefacb16dfede7aa209f7802803d995163a38"
+    },
+    {
+      "path": "out/t527/avaota_a1/buildroot/buildroot/build/host-util-linux-2.38/tests/ts/cramfs/cramfs-little.img",
+      "bytes": 4096,
+      "md5": "4666f0d2b661f9f3962877edabadb210",
+      "sha256": "f8d468a8fe77b67f936c6d201754f9b7357ccdd5939da5c255213f4f569ee783"
+    },
+    {
+      "path": "out/t527/avaota_a1/buildroot/buildroot/build/util-linux-2.38/tests/ts/cramfs/cramfs-big.img",
+      "bytes": 4096,
+      "md5": "bc0b7bbef02765d32e07faa735d2e0c6",
+      "sha256": "702137826905d1acadb36785ea7cefacb16dfede7aa209f7802803d995163a38"
+    },
+    {
+      "path": "out/t527/avaota_a1/buildroot/buildroot/build/util-linux-2.38/tests/ts/cramfs/cramfs-little.img",
+      "bytes": 4096,
+      "md5": "4666f0d2b661f9f3962877edabadb210",
+      "sha256": "f8d468a8fe77b67f936c6d201754f9b7357ccdd5939da5c255213f4f569ee783"
+    },
+    {
+      "path": "out/t527/avaota_a1/buildroot/buildroot/build/util-linux-libs-2.38/tests/ts/cramfs/cramfs-big.img",
+      "bytes": 4096,
+      "md5": "bc0b7bbef02765d32e07faa735d2e0c6",
+      "sha256": "702137826905d1acadb36785ea7cefacb16dfede7aa209f7802803d995163a38"
+    },
+    {
+      "path": "out/t527/avaota_a1/buildroot/buildroot/build/util-linux-libs-2.38/tests/ts/cramfs/cramfs-little.img",
+      "bytes": 4096,
+      "md5": "4666f0d2b661f9f3962877edabadb210",
+      "sha256": "f8d468a8fe77b67f936c6d201754f9b7357ccdd5939da5c255213f4f569ee783"
+    },
+    {
+      "path": "out/t527/avaota_a1/buildroot/dtbo.img",
+      "bytes": 7764,
+      "md5": "bfc84edf70ba51998c41d8527806057f",
+      "sha256": "e6f6028af29da8e0931ff20ec80738f94cf47bafe20f2c25a411f0fd48ec5707"
+    },
+    {
+      "path": "out/t527/avaota_a1/buildroot/t527_linux_avaota_a1_uart0.img",
+      "bytes": 718863360,
+      "md5": "c2b21dad6a052e83332ab5adfc26db1e",
+      "sha256": "ecf3e222beaf24e7ddb89bc1caf1a5b340e9286ad49456c53824493aeefc111b"
+    },
+    {
+      "path": "out/t527/avaota_a1/pack_out/avaota_a1_mainline_uboot2026_linux7.2_buildroot2026_installer.img",
+      "bytes": 712965120,
+      "md5": "af00576996a940ff81a6869b18d8e364",
+      "sha256": "5f4a929d7cec56579192da0d818fb37e43abd5f606f1e742f53e75141513b2cf"
+    }
+  ]
+}

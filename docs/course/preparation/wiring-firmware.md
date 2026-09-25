@@ -93,3 +93,36 @@ RSTN 为低有效复位输入，固定接 3.3V 后保持解除复位；配套驱
 若没有上述变化，先核对 J3 第 2 脚是否接到 H1 第 3 脚 PE15，再核对系统中的驱动与采集程序是否包含热插拔支持。详细处理流程见 [HDMI 热插拔](../advanced/hdmi-hotplug.md)。
 
 完成硬件接线后，进入[通过 H1 串口进入 T527](./serial-console.md)，先建立不依赖网络的板端登录路径。
+
+<!-- LYNX-LAB:BEGIN -->
+
+## AI 辅助实践闭环
+
+- **稳定步骤**：`t527-kvm-02`
+- **学习目标**：理解“连接采集模块与主板”在 T527 Web KVM 链路中的职责，并能用证据解释结果。
+- **理解检查**：说明本章输入、输出以及失败时最先检查的证据。
+- **学生操作**：在锁定的 Avaota A1 SDK 学习工作区完成“连接采集模块与主板”实验，不直接修改其他板型。
+- **工具范围**：`hardware`
+- **风险级别**：`hardware-confirmation`
+- **预期现象**：软件合同通过；接入实机后获得对应设备观测。
+
+确定性验证：
+
+```bash
+cd tutorial-examples/web-kvm
+./scripts/verify_wiring_contract.sh
+```
+
+必须保存命令退出码、产物摘要和证据来源；模拟结果只能标记为 `simulation`。完成后回答：解释本章结果为何可信，并指出哪些结论仍需要真实硬件。
+
+<details>
+<summary>分级提示</summary>
+
+1. 先确认本章输入、输出与证据来源。
+2. 检查 ./scripts/verify_wiring_contract.sh 的首个失败阶段。
+3. 只对当前步骤相关文件做最小修改，并重新生成一次独立 attempt。
+4. 参考已签名课程包中的 solution/02，报告标记为 ASSISTED_PASS。
+
+</details>
+
+<!-- LYNX-LAB:END -->

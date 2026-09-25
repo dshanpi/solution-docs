@@ -1,0 +1,177 @@
+project brandy/brandy-2.0/opensbi/              branch product-t527-linux
+project brandy/arisc/                           branch product-t527-linux
+project brandy/brandy-2.0/spl-pub/              branch product-t527-linux
+ --	.newest-2d99afedb9beaa43c5f0d611e0d3cf0e.patch
+project brandy/brandy-2.0/tools/                branch product-t527-linux
+project brandy/dramlib/                         branch product-t527-linux
+project brandy/brandy-2.0/u-boot-2018/          branch product-t527-linux
+project build/                                  branch product-t527-linux
+project bsp/                                    branch product-t527-linux
+ -m	drivers/vin/vin_test/mplane_image/Makefile
+ -m	drivers/vin/vin_test/mplane_image/csi_test_mplane
+project buildroot/config/                       branch product-t527-linux
+ -m	buildroot/allwinner/system/busybox-init-base-files/etc/init.d/S50adb_start
+project buildroot/package/allwinner/multimedia/tina_multimedia/ branch product-t527-linux
+project buildroot/package/allwinner/multimedia/tina_multimedia_demo/ branch product-t527-linux
+project buildroot/package/auto/                 branch product-t527-linux
+ --	sdk_demo/encoder_test/Linux_Encoder_开发指南.pdf
+ --	sdk_demo/npu_detect_face_test/npu_detect_face
+ --	sdk_demo/npu_detect_test/npu_detect_test
+ --	sdk_demo/render_test/render_test
+ --	sdk_lib/libs/libVIPlite.so
+ --	sdk_lib/libs/libVIPuser.so
+ --	sdk_lib/libs/libaw_net.so
+ --	sdk_lib/libs/libaw_utilities.so
+ --	sdk_lib/libs/libawf_det.so
+project buildroot/buildroot-202205/             branch product-t527-linux
+ -m	configs/sun55iw3p1_aiot_defconfig
+ --	dl/crda/crda-4.14.tar.gz
+ --	dl/fluxbox/fluxbox-1.3.7.tar.xz
+ --	dl/gst1-rtsp-server/gst-rtsp-server-1.20.1.tar.xz
+ --	dl/gzip/gzip-1.12.tar.xz
+ --	dl/libepoxy/libepoxy-1.5.10.tar.xz
+ --	dl/libglvnd/libglvnd-v1.3.2.tar.gz
+ --	dl/libgudev/libgudev-236.tar.xz
+ --	dl/libpciaccess/libpciaccess-0.16.tar.bz2
+ --	dl/python-pycryptodomex/pycryptodomex-3.14.1.tar.gz
+ --	dl/wireless-regdb/wireless-regdb-2022.02.18.tar.xz
+ --	dl/xapp_bdftopcf/bdftopcf-1.1.tar.bz2
+ --	dl/xapp_mkfontscale/mkfontscale-1.2.2.tar.xz
+ --	dl/xapp_xauth/xauth-1.1.2.tar.xz
+ --	dl/xapp_xcalc/xcalc-1.1.1.tar.xz
+ --	dl/xapp_xclock/xclock-1.1.1.tar.xz
+ --	dl/xapp_xconsole/xconsole-1.0.7.tar.bz2
+ --	dl/xapp_xdpyinfo/xdpyinfo-1.3.3.tar.xz
+ --	dl/xapp_xeyes/xeyes-1.2.0.tar.bz2
+ --	dl/xapp_xhost/xhost-1.0.8.tar.bz2
+ --	dl/xapp_xinit/xinit-1.4.1.tar.bz2
+ --	dl/xapp_xinput/xinput-1.6.3.tar.bz2
+ --	dl/xapp_xkbutils/xkbutils-1.0.4.tar.bz2
+ --	dl/xapp_xmodmap/xmodmap-1.0.10.tar.bz2
+ --	dl/xcb-util-cursor/xcb-util-cursor-0.1.3.tar.bz2
+ --	dl/xcb-util-image/xcb-util-image-0.4.0.tar.bz2
+ --	dl/xcb-util-renderutil/xcb-util-renderutil-0.3.9.tar.bz2
+ --	dl/xcb-util/xcb-util-0.4.0.tar.bz2
+ --	dl/xdata_xbitmaps/xbitmaps-1.1.2.tar.bz2
+ --	dl/xdriver_xf86-input-evdev/xf86-input-evdev-2.10.6.tar.bz2
+ --	dl/xdriver_xf86-input-keyboard/xf86-input-keyboard-1.9.0.tar.bz2
+ --	dl/xdriver_xf86-input-libinput/xf86-input-libinput-1.2.0.tar.bz2
+ --	dl/xdriver_xf86-input-mouse/xf86-input-mouse-1.9.3.tar.bz2
+ --	dl/xdriver_xf86-input-tslib/xf86-input-tslib-1.1.1.tar.bz2
+ --	dl/xdriver_xf86-video-fbdev/xf86-video-fbdev-0.5.0.tar.bz2
+ --	dl/xfont_encodings/encodings-1.0.5.tar.bz2
+ --	dl/xfont_font-alias/font-alias-1.0.4.tar.bz2
+ --	dl/xfont_font-cursor-misc/font-cursor-misc-1.0.3.tar.bz2
+ --	dl/xfont_font-misc-misc/font-misc-misc-1.1.2.tar.bz2
+ --	dl/xfont_font-util/font-util-1.3.2.tar.bz2
+ --	dl/xlib_libICE/libICE-1.0.10.tar.bz2
+ --	dl/xlib_libSM/libSM-1.2.3.tar.bz2
+ --	dl/xlib_libXaw/libXaw-1.0.14.tar.bz2
+ --	dl/xlib_libXcursor/libXcursor-1.2.1.tar.xz
+ --	dl/xlib_libXdamage/libXdamage-1.1.5.tar.bz2
+ --	dl/xlib_libXext/libXext-1.3.4.tar.bz2
+ --	dl/xlib_libXfixes/libXfixes-6.0.0.tar.bz2
+ --	dl/xlib_libXfont/libXfont-1.5.4.tar.bz2
+ --	dl/xlib_libXfont2/libXfont2-2.0.5.tar.bz2
+ --	dl/xlib_libXft/libXft-2.3.4.tar.bz2
+ --	dl/xlib_libXi/libXi-1.8.tar.bz2
+ --	dl/xlib_libXinerama/libXinerama-1.1.4.tar.bz2
+ --	dl/xlib_libXmu/libXmu-1.1.3.tar.bz2
+ --	dl/xlib_libXpm/libXpm-3.5.13.tar.bz2
+ --	dl/xlib_libXrandr/libXrandr-1.5.2.tar.bz2
+ --	dl/xlib_libXrender/libXrender-0.9.10.tar.bz2
+ --	dl/xlib_libXres/libXres-1.2.1.tar.bz2
+ --	dl/xlib_libXt/libXt-1.2.1.tar.bz2
+ --	dl/xlib_libXtst/libXtst-1.2.3.tar.bz2
+ --	dl/xlib_libXv/libXv-1.0.11.tar.bz2
+ --	dl/xlib_libXxf86vm/libXxf86vm-1.1.4.tar.bz2
+ --	dl/xlib_libfontenc/libfontenc-1.1.4.tar.bz2
+ --	dl/xlib_libxcvt/libxcvt-0.1.1.tar.xz
+ --	dl/xlib_libxshmfence/libxshmfence-1.3.tar.bz2
+ --	dl/xserver_xorg-server/xorg-server-21.1.2.tar.xz
+ --	dl/xterm/xterm-371.tgz
+project device/config/chips/a527/               branch product-t527-linux
+project device/config/chips/t527/               branch product-t527-linux
+ --	configs/avaota_a1/BoardConfig.mk
+ --	configs/avaota_a1/bin/amp_dsp0.bin
+ --	configs/avaota_a1/bin/amp_rv0.bin
+ --	configs/avaota_a1/boottone.fex
+ --	configs/avaota_a1/buildroot/BoardConfig.mk
+ --	configs/avaota_a1/buildroot/env.cfg
+ --	configs/avaota_a1/buildroot/sys_partition.fex
+ --	configs/avaota_a1/dragonboard/BoardConfig.mk
+ --	configs/avaota_a1/dragonboard/env.cfg
+ --	configs/avaota_a1/dragonboard/sys_partition.fex
+ --	configs/avaota_a1/dragonboard/test_config.fex
+ --	configs/avaota_a1/dtbo/auto_board.dts
+ --	configs/avaota_a1/dtbo/board1.dts
+ --	configs/avaota_a1/dtbo/board2.dts
+ --	configs/avaota_a1/dtbo/board3.dts
+ --	configs/avaota_a1/dtbo/dtboimg.cfg
+ --	configs/avaota_a1/linux-5.10/board.dts
+ --	configs/avaota_a1/linux-5.10/bsp_defconfig
+ --	configs/avaota_a1/linux-5.10/env-5.10.cfg
+ --	configs/avaota_a1/linux-5.10/sys_partition.fex
+ --	configs/avaota_a1/linux-5.15/board.dts
+ --	configs/avaota_a1/linux-5.15/bsp_defconfig
+ --	configs/avaota_a1/linux-5.15/env-5.15.cfg
+ --	configs/avaota_a1/linux-5.15/sys_partition.fex
+ --	configs/avaota_a1/sys_config.fex
+ --	configs/avaota_a1/sys_config_ddr_2GB.fex
+ --	configs/avaota_a1/uboot-board.dts
+ --	configs/avaota_a1/ubuntu/BoardConfig.mk
+ --	configs/avaota_a1/ubuntu/env.cfg
+ --	configs/avaota_a1/ubuntu/linux-5.10/bsp_defconfig
+ --	configs/avaota_a1/ubuntu/linux-5.15/bsp_defconfig
+ --	configs/avaota_a1/ubuntu/sys_partition.fex
+ -m	configs/demo_linux_aiot/linux-5.15/board.dts
+project device/config/common/                   branch product-t527-linux
+project device/config/rootfs_tar/               branch product-t527-linux
+project kernel/linux-5.10/                      branch product-t527-linux
+project platform/allwinner/display/libgpu/      branch product-t527-linux
+project kernel/linux-5.15/                      branch product-t527-linux
+project platform/allwinner/display/libuapi/     branch product-t527-linux
+project platform/allwinner/display/pqd/         branch product-t527-linux
+project platform/allwinner/kernel_patches/      branch product-t527-linux
+project platform/allwinner/multimedia/libcedare/ branch product-t527-linux
+project platform/allwinner/multimedia/libcedarc/ branch product-t527-linux
+project platform/allwinner/multimedia/libcedarse/ branch product-t527-linux
+project platform/allwinner/multimedia/libcedarx/ branch product-t527-linux
+project platform/allwinner/multimedia/libtmedia/ branch product-t527-linux
+project platform/allwinner/power/healthd/       branch product-t527-linux
+project platform/allwinner/power/powerkey/      branch product-t527-linux
+project platform/allwinner/system/amp_shell/    branch product-t527-linux
+project platform/allwinner/system/ota-burnboot/ branch product-t527-linux
+project platform/allwinner/system/rpbuf/        branch product-t527-linux
+project platform/allwinner/system/rpmsg/        branch product-t527-linux
+project platform/allwinner/usb/adbd/            branch product-t527-linux
+project platform/allwinner/usb/mtp/             branch product-t527-linux
+project platform/allwinner/usb/setusbconfig/    branch product-t527-linux
+project platform/allwinner/utils/boot-play/     branch product-t527-linux
+project platform/allwinner/utils/cpu_monitor/   branch product-t527-linux
+project platform/allwinner/utils/libsocket_db/  branch product-t527-linux
+project platform/allwinner/utils/mtop/          branch product-t527-linux
+project platform/allwinner/utils/ramparser/     branch product-t527-linux
+project platform/allwinner/utils/uevent-monitor/ branch product-t527-linux
+project platform/allwinner/wireless/btmanager/  branch product-t527-linux
+project platform/allwinner/vision/ai-sdk/       branch product-t527-linux
+project platform/allwinner/wireless/common/     branch product-t527-linux
+project platform/allwinner/wireless/firmware/   branch product-t527-linux
+project platform/allwinner/wireless/wifimanager/ branch product-t527-linux
+project platform/thirdparty/wireless/rtk_hciattach/ branch product-t527-linux
+project platform/thirdparty/gui/lvgl-8/         branch product-t527-linux
+project prebuilt/kernelbuilt/aarch64/           branch product-t527-linux
+project prebuilt/kernelbuilt/arm/               branch product-t527-linux
+project prebuilt/hostbuilt/                     branch product-t527-linux
+project prebuilt/kernelbuilt/riscv/             branch product-t527-linux
+project prebuilt/rootfsbuilt/riscv/             branch product-t527-linux
+project rtos/board/t527_e906/                   branch product-t527-linux
+project prebuilt/rootfsbuilt/aarch64/           branch product-t527-linux
+project rtos/lichee/dsp/                        branch product-t527-linux
+project rtos/lichee/rtos/                       branch product-t527-linux
+project rtos/lichee/rtos-components/            branch product-t527-linux
+project rtos/lichee/rtos-hal/                   branch product-t527-linux
+project rtos/tools/                             branch product-t527-linux
+project tee_kit/                                branch product-t527-linux
+project test/dragonboard/                       branch product-t527-linux
+project tools/                                  branch product-t527-linux

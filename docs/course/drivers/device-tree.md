@@ -97,3 +97,36 @@ grep -nE 'lt6911c|sensor_detect|hotplug_gpios|reset_gpios' /tmp/kvm-built.dts
 路径对应当前 SDK 已有产物，若构建输出位置不同，使用实际查到的文件。生成的 phandle 数字可能与源代码标签不同，应追踪对应节点，不比较标签文本是否完全一致。
 
 核对**源 DTS、生成 DTB、部署文件和运行设备树四处的一致性**，才能解释一次 GPIO 修改是否真正生效。
+
+<!-- LYNX-LAB:BEGIN -->
+
+## AI 辅助实践闭环
+
+- **稳定步骤**：`t527-kvm-06`
+- **学习目标**：理解“把原理图连接写进设备树”在 T527 Web KVM 链路中的职责，并能用证据解释结果。
+- **理解检查**：说明本章输入、输出以及失败时最先检查的证据。
+- **学生操作**：在锁定的 Avaota A1 SDK 学习工作区完成“把原理图连接写进设备树”实验，不直接修改其他板型。
+- **工具范围**：`code`
+- **风险级别**：`software-safe`
+- **预期现象**：命令退出码为 0，并生成带 SHA-256 的结构化证据。
+
+确定性验证：
+
+```bash
+cd tutorial-examples/web-kvm
+./scripts/verify_dts.sh
+```
+
+必须保存命令退出码、产物摘要和证据来源；模拟结果只能标记为 `simulation`。完成后回答：解释本章结果为何可信，并指出哪些结论仍需要真实硬件。
+
+<details>
+<summary>分级提示</summary>
+
+1. 先确认本章输入、输出与证据来源。
+2. 检查 ./scripts/verify_dts.sh 的首个失败阶段。
+3. 只对当前步骤相关文件做最小修改，并重新生成一次独立 attempt。
+4. 参考已签名课程包中的 solution/06，报告标记为 ASSISTED_PASS。
+
+</details>
+
+<!-- LYNX-LAB:END -->

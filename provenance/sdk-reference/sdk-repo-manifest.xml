@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest>
+  <remote name="tina" fetch="../T527_Tina5.0_AIOT/tina" review="http://gerrit.allwinnertech.com:8081/ssh_info"/>
+  
+  <default remote="tina" revision="product-t527-linux"/>
+  
+  <project name="ai-sdk" path="platform/allwinner/vision/ai-sdk" revision="9e7741cb4be10b7ac7d021c54f80de9a3f553269" upstream="product-t527-linux" groups="tina"/>
+  <project name="kunos/platform/config" path="buildroot/config" revision="f7ef3573948eea275e1eba0076538a2ccee93fd3" upstream="product-t527-linux" groups="tina"/>
+  <project name="kunos/platform/framework/auto" path="buildroot/package/auto" revision="caf1ff0e7140b8fb2de5a833d2fbf8f6f64b3ec5" upstream="product-t527-linux" groups="tina"/>
+  <project name="lichee/arisc" path="brandy/arisc" revision="3d61df71b9e94a3776db671996bf5e394891ff4c" upstream="product-t527-linux"/>
+  <project name="lichee/brandy-2.0/opensbi" path="brandy/brandy-2.0/opensbi" revision="2bed0a2e5cb2db92b568ad61e27625084cee8fd9" upstream="product-t527-linux"/>
+  <project name="lichee/brandy-2.0/spl-pub" path="brandy/brandy-2.0/spl-pub" revision="72a3144f835e4e531e8d593af6f5533894740346" upstream="product-t527-linux"/>
+  <project name="lichee/brandy-2.0/tools" path="brandy/brandy-2.0/tools" revision="f2ff5f27b8f1c30396efee2f078a01f072f774ec" upstream="product-t527-linux">
+    <linkfile src="build.sh" dest="brandy/brandy-2.0/build.sh"/>
+  </project>
+  <project name="lichee/brandy-2.0/u-boot-2018" path="brandy/brandy-2.0/u-boot-2018" revision="29af98e70eb54c457a222d28d2b858caaab22440" upstream="product-t527-linux"/>
+  <project name="lichee/bsp" path="bsp" revision="041d1dd9c73e65b443029e6ac07a8c76cc226030" upstream="product-t527-linux"/>
+  <project name="lichee/build" path="build" revision="19f9567ce6769e446b131e8bed0e6d766b483f7c" upstream="product-t527-linux">
+    <linkfile src="top_build.sh" dest="build.sh"/>
+  </project>
+  <project name="lichee/device/config/a527" path="device/config/chips/a527" revision="71d2c60999e725767b3863306eb60a04fdd8e876" upstream="product-t527-linux"/>
+  <project name="lichee/device/config/common" path="device/config/common" revision="344668861b31b61f7e4b5ec66bdcd9df0c0bbb43" upstream="product-t527-linux"/>
+  <project name="lichee/device/config/rootfs_tar" path="device/config/rootfs_tar" revision="632a3d6c7aa479fb4edf37b863e3327d33d91559" upstream="product-t527-linux"/>
+  <project name="lichee/device/config/t527" path="device/config/chips/t527" revision="17ef633c843692fb9e16aed4c27c124b6bb091b4" upstream="product-t527-linux"/>
+  <project name="lichee/dragonboard" path="test/dragonboard" revision="199b3b55ee7c23469789c2ade4683042273e6903" upstream="product-t527-linux"/>
+  <project name="lichee/dramlib" path="brandy/dramlib" revision="9f812dd16643165be89c6b6f0dccf62e74085998" upstream="product-t527-linux"/>
+  <project name="lichee/freertos" path="rtos/lichee/dsp" revision="7f6e59a2c5cc027a62e11c2fa2bd6e5b15e04825" upstream="product-t527-linux"/>
+  <project name="lichee/kernel_patches" path="platform/allwinner/kernel_patches" revision="231b67d2021e33fce5d063183f8eea3bde9b5906" upstream="product-t527-linux"/>
+  <project name="lichee/linux-5.10" path="kernel/linux-5.10" revision="ca7fdd2e4f88aaf6596e0c46d7e6e3b0980389fb" upstream="product-t527-linux"/>
+  <project name="lichee/linux-5.15" path="kernel/linux-5.15" revision="649bc4f76306682ff1e557ee64633d47e03f5467" upstream="product-t527-linux"/>
+  <project name="lichee/tools" path="tools" revision="b8e9e8f6ad525422268062d3aba003c25abc3c06" upstream="product-t527-linux"/>
+  <project name="media/cedarc-release/libcedarc" path="platform/allwinner/multimedia/libcedarc" revision="331cc846b8ee3e9beeca95543eed39a7474169a7" upstream="product-t527-linux" groups="tina"/>
+  <project name="media/cedare" path="platform/allwinner/multimedia/libcedare" revision="8b0981f63d6879f155460fb9f3968051f2b07542" upstream="product-t527-linux"/>
+  <project name="media/cedarx" path="platform/allwinner/multimedia/libcedarx" revision="9785065694dfc7bbcf07e8fac40b2ee9844f2fd9" upstream="product-t527-linux" groups="tina"/>
+  <project name="platform/framework/display" path="platform/allwinner/display/pqd" revision="7b2e7db4c91e89bf00d06959b976d6d5434b579c" upstream="product-t527-linux"/>
+  <project name="product/linux/external/adbd" path="platform/allwinner/usb/adbd" revision="76c9693db60da9e80d9a7d14f44c00c441352d41" upstream="product-t527-linux"/>
+  <project name="product/linux/external/amp_shell" path="platform/allwinner/system/amp_shell" revision="15d92bc08eef640128ebffb4ffe47d95cb5bef2c" upstream="product-t527-linux"/>
+  <project name="product/linux/external/boot-play" path="platform/allwinner/utils/boot-play" revision="ae0488eb6ea569738a9809413283f084545a1511" upstream="product-t527-linux"/>
+  <project name="product/linux/external/btmanager" path="platform/allwinner/wireless/btmanager" revision="f0803516f1d53422d5205d7d766a778ae255e2b4" upstream="product-t527-linux"/>
+  <project name="product/linux/external/cpu_monitor" path="platform/allwinner/utils/cpu_monitor" revision="a4aee991bb351d380510b1ced79e7b28e1f69673" upstream="product-t527-linux"/>
+  <project name="product/linux/external/healthd" path="platform/allwinner/power/healthd" revision="880941e874ca757e59f42e23e6e097b2eaeae53e" upstream="product-t527-linux"/>
+  <project name="product/linux/external/libcedarse" path="platform/allwinner/multimedia/libcedarse" revision="ecb874483abaf335048f92161af7decfc0bdecd8" upstream="product-t527-linux"/>
+  <project name="product/linux/external/libgpu" path="platform/allwinner/display/libgpu" revision="373963a9b6f6893d757de8c1a659cf4830db9a78" upstream="product-t527-linux"/>
+  <project name="product/linux/external/librpmsg" path="platform/allwinner/system/rpmsg" revision="31f95ed533c030e6574516f671bb9f134a1eaedb" upstream="product-t527-linux"/>
+  <project name="product/linux/external/libsocket_db" path="platform/allwinner/utils/libsocket_db" revision="2d38163c21fb57590f81e363d2eefb0ccca2c7bd" upstream="product-t527-linux"/>
+  <project name="product/linux/external/libuapi" path="platform/allwinner/display/libuapi" revision="4280021a458e4872dc55d2ef1d0c02796d963e88" upstream="product-t527-linux"/>
+  <project name="product/linux/external/littlevgl-8" path="platform/thirdparty/gui/lvgl-8" revision="0128c34a7f86a2d2a4220fab54ba54828e60defe" upstream="product-t527-linux"/>
+  <project name="product/linux/external/mtop" path="platform/allwinner/utils/mtop" revision="148a4f79aa6294f023792f342990324c359a6046" upstream="product-t527-linux"/>
+  <project name="product/linux/external/mtp" path="platform/allwinner/usb/mtp" revision="1fba9165a03d780351f6ab20ece0e9e7a7ea99c5" upstream="product-t527-linux"/>
+  <project name="product/linux/external/multimedia" path="platform/allwinner/multimedia/libtmedia" revision="abccd965ad7ff788af2159f85a911285136c2a89" upstream="product-t527-linux"/>
+  <project name="product/linux/external/ota-burnboot" path="platform/allwinner/system/ota-burnboot" revision="305ff140f9bd5ea260f11dba3895b7960eeaa7f0" upstream="product-t527-linux"/>
+  <project name="product/linux/external/powerkey" path="platform/allwinner/power/powerkey" revision="7b8075d30b154e6b9a7d993ee993651e1326335b" upstream="product-t527-linux"/>
+  <project name="product/linux/external/ramparser" path="platform/allwinner/utils/ramparser" revision="45564203ce1abbff28f3b67ba2a44abc52329e50" upstream="product-t527-linux"/>
+  <project name="product/linux/external/rpbuf" path="platform/allwinner/system/rpbuf" revision="019644f0dd378603267b4d2bbd16159d11e6b86f" upstream="product-t527-linux"/>
+  <project name="product/linux/external/rtk_hciattach" path="platform/thirdparty/wireless/rtk_hciattach" revision="2e7f7805591b6f22037d7a058ad127470a945ace" upstream="product-t527-linux"/>
+  <project name="product/linux/external/setusbconfig" path="platform/allwinner/usb/setusbconfig" revision="1cf16b5d07d8ef509040e1f3e4c0dec98d7960ab" upstream="product-t527-linux"/>
+  <project name="product/linux/external/uevent-monitor" path="platform/allwinner/utils/uevent-monitor" revision="22b1af5bb4181ca744fbc6d6a1b8735a3e8c7628" upstream="product-t527-linux"/>
+  <project name="product/linux/external/wifimanager" path="platform/allwinner/wireless/wifimanager" revision="fbad9644ad9dfe9af72cd9e6fbf11f60ad51ccdb" upstream="product-t527-linux"/>
+  <project name="product/linux/external/wireless_common" path="platform/allwinner/wireless/common" revision="862a436cdc62bb1fcf7ac3d71947f06381f15feb" upstream="product-t527-linux"/>
+  <project name="product/linux/external/wireless_firmware" path="platform/allwinner/wireless/firmware" revision="f4e636d394c324cb5cd9356540737c6375b2dee4" upstream="product-t527-linux"/>
+  <project name="product/rtos-components" path="rtos/lichee/rtos-components" revision="c9c0dd88f9c4f56ebe58b3e3324590fe1dc60181" upstream="product-t527-linux"/>
+  <project name="product/rtos/device/chips/t527_e906" path="rtos/board/t527_e906" revision="3e53a948319c3dd284ac7015ece7667a669028d9" upstream="product-t527-linux"/>
+  <project name="product/tina/rtos-hal" path="rtos/lichee/rtos-hal" revision="5d7fe61713970d9a0956488c5ddc2acd07b15d87" upstream="product-t527-linux"/>
+  <project name="product/tina/rtos-tools" path="rtos/tools" revision="e45fc4d7ee3ffc20ae0b27b6017531afbe941bfe" upstream="product-t527-linux">
+    <linkfile src="scripts/source_envsetup.sh" dest="rtos/envsetup.sh"/>
+  </project>
+  <project name="product/tina/tina-ng/buildroot-202205" path="buildroot/buildroot-202205" revision="386b1c6d7c0481ae1af6f0abd6ddfd26bd7d5ec9" upstream="product-t527-linux" groups="tina"/>
+  <project name="product/tina/tina-ng/package/allwinner/tina_multimedia" path="buildroot/package/allwinner/multimedia/tina_multimedia" revision="aa399b6223c2fe7b1284929664d52f131f1bcab2" upstream="product-t527-linux" groups="tina"/>
+  <project name="product/tina/tina-ng/package/allwinner/tina_multimedia_demo" path="buildroot/package/allwinner/multimedia/tina_multimedia_demo" revision="6476a92200e20f9ff5e9788b895366676c562ac1" upstream="product-t527-linux" groups="tina"/>
+  <project name="product/tina/tina-ng/prebuilt/aarch64" path="prebuilt/rootfsbuilt/aarch64" revision="fa68a740b98ba827e5b1acce64149a6f8be96682" upstream="product-t527-linux"/>
+  <project name="product/tina/tina-ng/prebuilt/hostbuilt" path="prebuilt/hostbuilt" revision="449ef4549a508b0ac148554ec19a61395e47f913" upstream="product-t527-linux" groups="tina"/>
+  <project name="product/tina/tina-ng/prebuilt/kernel-built/aarch64" path="prebuilt/kernelbuilt/aarch64" revision="137040f4c0da38bcd4121e95857da3dbf4243d03" upstream="product-t527-linux"/>
+  <project name="product/tina/tina-ng/prebuilt/kernel-built/arm" path="prebuilt/kernelbuilt/arm" revision="437b4c26829df9afc92249af9ef54440e1292900" upstream="product-t527-linux"/>
+  <project name="product/tina/tina-ng/prebuilt/kernel-built/riscv" path="prebuilt/kernelbuilt/riscv" revision="6f22f04043429381b34db2c8969b6d8e68ec7aa3" upstream="product-t527-linux"/>
+  <project name="product/tina/tina-ng/prebuilt/riscv" path="prebuilt/rootfsbuilt/riscv" revision="fdc73b541bc80df5991dedade1c7c5634f2b2cec" upstream="product-t527-linux" groups="tina"/>
+  <project name="product/tina/tina-rt" path="rtos/lichee/rtos" revision="f9e663d19fcc37ab622be63cdb2ec062e29c1df9" upstream="product-t527-linux"/>
+  <project name="t-coffer/tee_kit" path="tee_kit" revision="87dbd6e978427eeaade97d72a1fe303489973798" upstream="product-t527-linux"/>
+</manifest>

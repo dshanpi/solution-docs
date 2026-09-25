@@ -84,3 +84,36 @@ printf '%s' "$UDC" > "$G/UDC"
 这些是逐步实验命令；每步出错即停止检查，不要忽略错误继续绑定。**先创建 function，再将它链接到 configuration，最后绑定 UDC**。创建 function 并不自动把它加入主机看到的配置。
 
 本段尚未在当前样机上替换既有 Gadget 实测。成功标准是主机实际枚举出键盘，并在下一章收到报告；仅出现 `/dev/hidg0` 不够。实验结束先向本实验 `UDC` 写入换行解绑，然后按链接、function、配置、字符串、Gadget 的逆序用 `rm`/`rmdir` 清理自己创建的对象，不递归删除其他 Gadget。
+
+<!-- LYNX-LAB:BEGIN -->
+
+## AI 辅助实践闭环
+
+- **稳定步骤**：`t527-kvm-15`
+- **学习目标**：理解“让 T527 枚举成 USB HID 设备”在 T527 Web KVM 链路中的职责，并能用证据解释结果。
+- **理解检查**：说明本章输入、输出以及失败时最先检查的证据。
+- **学生操作**：在锁定的 Avaota A1 SDK 学习工作区完成“让 T527 枚举成 USB HID 设备”实验，不直接修改其他板型。
+- **工具范围**：`terminal`
+- **风险级别**：`software-safe`
+- **预期现象**：命令退出码为 0，并生成带 SHA-256 的结构化证据。
+
+确定性验证：
+
+```bash
+cd tutorial-examples/web-kvm
+./scripts/run_simulation.sh gadget
+```
+
+必须保存命令退出码、产物摘要和证据来源；模拟结果只能标记为 `simulation`。完成后回答：解释本章结果为何可信，并指出哪些结论仍需要真实硬件。
+
+<details>
+<summary>分级提示</summary>
+
+1. 先确认本章输入、输出与证据来源。
+2. 检查 ./scripts/run_simulation.sh gadget 的首个失败阶段。
+3. 只对当前步骤相关文件做最小修改，并重新生成一次独立 attempt。
+4. 参考已签名课程包中的 solution/15，报告标记为 ASSISTED_PASS。
+
+</details>
+
+<!-- LYNX-LAB:END -->
