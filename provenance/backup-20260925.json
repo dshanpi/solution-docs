@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "createdAt": "2026-09-25T13:45:29Z",
+  "backupBranch": "backup/t527-ai-learning-20260925",
+  "repositories": {
+    "course": {
+      "remote": "https://github.com/dshanpi/solution-docs.git",
+      "baselineCommit": "2506ce90d149f97b3f573d41c25c2c2c160944f3",
+      "contentCommit": "4f3fc54569c89b1825491c11c946ebc18ab8843c"
+    },
+    "lynx": {
+      "remote": "https://github.com/dshanpi/lynx.git",
+      "baselineBranch": "release/v0.9.2",
+      "baselineCommit": "5ce6e6180e0e859ea2a1c14b77eae806eedd557c",
+      "snapshotCommit": "9c1e029d05a6983e78211baf3c7cf1630f738390",
+      "packageVersion": "0.9.3"
+    }
+  },
+  "coursePackage": {
+    "courseId": "t527-web-kvm-ai-learning",
+    "version": "1.0.0-local",
+    "file": "t527-web-kvm-ai-learning-1.0.0-local.lynx-course",
+    "bytes": 7033967,
+    "md5": "265431283df44b50e15ce42fa51dd226",
+    "sha256": "b55140b94e228b995023d871433d4eecd3e2e85cceb13f7827d40a2406c1e1bd",
+    "signerFingerprintSha256": "032d9ba7654356c957b6433ab4ec81ff05ceda23770f4a4511cb85bd7b21d7af"
+  },
+  "sdkReference": {
+    "root": "/home/ubuntu/T527/AvaotaA1-Tina5-SDK_V1",
+    "provenanceFile": "provenance/sdk-reference/provenance.lock.json",
+    "provenanceSha256": "ee70284706d6e7aab802c5d08a50a83fd555258ab8272d4f479491bde1ae74f2",
+    "manifestSha256": "789bddacbd187b96ce2bf368087941a5c66521d1f5a9102c38179c42e954bcef",
+    "dirtyPatchSha256": "94155ea3744533824c1dacf41875f7f8dbe7ef767943c85c5f78be6258e1370a",
+    "projectCount": 65,
+    "artifactCount": 3,
+    "imageCount": 10
+  },
+  "verification": {
+    "courseBuild": "PASS",
+    "courseValidation": "3/3 PASS",
+    "sdkSoftwareAcceptance": "PASS",
+    "hardwareInLoop": "NOT_VERIFIED",
+    "lynxProductionBuild": "PASS",
+    "lynxUiContracts": "191/191 PASS",
+    "lynxLocalCourseBackend": "5/5 PASS"
+  },
+  "excludedFromGit": [
+    ".local/course-signing private key",
+    "generated dist-course package payload",
+    "node_modules and build outputs",
+    "runtime databases and operating-system keyring credentials"
+  ]
+}
