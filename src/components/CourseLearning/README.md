@@ -10,7 +10,7 @@
 
 ```sh
 node --test tests/learning-progress.test.mjs
-npm run build
+pnpm run build
 ```
 
 浏览器检查：点击章节、阶段切换、标记与撤销完成、刷新恢复、首页继续学习、手机菜单及深色主题。
