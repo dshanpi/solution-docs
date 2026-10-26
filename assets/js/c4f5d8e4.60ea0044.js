@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunksolution_docs=self.webpackChunksolution_docs||[]).push([["4823"],{7176(s,o,u){u.r(o),u.d(o,{default:()=>r});var c=u(4686);u(2990);var e=u(8029);function r(){return(0,c.jsx)(e.rd,{to:"/docs/course/"})}}}]);
