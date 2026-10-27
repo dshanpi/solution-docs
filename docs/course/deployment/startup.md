@@ -1,6 +1,6 @@
 ---
 title: "组织运行文件并实现开机启动"
-sidebar_label: "22 部署与开机启动"
+sidebar_label: "25 部署与开机启动"
 sidebar_position: 22
 slug: /course/deployment/startup
 ---
@@ -31,6 +31,7 @@ slug: /course/deployment/startup
 ## 从启动脚本到浏览器视频
 
 ```mermaid
+%%{init: {'theme': 'neutral'}}%%
 flowchart TD
   I[BusyBox init / rcS] --> D[S91camera 加载采集驱动]
   I --> S[S99kvm start]

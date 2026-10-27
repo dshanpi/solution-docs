@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="260" viewBox="0 0 1000 260" role="img" aria-label="C 视频端连接 Go 后端">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#666"/>
+    </marker>
+    <style>
+      .node { fill: #f4f4f4; stroke: #b5b5b5; stroke-width: 1.2; }
+      .title { font: 600 17px "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif; fill: #222; text-anchor: middle; }
+      .sub { font: 14px "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif; fill: #666; text-anchor: middle; }
+      .label { font: 14px "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif; fill: #444; text-anchor: middle; }
+      .arrow { stroke: #666; stroke-width: 1.5; fill: none; }
+    </style>
+  </defs>
+
+  <rect class="node" x="30" y="85" width="150" height="90" rx="8"/>
+  <text class="title" x="105" y="120">浏览器</text>
+  <text class="sub" x="105" y="146">网页</text>
+
+  <rect class="node" x="300" y="85" width="160" height="90" rx="8"/>
+  <text class="title" x="380" y="120">Go 后端</text>
+  <text class="sub" x="380" y="146">kvm_app</text>
+
+  <rect class="node" x="580" y="85" width="180" height="90" rx="8"/>
+  <text class="title" x="670" y="120">C 视频端</text>
+  <text class="sub" x="670" y="146">采集 + 编码</text>
+
+  <rect class="node" x="840" y="85" width="130" height="90" rx="8"/>
+  <text class="title" x="905" y="120">HDMI 源</text>
+  <text class="sub" x="905" y="146">video0</text>
+
+  <line class="arrow" x1="180" y1="130" x2="300" y2="130"
+        marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+  <text class="label" x="240" y="116">HTTP / WebRTC</text>
+
+  <line class="arrow" x1="460" y1="112" x2="580" y2="112" marker-end="url(#arrow)"/>
+  <text class="label" x="520" y="100">控制命令</text>
+  <line class="arrow" x1="580" y1="148" x2="460" y2="148" marker-end="url(#arrow)"/>
+  <text class="label" x="520" y="166">KVM2 视频包</text>
+
+  <line class="arrow" x1="840" y1="130" x2="760" y2="130" marker-end="url(#arrow)"/>
+  <text class="label" x="800" y="116">NV12</text>
+</svg>

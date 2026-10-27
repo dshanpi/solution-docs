@@ -42,16 +42,12 @@ SDK 不只有应用程序，还包含板级配置、内核驱动和构建工具�
 | `.buildconfig` | 查看当前选择的板型、内核架构和工具链 |
 | `device/config/chips/t527/configs/demo_linux_aiot/linux-5.15/board.dts` | 描述本板的采集接口、I²C 和 GPIO 配置 |
 | `bsp/drivers/vin/modules/sensor/lt6911c_mipi.c` | HDMI 采集模块的驱动 |
-| `kvm_video_demo/main.cpp` | 视频采集与编码程序 |
-| `kvm_video_demo/Makefile` | 视频程序使用的编译器、头文件和库路径 |
-| `kvm/` | 配套 KVM 应用工程 |
 
 在 SDK 根目录读取当前构建配置：
 
 ```bash
 cd "$SDK_ROOT"
 grep -E 'LICHEE_BOARD=|LICHEE_KERNEL_ARCH=|LICHEE_KERNEL_VERSION=|LICHEE_BR_VER=' .buildconfig
-ls kvm_video_demo/main.cpp kvm_video_demo/Makefile
 ls bsp/drivers/vin/modules/sensor/lt6911c_mipi.c
 ```
 
@@ -88,7 +84,7 @@ aarch64-none-linux-gnu
 
 `aarch64` 表示编译目标是 ARM64。`CROSS_COMPILE` 是工具路径的公共前缀，加上 `gcc`、`g++` 或 `readelf`，分别得到 C 编译器、C++ 编译器和可执行文件检查工具的完整路径。这里显式指定编译器，避免误用虚拟机自身的 `gcc`。
 
-注意，设置这个变量不会自动改写现有 Makefile。配套 `kvm_video_demo/Makefile` 已单独指定 `CC`、`CXX` 及 SDK 路径；如果移动了 SDK，编译视频程序前还要核对这些配置。
+注意，设置这个变量不会自动改写别人的 Makefile；后面课程自己写的 Makefile 里显式引用 `CROSS_COMPILE` 即可。
 
 ## 编译一个最小程序
 
@@ -124,22 +120,23 @@ Machine:                           AArch64
 
 ### 查看程序依赖的运行库
 
-交叉编译完成后，程序可能还需要板端提供共享库。以 SDK 中已有的 `kvm_video` 为例，在虚拟机终端检查它：
+交叉编译完成后，程序可能还需要板端提供共享库。用刚才编出来的最小程序看一下它需要什么：
 
 ```bash
-cd "$SDK_ROOT"
-file kvm_video_demo/kvm_video
-"${CROSS_COMPILE}readelf" -l kvm_video_demo/kvm_video | grep 'Requesting program interpreter'
-"${CROSS_COMPILE}readelf" -d kvm_video_demo/kvm_video | grep NEEDED
+file "$CHECK_DIR/hello"
+"${CROSS_COMPILE}readelf" -l "$CHECK_DIR/hello" | grep 'Requesting program interpreter'
+"${CROSS_COMPILE}readelf" -d "$CHECK_DIR/hello" | grep NEEDED
 ```
 
 | 检查结果 | 与板端的关系 |
 | --- | --- |
 | `ARM aarch64` | 程序的目标架构应与 T527 一致 |
 | `/lib/ld-linux-aarch64.so.1` | 程序启动时使用的动态加载器，板端必须提供 |
-| `NEEDED` 中的 `libvencoder.so`、`libsdk_memory.so` 等 | 采集和编码程序依赖的共享库，需由配套系统提供 |
+| `NEEDED` 列表 | 程序依赖的共享库，需要由板端系统提供 |
 
-因此，部署视频程序时需要同时核对板端系统与 SDK 的配套关系。最小程序编译通过，说明基础工具链可用；它还不能证明视频程序的依赖库和硬件运行条件已经齐全。若 SDK 中尚未生成 `kvm_video`，这部分检查留到后续视频程序编译完成后进行。
+最小程序的 `NEEDED` 一般只有 C 库；后面链接编码库的程序还会列出 `libvencoder.so`、`libsdk_memory.so` 等，那些库由配套镜像提供。
+
+因此，部署程序时要同时核对板端系统与编译环境的配套关系。最小程序编译通过只能说明工具链可用，不能证明后续程序的依赖库和硬件运行条件已经齐全。
 
 ## 打开板端终端并记录系统版本
 

@@ -60,13 +60,13 @@ export const stages = [
     "id": "drivers",
     "title": "适配 HDMI 采集驱动",
     "position": 4,
-    "description": "构建底层软件，将原理图连接对应到设备树和驱动。",
+    "description": "构建基础系统、配置设备树、加载采集驱动并检查 HDMI 输入。",
     "lessons": [
       {
-        "title": "构建内核、设备树和应用",
+        "title": "准备 SDK 和基础镜像",
         "number": 8,
         "href": "/docs/course/drivers/sdk-build",
-        "shortTitle": "构建与部署",
+        "shortTitle": "准备基础镜像",
         "stage": "drivers"
       },
       {
@@ -77,7 +77,7 @@ export const stages = [
         "stage": "drivers"
       },
       {
-        "title": "适配 LT6911C 子设备驱动",
+        "title": "适配 LT6911C 驱动",
         "number": 10,
         "href": "/docs/course/drivers/lt6911c-driver",
         "shortTitle": "适配 LT6911C 驱动",
@@ -125,7 +125,7 @@ export const stages = [
     "id": "encoding",
     "title": "实现 H.264 硬件编码",
     "position": 6,
-    "description": "把采集图像交给硬件编码器，保存视频并测量性能。",
+    "description": "独立验证采集缓冲区、硬件编码器、H.264 码流和编码性能。",
     "lessons": [
       {
         "title": "把采集缓冲区交给硬件编码器",
@@ -135,17 +135,17 @@ export const stages = [
         "stage": "encoding"
       },
       {
-        "title": "编写 HDMI 转 H.264 文件程序",
+        "title": "生成 H.264 码流",
         "number": 16,
         "href": "/docs/course/encoding/h264-file",
-        "shortTitle": "保存 H.264 视频",
+        "shortTitle": "生成 H.264 码流",
         "stage": "encoding"
       },
       {
-        "title": "测量帧率、码率与延迟",
+        "title": "测量编码性能",
         "number": 17,
         "href": "/docs/course/encoding/video-performance",
-        "shortTitle": "测量视频性能",
+        "shortTitle": "测量编码性能",
         "stage": "encoding"
       }
     ]

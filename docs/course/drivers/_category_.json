@@ -5,7 +5,7 @@
   "link": {
     "type": "generated-index",
     "title": "适配 HDMI 采集驱动",
-    "description": "构建底层软件，将原理图连接对应到设备树和驱动。",
+  "description": "依次完成底层构建、设备树配置、LT6911C 驱动加载和 HDMI 输入验证。",
     "slug": "/course/stages/drivers"
   }
 }

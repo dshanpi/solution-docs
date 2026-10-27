@@ -1,37 +1,40 @@
 ---
-title: "构建内核、设备树和应用"
-sidebar_label: "05 构建与部署"
+title: "准备 SDK 和基础镜像"
+sidebar_label: "08 准备 SDK 和基础镜像"
 sidebar_position: 5
 slug: /course/drivers/sdk-build
 ---
 
-# 构建内核、设备树和应用
+# 准备 SDK 和基础镜像
 
-设备树和驱动的源文件不会被板端直接读取。Linux 启动时使用编译后的 DTB，内核加载 `.ko` 或内建驱动；改了源码却沿用旧产物，是“修改没有效果”的常见原因。
+阶段二先做这一步，是因为后面的设备树和驱动修改必须有一套**能启动、能登录、能加载模块的基线系统**。本章构建和部署的是 T527 的 Linux 基础镜像，不是 `kvm_video`，也不是完整的 Web KVM 应用。
 
-## 三类产物的去向
+## 本章构建什么
+
+| 源码或配置 | 构建产物 | 板端用途 |
+| --- | --- | --- |
+| Linux 内核与 BSP 驱动 | 内核镜像、`.ko` 模块 | 启动 Linux，提供 VIN 和其他设备驱动 |
+| `board.dts` 与板级配置 | DTB | 启动时描述 I²C、GPIO、VIN 等硬件连接 |
+| Buildroot 配置 | rootfs、工具和库 | 提供登录、调试和后续实验所需的用户空间 |
+| 打包配置 | boot 镜像和整板镜像 | 写入开发板，启动参考系统 |
 
 ```mermaid
 %%{init: {'theme': 'neutral'}}%%
 flowchart TB
-  D[board.dts 与包含文件] -->|编译| T[板级 DTB]
-  C[内核与 BSP 驱动源码] -->|编译| K[内核与 ko 模块]
-  A[main.cpp 与厂商头文件] -->|交叉编译和链接| V[kvm_video]
-  T -->|启动时读取| L[板端 Linux]
-  K -->|启动或加载| L
-  V -->|用户态执行| P[视频进程]
-  L -->|设备接口| P
+  K[内核与 BSP 源码] --> I[内核镜像与 .ko]
+  D[board.dts 与板级配置] --> T[DTB]
+  R[Buildroot 配置] --> F[rootfs 与系统工具]
+  I --> L[可启动的 T527 Linux 基础系统]
+  T --> L
+  F --> L
+  L --> B[开发板]
 ```
 
-图 1：源码、构建产物与板端消费者。
-
-驱动模块还需要匹配内核 ABI，用户态程序需要匹配目标动态库。
+本章结束时，只需要确认开发板能够启动、通过串口登录、识别基本设备，并能使用后续章节需要的构建工具。视频采集、硬件编码和 WebRTC 会在后面的阶段逐步加入。
 
 ## 从 SDK 入口构建
 
-在 SDK 根目录阅读 `build.sh` 和 `build/mkcommon.sh`。当前 `build.sh` 转交给 `mkcommon.sh`，其中 `kernel`、`dtb`、`modules`、`pack` 分别进入对应构建分支。
-
-确认 `.buildconfig` 已选择本板，且已保存修改后，再按需要执行：
+在 SDK 根目录确认 `.buildconfig` 已选择目标板，再使用 SDK 自带的构建入口：
 
 ```bash
 source build/envsetup.sh
@@ -39,38 +42,45 @@ source build/envsetup.sh
 ./build.sh dtb
 ```
 
-这两条是当前脚本支持的构建入口，不代表本次文档编写重新完成了全量构建。首次配置或更换板型时，应按配套 SDK 说明使用配置入口，不直接复制其他板的 `.buildconfig`。
-
-查找本次产物：
+`kernel` 负责内核和 BSP 驱动，`dtb` 负责板级设备树。需要生成整板镜像时，再按 SDK 的打包入口执行：
 
 ```bash
-find out/t527/demo_linux_aiot -name '*.dtb' -o -name 'lt6911c_mipi.ko'
+./build.sh pack
 ```
 
-**文件存在可能只是上次构建的结果**。核对**构建退出状态、时间戳、SHA-256**，并反编译目标 DTB 检查本次修改。`pack` 是打包入口，不会因为执行了它就自动证明驱动已重新编译。
+首次配置或更换板型时，按 SDK 配套说明选择板型，不要直接复制其他板的 `.buildconfig`。这些命令只负责生成基础系统，不能替代后续章节的设备树、驱动和采集实验。
 
-## 构建视频应用时消除个人路径
+## 基础镜像部署
 
-当前 `kvm_video_demo/Makefile` 写有固定 SDK 路径。使用 make 命令行变量覆盖路径，可以先保持源码不变。下面命令在 SDK 根目录执行，假设上一章已设置 `SDK_ROOT` 和 `CROSS_COMPILE`：
+从 `out/t527/demo_linux_aiot/` 找到本次构建的启动产物和打包文件，按照开发板已有的烧录方式部署。不要在本章手工替换正在运行的服务，也不要把尚未验证的 `kvm_video` 放进基础镜像。
+
+部署后先通过串口完成最小检查：
+
+```sh
+uname -a
+cat /proc/device-tree/model
+ls /dev
+```
+
+通过条件是板子能稳定启动并登录，内核版本、板级型号和用户空间与本次构建一致。串口连接和网络准备沿用前面的硬件准备章节。
+
+## 构建产物核对
 
 ```bash
-make -C kvm_video_demo \
-  CXX="${CROSS_COMPILE}g++" \
-  SDK_PATH="$SDK_ROOT/buildroot/package/auto/sdk_lib" \
-  KERN_PATH="$SDK_ROOT/kernel/linux-5.15" \
-  OUT_PATH="$SDK_ROOT/out/t527/demo_linux_aiot"
+find out/t527/demo_linux_aiot \
+  \( -name '*.dtb' -o -name '*.ko' -o -name 'rootfs.*' -o -name 'boot.img' \) \
+  -print
 ```
 
-该目标私有编译 `AWVidoeEncoder.cpp` 并链接厂商底层编码、内存等库；链接错误要看第一个缺失库或符号，不能只复制头文件。Makefile 中虽有 `capture_test`、`capture_simple`、`test_encoder` 目标，当前源码快照缺少它们引用的源文件，因此不要把这些目标当成现成实验。
+文件存在可能只是上一次构建的结果。修改后要同时核对构建退出状态、时间戳和 SHA-256；设备树还要在下一章反编译检查，驱动模块要在加载时核对 `vermagic` 和依赖。
 
-## 部署前核对版本
-
-| 产物 | 板端消费者 | 核对项目 |
+| 产物 | 下一步由谁使用 | 本章检查什么 |
 | --- | --- | --- |
-| DTB | 启动程序交给内核 | 板型、引脚、设备节点 |
-| `.ko` | 同版本 Linux 内核 | `vermagic`、依赖、实际加载路径 |
-| `kvm_video` | 监督脚本启动的视频服务 | AArch64、共享库、安装位置 |
+| DTB | Linux 启动流程 | 板型和文件版本正确 |
+| 内核与 `.ko` | Linux 和模块加载器 | 内核版本、架构和依赖匹配 |
+| rootfs | 板端用户空间 | 能登录，拥有调试工具和启动脚本 |
+| boot/整板镜像 | 烧录工具 | 能启动到当前板型 |
 
-只替换应用时，先停止管理它的服务，再备份旧应用、复制新文件并校验。不要一边运行一边覆盖正在执行的文件。DTB 和内核的部署必须按该镜像的分区布局完成，不能猜测分区号。
+## 与下一章衔接
 
-完成后保留“**源码版本→产物 SHA-256→板端运行版本**”的记录，下一章用 DTB 核对实际引脚配置。
+基础系统启动后，进入[适配设备树](/docs/course/drivers/device-tree)，把原理图中的实际连接写入板级配置。设备树确认后，才进入 LT6911C 驱动和 VIN 验证。

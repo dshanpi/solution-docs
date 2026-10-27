@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 380" width="760" height="380">
+<rect width="760" height="380" fill="#ffffff"/>
+<text x="74" y="28" font-family="'Noto Sans SC','Microsoft YaHei',sans-serif" font-size="18" fill="#243042">固定序列的实际平均码率</text>
+<line x1="74" y1="314.0" x2="728" y2="314.0" stroke="#dfe4ea" stroke-width="1"/>
+<text x="64" y="319.0" font-family="'Noto Sans SC','Microsoft YaHei',sans-serif" font-size="12" fill="#6b7789" text-anchor="end">0</text>
+<line x1="74" y1="276.6" x2="728" y2="276.6" stroke="#dfe4ea" stroke-width="1"/>
+<text x="64" y="281.6" font-family="'Noto Sans SC','Microsoft YaHei',sans-serif" font-size="12" fill="#6b7789" text-anchor="end">1</text>
+<line x1="74" y1="239.1" x2="728" y2="239.1" stroke="#dfe4ea" stroke-width="1"/>
+<text x="64" y="244.1" font-family="'Noto Sans SC','Microsoft YaHei',sans-serif" font-size="12" fill="#6b7789" text-anchor="end">2</text>
+<line x1="74" y1="201.7" x2="728" y2="201.7" stroke="#dfe4ea" stroke-width="1"/>
+<text x="64" y="206.7" font-family="'Noto Sans SC','Microsoft YaHei',sans-serif" font-size="12" fill="#6b7789" text-anchor="end">3</text>
+<line x1="74" y1="164.3" x2="728" y2="164.3" stroke="#dfe4ea" stroke-width="1"/>
+<text x="64" y="169.3" font-family="'Noto Sans SC','Microsoft YaHei',sans-serif" font-size="12" fill="#6b7789" text-anchor="end">4</text>
+<line x1="74" y1="126.9" x2="728" y2="126.9" stroke="#dfe4ea" stroke-width="1"/>
+<text x="64" y="131.9" font-family="'Noto Sans SC','Microsoft YaHei',sans-serif" font-size="12" fill="#6b7789" text-anchor="end">5</text>
+<line x1="74" y1="89.4" x2="728" y2="89.4" stroke="#dfe4ea" stroke-width="1"/>
+<text x="64" y="94.4" font-family="'Noto Sans SC','Microsoft YaHei',sans-serif" font-size="12" fill="#6b7789" text-anchor="end">6</text>
+<line x1="74" y1="52.0" x2="728" y2="52.0" stroke="#dfe4ea" stroke-width="1"/>
+<text x="64" y="57.0" font-family="'Noto Sans SC','Microsoft YaHei',sans-serif" font-size="12" fill="#6b7789" text-anchor="end">7</text>
+<text x="183.0" y="338" font-family="'Noto Sans SC','Microsoft YaHei',sans-serif" font-size="13" fill="#6b7789" text-anchor="middle">8 Mbps</text>
+<text x="401.0" y="338" font-family="'Noto Sans SC','Microsoft YaHei',sans-serif" font-size="13" fill="#6b7789" text-anchor="middle">12 Mbps</text>
+<text x="619.0" y="338" font-family="'Noto Sans SC','Microsoft YaHei',sans-serif" font-size="13" fill="#6b7789" text-anchor="middle">16 Mbps</text>
+<text x="401.0" y="364" font-family="'Noto Sans SC','Microsoft YaHei',sans-serif" font-size="13" fill="#6b7789" text-anchor="middle">配置码率</text>
+<rect x="135.0" y="142.9" width="95.9" height="171.1" rx="3" fill="#3f7d5a"/>
+<text x="183.0" y="133.9" font-family="'Noto Sans SC','Microsoft YaHei',sans-serif" font-size="13" font-weight="600" fill="#243042" text-anchor="middle">4.572</text>
+<rect x="353.0" y="81.6" width="95.9" height="232.4" rx="3" fill="#3f7d5a"/>
+<text x="401.0" y="72.6" font-family="'Noto Sans SC','Microsoft YaHei',sans-serif" font-size="13" font-weight="600" fill="#243042" text-anchor="middle">6.208</text>
+<rect x="571.0" y="81.4" width="95.9" height="232.6" rx="3" fill="#3f7d5a"/>
+<text x="619.0" y="72.4" font-family="'Noto Sans SC','Microsoft YaHei',sans-serif" font-size="13" font-weight="600" fill="#243042" text-anchor="middle">6.215</text>
+<text x="64" y="38" font-family="'Noto Sans SC','Microsoft YaHei',sans-serif" font-size="12" fill="#6b7789" text-anchor="end">Mbps</text>
+</svg>

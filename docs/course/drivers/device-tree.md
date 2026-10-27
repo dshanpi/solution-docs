@@ -1,6 +1,6 @@
 ---
 title: "把原理图连接写进设备树"
-sidebar_label: "06 适配设备树"
+sidebar_label: "09 适配设备树"
 sidebar_position: 6
 slug: /course/drivers/device-tree
 ---
@@ -96,4 +96,4 @@ grep -nE 'lt6911c|sensor_detect|hotplug_gpios|reset_gpios' /tmp/kvm-built.dts
 
 路径对应当前 SDK 已有产物，若构建输出位置不同，使用实际查到的文件。生成的 phandle 数字可能与源代码标签不同，应追踪对应节点，不比较标签文本是否完全一致。
 
-核对**源 DTS、生成 DTB、部署文件和运行设备树四处的一致性**，才能解释一次 GPIO 修改是否真正生效。
+核对**源 DTS、生成 DTB、部署文件和运行设备树四处的一致性**，才能解释一次 GPIO 修改是否真正生效。完成设备树配置后，下一章进入 LT6911C 驱动源码、内核配置和模块加载；本章不在设备树之外展开驱动实现。

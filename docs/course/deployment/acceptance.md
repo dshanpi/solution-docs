@@ -1,6 +1,6 @@
 ---
 title: "完整验收与课程项目交付"
-sidebar_label: "24 验收与交付"
+sidebar_label: "27 验收与交付"
 sidebar_position: 24
 slug: /course/deployment/acceptance
 ---

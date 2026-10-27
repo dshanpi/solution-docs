@@ -5,7 +5,7 @@
   "link": {
     "type": "generated-index",
     "title": "实现 H.264 硬件编码",
-    "description": "把采集图像交给硬件编码器，保存视频并测量性能。",
+    "description": "用独立实验理解硬件编码器，生成 H.264 码流并测量编码性能。",
     "slug": "/course/stages/encoding"
   }
 }

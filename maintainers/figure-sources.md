@@ -16,8 +16,7 @@
 - `drivers/sdk-build.md`：图 1：源码、构建产物与板端消费者。驱动模块还需要匹配内核 ABI，用户态程序需要匹配目标动态库。
 - `encoding/encoder-memory.md`：图 1：两条路径最终共享同一编码接口。这里省去的是采集到编码之间的图像复制，不代表整个网络链路都没有复制。
 - `encoding/h264-file.md`：图 1：编码输出的有效期。回调包中的两段数据共同组成一次编码输出。
-- `encoding/video-performance.md`：图 1：8 Mbps 配置的第 420 帧解码结果。
-- `encoding/video-performance.md`：图 2：12 Mbps 配置下的同一输入帧。[编码前参考图](./images/video-performance/reference-frame420.png)与[16 Mbps 解码图](./images/video-performance/frame420-16000.png)可用于进一步对照。数据采集于 2026-09-17，比较从 NV12 输入开始，不包含 HDMI 采集和色彩转换的损失。
+- `encoding/video-performance.md`：图 1：固定序列在 8/12/16 Mbps 下的实际平均码率；图 2：整体 PSNR；图 3：静态、滚动、运动三段的 PSNR。数据来自 600 帧固定序列，2026-10-26 在样机上复现，码流与 2026-09-17 记录逐字节一致。
 - `integration/capture-control.md`：图 1：刷新请求走控制方向，新的图像走视频方向。周期 GOP 仍为 60 帧，请求关键帧并不要求修改 GOP。
 - `integration/capture-control.md`：图 2：视频 Socket 不传递按键。网络服务负责会话和事件，HID 服务负责设备报告。
 - `integration/service-architecture.md`：图 1：网络服务连接浏览器与本地服务。视频流与键鼠事件走不同接口；板级设备访问留在对应服务中。

@@ -1,6 +1,6 @@
 ---
 title: "按链路定位无画面与无键鼠"
-sidebar_label: "23 分层定位故障"
+sidebar_label: "26 分层定位故障"
 sidebar_position: 23
 slug: /course/deployment/troubleshooting
 ---

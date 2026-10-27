@@ -1,66 +1,179 @@
 ---
 title: "编写 USB 键盘报告程序"
-sidebar_label: "16 编写键盘程序"
+sidebar_label: "19 编写键盘程序"
 sidebar_position: 16
 slug: /course/usb-hid/keyboard-reports
 ---
 
 # 编写 USB 键盘报告程序
 
-主机枚举到键盘以后，并不接收字符串 “a”。应用发送的是 HID 报告：哪些修饰键按下、哪些普通键仍然保持按下。**字符最后由主机的键盘布局和输入法解释**。
+上一课被控设备认到了键盘，但还没收到过按键。这一课写一个程序，往键盘节点写报告，让被控设备上真的出现一次按键。
 
-## 描述符规定的 8 字节
+## 一份报告长什么样
 
-USB HID 服务在 `kvm-hid-service/c/descriptors.h` 中定义无 Report ID 的 8 字节键盘输入报告，`gadget.c` 的 `gadget_report()` 负责构造并写入，与配套实验描述符一致。
+键盘报告固定 8 字节，就是描述符里声明的布局：
 
-| 字节 | 内容 | 例子 |
-| --- | --- | --- |
-| 0 | Ctrl、Shift、Alt、GUI 等修饰键位图 | 左 Shift 为 bit 1 |
-| 1 | 保留，填 0 | `00` |
-| 2—7 | 最多六个普通键的 Usage ID | `04` 表示 Keyboard a/A |
+| 字节 | 含义 |
+| --- | --- |
+| 0 | 修饰键位图 |
+| 1 | 保留 |
+| 2–7 | 最多 6 个同时按下的键码 |
 
-```text
-按下 a：00 00 04 00 00 00 00 00
-释放：  00 00 00 00 00 00 00 00
+- 修饰键位：左 Ctrl `0x01`、左 Shift `0x02`、左 Alt `0x04`、左 GUI `0x08`，右侧分别是 `0x10`、`0x20`、`0x40`、`0x80`。
+- 键码用 HID 用法号：a 到 z 是 `0x04`–`0x1D`，数字 1–0 是 `0x1E`–`0x27`，回车 `0x28`、Esc `0x29`、空格 `0x2C`。
+- **按下**就是某个字节里出现键码，**释放**是把整份报告清零。主机保持上一份报告的状态，只按不释放会一直重复输入。
+- 写入长度必须是 8。HID 是报告接口，短写不会被拆成下一份报告。
+
+## 写这个程序
+
+程序分五步，默认只打印报告内容，加 `--send` 才真正写节点。
+
+### 打开设备节点
+
+```c
+fd = open(argv[2], O_WRONLY | O_NONBLOCK);
 ```
 
-图 1：一次按键的两份状态报告。
+### 等节点可写
 
-**`0x04` 是 HID Usage ID，不是 ASCII 字符 `a` 的编码**。
+```c
+struct pollfd p = {.fd = fd, .events = POLLOUT};
+do {
+	ready = poll(&p, 1, 2000);
+} while (ready < 0 && errno == EINTR);
+if (ready <= 0 || !(p.revents & POLLOUT)) {
+	fprintf(stderr, "HID 节点不可写，检查 USB 是否枚举成功\n");
+	return -1;
+}
+```
 
-主机持有的按键状态持续到下一份报告改变它。**只有按下、没有释放，可能导致重复输入**；USB 写入返回成功也不表示应用已经观察到正确字符。[Linux HID Gadget 文档](https://docs.kernel.org/usb/gadget_hid.html)说明了通过 `hidgX` 发送和接收报告的接口。
+节点不可写，通常说明 Gadget 没绑定好，或者主机还没枚举完。
 
-## 先显示字节，再发送报告
+### 写按下报告
 
-下载 [hid_keyboard.c](/examples/kvm/hid_keyboard.c) 到 SDK 下 `tutorial-examples/`。从 SDK 根目录编译：
+```c
+uint8_t press[8] = {0};
+press[2] = keycode;      /* 0x04 是键盘上的 a */
+write(fd, press, 8);
+```
+
+### 等一会儿再写释放报告
+
+```c
+uint8_t release[8] = {0};
+struct timespec pause = {.tv_sec = 0, .tv_nsec = 100 * 1000 * 1000};
+nanosleep(&pause, &pause);
+write(fd, release, 8);
+```
+
+间隔 100 ms 是给主机区分"按下"和"释放"两次报告。
+
+### 失败也要释放
+
+如果按下写入失败，仍要尝试写释放报告，否则主机侧会留下一个按下的键。程序最后把两次写入的结果一起作为退出码。
+
+完整程序在课件 [19-keyboard](/examples/kvm/05-usb-hid/19-keyboard/hid_keyboard.c)，可以对照。
+
+## 运行与验证
+
+### 准备文件
+
+板端需要第 18 课的 Gadget 脚本和这一课的 `hid_keyboard`。在开发主机进入课件目录，起一个临时 HTTP 服务：
 
 ```bash
-"${CROSS_COMPILE}gcc" -std=c11 -Wall -Wextra -O2 \
-  tutorial-examples/hid_keyboard.c -o tutorial-examples/hid_keyboard
+cd <课件目录>
+python3 -m http.server 8000
 ```
 
-复制到板端实验目录，先运行默认模式：
+板端另开终端下载，和主机 `md5sum` 对照：
+
+```sh
+mkdir -p /tmp/kbd && cd /tmp/kbd
+wget -q -O hid-gadget.sh http://192.168.1.69:8000/hid-gadget.sh
+wget -q -O hid_keyboard http://192.168.1.69:8000/hid_keyboard
+chmod +x hid-gadget.sh hid_keyboard
+md5sum hid-gadget.sh hid_keyboard
+```
+
+### 建键鼠 Gadget
+
+```sh
+UDC=4100000.udc-controller ./hid-gadget.sh setup
+```
+
+输出里的键盘就是 `/dev/hidg0`。确认节点和报告长度：
+
+```sh
+ls -l /dev/hidg0
+cat /sys/kernel/config/usb_gadget/kvm_tutorial/functions/hid.usb0/report_length
+```
+
+第二条应输出 `8`。
+
+### 运行
+
+先只打印，确认报告内容：
 
 ```sh
 ./hid_keyboard
 ```
 
-默认只打印按下和释放的字节，不控制设备。真正发送前，在被控设备打开空白文本编辑器，确认焦点位于编辑区；确认当前节点确实使用上述描述符，且没有其他键盘报告写入者。
+```text
+press  : 00 00 04 00 00 00 00 00
+release: 00 00 00 00 00 00 00 00
+真正发送：hid_keyboard --send /dev/hidg0 [键码]
+```
+
+再真正发一次：
 
 ```sh
 ./hid_keyboard --send /dev/hidg0
 ```
 
-示例非阻塞打开设备，等待可写，发送按下报告，短暂保持，再发送全零释放。它已进行交叉编译检查，实际主机输入和异常恢复仍需板端验证。
+```text
+press  : 00 00 04 00 00 00 00 00
+release: 00 00 00 00 00 00 00 00
+已发送键码 0x04 并释放
+```
 
-## write 的长度也属于协议
+在被控设备上抓键盘事件，实测输出：
 
-Socket 是字节流，可以循环发送剩余字节；**HID 的一次写入对应一份报告**，不能把短写的剩余部分当成另一份正确报告继续发送。示例要求一次返回完整 8 字节，不符就报错。
+```sh
+sudo evtest /dev/input/by-id/usb-100ASK_KVM_tutorial_HID_KVM-TUTORIAL-1-event-kbd
+```
 
-如果 `open` 报节点不存在，回到 Gadget 配置；如果等待可写超时，检查线缆、USB Device 口、主机枚举和 UDC 绑定。不要通过不断重建整个 Gadget 来掩盖尚未连接主机的问题。
+```text
+Event: time ..., type 1 (EV_KEY), code 30 (KEY_A), value 1
+Event: time ..., -------------- SYN_REPORT ------------
+Event: time ..., type 1 (EV_KEY), code 30 (KEY_A), value 0
+Event: time ..., -------------- SYN_REPORT ------------
+```
 
-## 修饰键与 LED 是两个方向
+`value 1` 是按下，`value 0` 是释放。Linux 把 HID 键码 `0x04` 映射成 `KEY_A`（事件码 30）；最终打出什么字符由被控设备的键盘布局和输入法决定。`evtest` 开头还会列出描述符声明的 LED 能力（`EV_LED`），那是主机初始化时写的一次输出报告。
 
-左 Shift 加 `0x04` 的报告首字节为 `0x02`，主机通常会按当前布局解释成大写输入。Num Lock、Caps Lock 等 LED 状态则由主机发送回来，项目使用读取路径处理；发送全零输入报告不会自动修改主机的锁定键状态。
+也可以在被控设备打开空白编辑器，直接看是不是打出了 `a`。
 
-验收保留实际输入结果，并确认按键没有持续卡住。下一章把同样的描述符与报告关系应用到鼠标。
+## 清理
+
+```sh
+cd /tmp/kbd
+./hid-gadget.sh teardown
+/etc/init.d/S99kvm start
+```
+
+## 验收
+
+- 打印模式输出两行报告，按下报告第 2 字节是 `04`；
+- `--send` 退出码为 0，被控设备上出现 KEY_A 的按下和释放各一次；
+- 键盘没有卡键；
+- teardown 后 KVM 恢复，UDC 状态回到 `configured`。
+
+## 常见问题
+
+| 现象 | 原因 | 处理 |
+| --- | --- | --- |
+| `HID 节点不可写` | 节点没枚举，或 KVM 服务占着 | 先建教学 Gadget，确认 `configured` |
+| 报告只写了 N/8 字节 | 写入长度和 `report_length` 不一致 | 报告固定 8 字节 |
+| 被控设备没反应 | 焦点不在接收输入的地方 | 打开空白编辑器，或看 `evtest` 输出 |
+| 字符一直重复 | 没有发释放报告 | 按下后必须写全零报告 |
+| 打出的字符不对 | 键码或修饰键位写错 | 对照报告布局和键码表检查 |

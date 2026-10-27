@@ -1,6 +1,6 @@
 ---
 title: "判断 HDMI 是否真的有输入"
-sidebar_label: "08 检查 HDMI 输入"
+sidebar_label: "11 检查 HDMI 输入"
 sidebar_position: 8
 slug: /course/drivers/hdmi-signal
 ---

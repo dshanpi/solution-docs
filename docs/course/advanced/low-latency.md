@@ -22,7 +22,7 @@ slug: /course/advanced/low-latency
 | 浏览器 | 支持时请求低抖动缓冲目标 | 偏好不是强制保证，浏览器仍根据网络调整 |
 | 绝对鼠标 | 合并积压位置事件 | 相对位移、滚轮和按键不能按同样规则覆盖 |
 
-在 `kvm_video_demo/main.cpp` 中查找 `capture policy=latest` 和 `VE imported`，在 `kvm/ui/src/utils/interactivePlayout.ts` 中查看浏览器缓冲偏好。配置值为 0 不表示网络和浏览器已经没有缓冲。
+视频程序的日志里会打印 `capture policy=latest` 和 `VE imported`，网页端的缓冲偏好由浏览器侧决定。配置值为 0 不表示网络和浏览器已经没有缓冲。
 
 ## 鼠标跟手感包含两条路径
 

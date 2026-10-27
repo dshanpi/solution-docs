@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 380" width="760" height="380">
+<rect width="760" height="380" fill="#ffffff"/>
+<text x="74" y="28" font-family="'Noto Sans SC','Microsoft YaHei',sans-serif" font-size="18" fill="#243042">整体 PSNR</text>
+<line x1="74" y1="314.0" x2="728" y2="314.0" stroke="#dfe4ea" stroke-width="1"/>
+<text x="64" y="319.0" font-family="'Noto Sans SC','Microsoft YaHei',sans-serif" font-size="12" fill="#6b7789" text-anchor="end">42.5</text>
+<line x1="74" y1="270.3" x2="728" y2="270.3" stroke="#dfe4ea" stroke-width="1"/>
+<text x="64" y="275.3" font-family="'Noto Sans SC','Microsoft YaHei',sans-serif" font-size="12" fill="#6b7789" text-anchor="end">43</text>
+<line x1="74" y1="226.7" x2="728" y2="226.7" stroke="#dfe4ea" stroke-width="1"/>
+<text x="64" y="231.7" font-family="'Noto Sans SC','Microsoft YaHei',sans-serif" font-size="12" fill="#6b7789" text-anchor="end">43.5</text>
+<line x1="74" y1="183.0" x2="728" y2="183.0" stroke="#dfe4ea" stroke-width="1"/>
+<text x="64" y="188.0" font-family="'Noto Sans SC','Microsoft YaHei',sans-serif" font-size="12" fill="#6b7789" text-anchor="end">44</text>
+<line x1="74" y1="139.3" x2="728" y2="139.3" stroke="#dfe4ea" stroke-width="1"/>
+<text x="64" y="144.3" font-family="'Noto Sans SC','Microsoft YaHei',sans-serif" font-size="12" fill="#6b7789" text-anchor="end">44.5</text>
+<line x1="74" y1="95.7" x2="728" y2="95.7" stroke="#dfe4ea" stroke-width="1"/>
+<text x="64" y="100.7" font-family="'Noto Sans SC','Microsoft YaHei',sans-serif" font-size="12" fill="#6b7789" text-anchor="end">45</text>
+<line x1="74" y1="52.0" x2="728" y2="52.0" stroke="#dfe4ea" stroke-width="1"/>
+<text x="64" y="57.0" font-family="'Noto Sans SC','Microsoft YaHei',sans-serif" font-size="12" fill="#6b7789" text-anchor="end">45.5</text>
+<text x="183.0" y="338" font-family="'Noto Sans SC','Microsoft YaHei',sans-serif" font-size="13" fill="#6b7789" text-anchor="middle">8 Mbps</text>
+<text x="401.0" y="338" font-family="'Noto Sans SC','Microsoft YaHei',sans-serif" font-size="13" fill="#6b7789" text-anchor="middle">12 Mbps</text>
+<text x="619.0" y="338" font-family="'Noto Sans SC','Microsoft YaHei',sans-serif" font-size="13" fill="#6b7789" text-anchor="middle">16 Mbps</text>
+<text x="401.0" y="364" font-family="'Noto Sans SC','Microsoft YaHei',sans-serif" font-size="13" fill="#6b7789" text-anchor="middle">配置码率</text>
+<polyline points="183.0,264.3 401.0,106.8 619.0,107.3" fill="none" stroke="#3f6fa8" stroke-width="2.5" stroke-linejoin="round"/>
+<circle cx="183.0" cy="264.3" r="4.5" fill="#ffffff" stroke="#3f6fa8" stroke-width="2.5"/>
+<text x="183.0" y="253.3" font-family="'Noto Sans SC','Microsoft YaHei',sans-serif" font-size="13" font-weight="600" fill="#243042" text-anchor="middle">43.069</text>
+<circle cx="401.0" cy="106.8" r="4.5" fill="#ffffff" stroke="#3f6fa8" stroke-width="2.5"/>
+<text x="401.0" y="95.8" font-family="'Noto Sans SC','Microsoft YaHei',sans-serif" font-size="13" font-weight="600" fill="#243042" text-anchor="middle">44.873</text>
+<circle cx="619.0" cy="107.3" r="4.5" fill="#ffffff" stroke="#3f6fa8" stroke-width="2.5"/>
+<text x="619.0" y="96.3" font-family="'Noto Sans SC','Microsoft YaHei',sans-serif" font-size="13" font-weight="600" fill="#243042" text-anchor="middle">44.867</text>
+<text x="64" y="38" font-family="'Noto Sans SC','Microsoft YaHei',sans-serif" font-size="12" fill="#6b7789" text-anchor="end">dB</text>
+</svg>

@@ -67,16 +67,15 @@ tail -30 /tmp/kvm_video.log
 
 ## 为后续修改保留可恢复状态
 
-在开发主机保存待部署文件的校验值：
+在开发主机保存待部署文件的校验值，并在板端记录当前运行版本：
 
 ```bash
-sha256sum kvm_video_demo/kvm_video
-git -C kvm rev-parse HEAD
+sha256sum /userdata/100ask_kvm/bin/kvm_video
 git -C bsp rev-parse HEAD
 git -C device/config/chips/t527 rev-parse HEAD
 git -C device/config/chips/t527 diff -- configs/demo_linux_aiot/linux-5.15/board.dts
 ```
 
-提交号不包含未提交的设备树修改，也不覆盖独立的 `kvm_video_demo`。**同时保存补丁和散列值**，才能描述实际运行版本。
+提交号不包含未提交的设备树修改；程序散列值记录的是当前板端运行的那一份。**同时保存补丁和散列值**，才能描述实际运行版本。
 
 恢复包至少要包含镜像、校验文件、板卡版本、烧录入口说明、串口参数和已测功能清单。执行烧录前备份需要保留的配置与数据；恢复是否成功，以重新上电后的视频和键鼠测试为准。
