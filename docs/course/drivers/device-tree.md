@@ -1,63 +1,58 @@
 ---
-title: "把原理图连接写进设备树"
-sidebar_label: "09 适配设备树"
+title: "核对设备树里的采集配置"
+sidebar_label: "09 检查设备树"
 sidebar_position: 6
 slug: /course/drivers/device-tree
 ---
 
-# 把原理图连接写进设备树
+# 核对设备树里的采集配置
 
-I²C 线连在 PE3/PE4 上，Linux 却不会从导线上自动推断连接关系。设备树把板上的总线、器件与引脚配置交给驱动；**它描述硬件，不是执行接线动作的脚本**。
+SDK 已经为 LT6911C 写好 I²C、GPIO、参考时钟和 VIN 参数。这一课只做核对：确认这些配置在源码和 DTB 里都存在，并和板端实际状态一致。正常流程不需要改设备树；只有换板、换模块或接线不同，才进入最后一节的修改分支。
 
-## 从网络名定位板级文件
+## 先确认 SDK 里的配置存在
 
-当前板级文件为 `device/config/chips/t527/configs/demo_linux_aiot/linux-5.15/board.dts`。在 SDK 根目录搜索：
+在 SDK 根目录读取板级文件：
 
 ```bash
-grep -nE 'twi3|PE3|PE4|sensor_detect|sensor0_mname|sensor0_twi' \
+grep -nE 'twi3|PE3|PE4|sensor_detect|sensor0_mname|sensor0_twi|sensor0_isp|hotplug_gpios|refclk-frequency|reset_gpios' \
   device/config/chips/t527/configs/demo_linux_aiot/linux-5.15/board.dts
 ```
 
-`twi3_pins_default` 选择 PE3/PE4，`&twi3` 启用控制器并配置 100000 Hz。`twi4_pins_default` 中出现 PE14 不代表它已经被占用，还要看控制器是否启用、该 pinctrl 是否被引用。当前 TWI4 为 disabled。
+配套 SDK 中与本板相关的字段是：
 
-## VIN 使用的模块描述
-
-下列是当前 `sensor0` 的关键字段节选：
-
-```dts
+```text
 sensor0_mname = "lt6911c_mipi";
 sensor0_twi_cci_id = <3>;
 sensor0_twi_addr = <0x56>;
 sensor0_isp_used = <0>;
-status = "okay";
 ```
 
 | 字段 | 由谁使用 | 当前含义 |
 | --- | --- | --- |
 | `sensor0_mname` | 厂商 VIN 注册路径 | 匹配模块驱动名 |
-| `sensor0_twi_cci_id` | VIN 的控制总线选择 | 使用编号 3 的总线 |
+| `sensor0_twi_cci_id` | VIN 的控制总线选择 | 使用编号 3 的 TWI |
 | `sensor0_twi_addr` | VIN 注册 I²C 设备的代码 | 厂商地址格式 `0x56` |
-| `sensor0_isp_used` | VIN 图像通路 | 当前外部 YUV 输入不使用这里的 ISP 处理 |
+| `sensor0_isp_used` | VIN 图像通路 | 外部 YUV 输入不使用这里的 ISP 处理 |
 
-这套字段属于全志 VIN 的板级约定，**不能当成通用 Linux I²C binding** 套到所有设备。
+同时确认节点附近是 `status = "okay"`，并且 `twi3` 已启用、`twi4` 仍为 disabled。看到 `twi4_pins_default` 里出现 PE14 不代表 PE14 被占用，要看对应控制器是否启用、pinctrl 是否被引用。
+
+这套字段属于全志 VIN 的板级约定，**不能当成通用 Linux I²C binding** 套到其他设备。
 
 ### 0x56 与 0x2b 的关系
 
-`bsp/drivers/vin/vin.c` 在注册设备前对地址右移一位。因此当前字段 `0x56 >> 1 = 0x2b`，**Linux I²C 工具使用的是 7 位地址 `0x2b`**。把 `0x56` 原样传给要求 7 位地址的工具，会访问另一个地址。
-
-先用 sysfs 查看已注册设备，不必强制扫描正在运行的总线：
+VIN 注册 I²C 设备前会把地址右移一位，所以设备树里的 `0x56` 在 Linux 侧对应 7 位地址 `0x2b`。板端 sysfs 里应出现 `3-002b`：
 
 ```sh
-ls /sys/bus/i2c/devices
+ls /sys/bus/i2c/devices | grep 002b
 cat /sys/bus/i2c/devices/3-002b/name
 readlink /sys/bus/i2c/devices/3-002b/driver
 ```
 
-其中 `3-002b` 适用于当前总线编号；更换系统后先从设备列表确认。设备已被驱动占用时，不要用强制 I²C 访问和驱动竞争寄存器页选择。
+本次样机输出为 `lt6911c_mipi`，驱动链接指向 `lt6911c_mipi`。把 `0x56` 原样传给要求 7 位地址的工具会访问另一个地址；设备已被驱动占用时，也不要用强制 I²C 访问和驱动争用寄存器页。
 
-## 复位和事件 GPIO 单独核对
+## 核对引脚、时钟和启动参数
 
-当前文件还包含：
+当前 `twi3` 使用 PE3/PE4，总线频率 100 kHz。`sensor_detect` 节点包含：
 
 ```dts
 sensor_detect: sensor_detect@2108200 {
@@ -68,32 +63,54 @@ sensor_detect: sensor_detect@2108200 {
 };
 ```
 
-这个节点被驱动按名称查找。**GPIO5 接 H1 第 3 脚 PE15，RSTN 接 H1 第 1 脚 3.3V**，所以保留 `hotplug_gpios`，注释 `reset_gpios`。固定供电时不需要填写 `power_gpios` 或 `power1_gpios`；当前驱动将这些供电 GPIO 作为可选资源。
+| 配置 | 本板含义 | 核对点 |
+| --- | --- | --- |
+| `hotplug_gpios` | GPIO5 接 H1 第 3 脚 PE15 | 输入状态事件 |
+| `lontium,refclk-frequency` | 模块 24 MHz 晶振 | 驱动用它换算输入时钟 |
+| `reset_gpios` 注释掉 | RSTN 固定接 3.3V | 驱动不要操作复位脚 |
+| `twi3` 频率 | 100 kHz | 与模块和走线匹配 |
 
-`lontium,refclk-frequency` 对应本模块的 **24 MHz 晶振**，用于换算检测到的输入时钟。更换模块时，应根据实际晶振核对该值，不能仅凭同型号芯片沿用参数。
-
-配套启动脚本 `buildroot/100ask/etc/init.d/S91camera` 先加载 `vin_io`，再用 `reset_tied_high=1 refclk_hz=24000000` 加载 `lt6911c_mipi`，最后加载 `vin_v4l2`。这个顺序保证 VIN 自动加载接收驱动之前，固定高电平复位参数已经生效。
-
-在板端查看实际参数：
+配套启动脚本 `buildroot/100ask/etc/init.d/S91camera` 先加载 `vin_io`，再用 `reset_tied_high=1 refclk_hz=24000000` 加载 `lt6911c_mipi`，最后加载 `vin_v4l2`。板端核对：
 
 ```sh
 cat /sys/module/lt6911c_mipi/parameters/reset_tied_high
 cat /sys/module/lt6911c_mipi/parameters/refclk_hz
 ```
 
-当前启动配置分别输出 `Y` 和 `24000000`。`Y` 表示驱动不会操作复位 GPIO；模块参数中的参考时钟是默认值，设备树中的 `lontium,refclk-frequency` 若存在，会优先用于时序换算。
+本次样机分别输出 `Y` 和 `24000000`。`Y` 表示驱动不操作复位 GPIO；设备树中的 `lontium,refclk-frequency` 如果存在，会优先用于时序换算。
 
 ## 检查编译后的 DTB
 
-开发主机安装 `dtc` 后，对本次构建得到的 DTB 执行：
+在开发主机对本次构建的 DTB 反编译，确认字段真的进了产物：
 
 ```bash
+cd ~/T527_Tina5.0_SDK
 dtc -I dtb -O dts \
   out/t527/demo_linux_aiot/buildroot/sunxi.dtb \
   -o /tmp/kvm-built.dts
 grep -nE 'lt6911c|sensor_detect|hotplug_gpios|reset_gpios' /tmp/kvm-built.dts
 ```
 
-路径对应当前 SDK 已有产物，若构建输出位置不同，使用实际查到的文件。生成的 phandle 数字可能与源代码标签不同，应追踪对应节点，不比较标签文本是否完全一致。
+生成的 phandle 数字可能和源代码标签不同，应追踪对应节点，不要比较标签文本。核对的是三处一致性：源码字段、构建出的 DTB、板端驱动实际读到的参数。板端 `/proc/device-tree` 不一定导出所有节点，节点缺失时以 DTB 和驱动日志为准。
 
-核对**源 DTS、生成 DTB、部署文件和运行设备树四处的一致性**，才能解释一次 GPIO 修改是否真正生效。完成设备树配置后，下一章进入 LT6911C 驱动源码、内核配置和模块加载；本章不在设备树之外展开驱动实现。
+## 只有换硬件才需要改
+
+正常核对通过后，不要修改设备树。出现下列差异才进入修改分支：
+
+| 变化 | 修改位置 |
+| --- | --- |
+| I²C 总线或地址变化 | `sensor0_twi_cci_id`、`sensor0_twi_addr` |
+| 检测 GPIO 或复位方式变化 | `hotplug_gpios`、`reset_gpios`、`S91camera` 参数 |
+| 模块参考时钟从 24 MHz 改为 27 MHz | `lontium,refclk-frequency` 和 `S91camera` 的 `refclk_hz` |
+| 引脚复用变化 | `twi3_pins_default`、`twi3_pins_sleep` |
+
+改前备份原文件并记录改动，重新构建 DTB 后再核对。重新构建见[准备开发环境](../preparation/development-environment.md)，部署见[部署与开机启动](../deployment/startup.md)；驱动本身的检查放到下一课。
+
+## 验收
+
+- 板级文件中 `sensor0` 的模块名、TWI 编号、地址和 `status` 与上表一致。
+- 反编译 DTB 能找到 `sensor_detect` 和 `hotplug_gpios`，没有意外的 `reset_gpios`。
+- 板端 `3-002b` 存在，`reset_tied_high=Y`、`refclk_hz=24000000`。
+- 全程没有为了“跑通”修改源码；只有实际硬件不同才走修改分支。
+
+下一课检查 LT6911C 驱动是否按这份配置加载、绑定并创建采集节点。

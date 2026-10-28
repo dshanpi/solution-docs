@@ -1,86 +1,89 @@
 ---
-title: "准备 SDK 和基础镜像"
-sidebar_label: "08 准备 SDK 和基础镜像"
+title: "核对 SDK 与开发板版本"
+sidebar_label: "08 检查 SDK 与镜像"
 sidebar_position: 5
 slug: /course/drivers/sdk-build
 ---
 
-# 准备 SDK 和基础镜像
+# 核对 SDK 与开发板版本
 
-阶段二先做这一步，是因为后面的设备树和驱动修改必须有一套**能启动、能登录、能加载模块的基线系统**。本章构建和部署的是 T527 的 Linux 基础镜像，不是 `kvm_video`，也不是完整的 Web KVM 应用。
+SDK 和开发板镜像已经准备好。这一课确认两者属于同一套版本，为后面的设备树、驱动和 HDMI 检查建立可靠基线；**不重新构建镜像，也不烧录**。只有版本不一致时，才回第 05 课恢复 SDK，或到第 25 课按部署流程处理。
 
-## 本章构建什么
+## 核对 SDK 侧
 
-| 源码或配置 | 构建产物 | 板端用途 |
-| --- | --- | --- |
-| Linux 内核与 BSP 驱动 | 内核镜像、`.ko` 模块 | 启动 Linux，提供 VIN 和其他设备驱动 |
-| `board.dts` 与板级配置 | DTB | 启动时描述 I²C、GPIO、VIN 等硬件连接 |
-| Buildroot 配置 | rootfs、工具和库 | 提供登录、调试和后续实验所需的用户空间 |
-| 打包配置 | boot 镜像和整板镜像 | 写入开发板，启动参考系统 |
-
-```mermaid
-%%{init: {'theme': 'neutral'}}%%
-flowchart TB
-  K[内核与 BSP 源码] --> I[内核镜像与 .ko]
-  D[board.dts 与板级配置] --> T[DTB]
-  R[Buildroot 配置] --> F[rootfs 与系统工具]
-  I --> L[可启动的 T527 Linux 基础系统]
-  T --> L
-  F --> L
-  L --> B[开发板]
-```
-
-本章结束时，只需要确认开发板能够启动、通过串口登录、识别基本设备，并能使用后续章节需要的构建工具。视频采集、硬件编码和 WebRTC 会在后面的阶段逐步加入。
-
-## 从 SDK 入口构建
-
-在 SDK 根目录确认 `.buildconfig` 已选择目标板，再使用 SDK 自带的构建入口：
+进入 SDK 根目录，读取板型、内核和 Buildroot 版本：
 
 ```bash
-source build/envsetup.sh
-./build.sh kernel
-./build.sh dtb
+cd ~/T527_Tina5.0_SDK
+grep -E 'LICHEE_BOARD=|LICHEE_KERNEL_ARCH=|LICHEE_KERNEL_VERSION=|LICHEE_BR_VER=' .buildconfig
 ```
 
-`kernel` 负责内核和 BSP 驱动，`dtb` 负责板级设备树。需要生成整板镜像时，再按 SDK 的打包入口执行：
+配套 SDK 的配置为：
+
+```text
+export LICHEE_BOARD=demo_linux_aiot
+export LICHEE_KERNEL_ARCH=arm64
+export LICHEE_KERNEL_VERSION=5.15.147
+export LICHEE_BR_VER=202205
+```
+
+确认交叉编译器能启动：
 
 ```bash
-./build.sh pack
+"${CROSS_COMPILE}gcc" --version | head -1
 ```
 
-首次配置或更换板型时，按 SDK 配套说明选择板型，不要直接复制其他板的 `.buildconfig`。这些命令只负责生成基础系统，不能替代后续章节的设备树、驱动和采集实验。
+应为 GCC 10.3.1。`CROSS_COMPILE` 的完整设置见第 05 课；如果当前终端没有设置，先回到那一课设置 `SDK_ROOT` 和 `CROSS_COMPILE`。
 
-## 基础镜像部署
+再看预编译的用户态程序：
 
-从 `out/t527/demo_linux_aiot/` 找到本次构建的启动产物和打包文件，按照开发板已有的烧录方式部署。不要在本章手工替换正在运行的服务，也不要把尚未验证的 `kvm_video` 放进基础镜像。
+```bash
+ls -l out/t527/demo_linux_aiot/buildroot/buildroot/target/userdata/100ask_kvm/bin
+sha256sum out/t527/demo_linux_aiot/buildroot/buildroot/target/userdata/100ask_kvm/bin/kvm_app
+```
 
-部署后先通过串口完成最小检查：
+目录中应有 `kvm_app`、`kvm_hid`、`kvm_platform`、`kvm_video`。这些是 SDK 自带的参考程序，本课只核对，不重新编译。
+
+## 核对板端镜像
+
+在板端读取内核、板型和运行状态：
 
 ```sh
-uname -a
-cat /proc/device-tree/model
-ls /dev
+uname -r
+cat /proc/device-tree/model; echo
+pidof kvm_app kvm_video kvm_hid kvm_platform
+cat /sys/class/udc/4100000.udc-controller/state
 ```
 
-通过条件是板子能稳定启动并登录，内核版本、板级型号和用户空间与本次构建一致。串口连接和网络准备沿用前面的硬件准备章节。
+本次样机输出内核 `5.15.147`、板型 `sun55iw3`，四个 KVM 进程都在，UDC 为 `configured`。板端 `uname -r` 必须和 SDK 的 `LICHEE_KERNEL_VERSION` 一致；内核版本不同，后面不能直接套用 SDK 编译出的 `.ko`。
 
-## 构建产物核对
+再核对安装目录和程序：
 
-```bash
-find out/t527/demo_linux_aiot \
-  \( -name '*.dtb' -o -name '*.ko' -o -name 'rootfs.*' -o -name 'boot.img' \) \
-  -print
+```sh
+ls -l /userdata/100ask_kvm/bin
+sha256sum /userdata/100ask_kvm/bin/kvm_app
+cat /userdata/100ask_kvm/platform.env
 ```
 
-文件存在可能只是上一次构建的结果。修改后要同时核对构建退出状态、时间戳和 SHA-256；设备树还要在下一章反编译检查，驱动模块要在加载时核对 `vermagic` 和依赖。
+在开发主机对同一程序执行 `sha256sum`，两边结果应一致。本次这套镜像与 SDK target 的四个程序哈希全部一致。若不一致，说明板端镜像不是由当前 SDK 生成的，先确认版本，不要继续替换驱动或程序。
 
-| 产物 | 下一步由谁使用 | 本章检查什么 |
-| --- | --- | --- |
-| DTB | Linux 启动流程 | 板型和文件版本正确 |
-| 内核与 `.ko` | Linux 和模块加载器 | 内核版本、架构和依赖匹配 |
-| rootfs | 板端用户空间 | 能登录，拥有调试工具和启动脚本 |
-| boot/整板镜像 | 烧录工具 | 能启动到当前板型 |
+## 版本不一致时怎么办
 
-## 与下一章衔接
+| 情况 | 处理 |
+| --- | --- |
+| `~/T527_Tina5.0_SDK` 不存在或不完整 | 回到第 05 课按分卷归档恢复并校验 |
+| 板端 `uname -r` 与 SDK 的 `5.15.147` 不同 | 不要混用 SDK 编译的 `.ko`；换回匹配镜像，或按第 25 课重新部署 |
+| 四个程序哈希不一致 | 确认板端镜像来源；不要用本课强行覆盖生产程序 |
+| 四个进程缺失或 UDC 不是 `configured` | 先检查 `S99kvm` 和 USB 状态；这属于运行问题，不是版本问题 |
 
-基础系统启动后，进入[适配设备树](/docs/course/drivers/device-tree)，把原理图中的实际连接写入板级配置。设备树确认后，才进入 LT6911C 驱动和 VIN 验证。
+本课不执行 `./build.sh`，也不烧录；构建环境已经在第 05 课确认，需要重新打包或烧录时进入第 25 课。
+
+## 验收
+
+- SDK 的板型、内核和 Buildroot 版本与上表一致，交叉编译器能启动。
+- target 目录中有四个参考程序。
+- 板端内核为 `5.15.147`，四个 KVM 进程在，UDC 为 `configured`。
+- 板端与 SDK target 的程序哈希一致；不一致已被记录并停止后续部署。
+- 没有重新构建或烧录。
+
+下一课开始核对设备树里的采集配置；版本基线一致后，才能判断后续检查结果是否可信。

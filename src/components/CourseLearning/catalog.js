@@ -41,10 +41,10 @@ export const stages = [
         "stage": "preparation"
       },
       {
-        "title": "从开发主机传输核心程序",
+        "title": "通过 HTTP 传输并校验文件",
         "number": 6,
         "href": "/docs/course/preparation/file-transfer",
-        "shortTitle": "传输核心程序",
+        "shortTitle": "传输与校验文件",
         "stage": "preparation"
       },
       {
@@ -58,33 +58,33 @@ export const stages = [
   },
   {
     "id": "drivers",
-    "title": "适配 HDMI 采集驱动",
+    "title": "核对 HDMI 采集配置",
     "position": 4,
-    "description": "构建基础系统、配置设备树、加载采集驱动并检查 HDMI 输入。",
+    "description": "核对 SDK 与镜像版本，再检查设备树、采集驱动和 HDMI 输入。",
     "lessons": [
       {
-        "title": "准备 SDK 和基础镜像",
+        "title": "核对 SDK 与开发板版本",
         "number": 8,
         "href": "/docs/course/drivers/sdk-build",
-        "shortTitle": "准备基础镜像",
+        "shortTitle": "检查 SDK 与镜像",
         "stage": "drivers"
       },
       {
-        "title": "把原理图连接写进设备树",
+        "title": "核对设备树里的采集配置",
         "number": 9,
         "href": "/docs/course/drivers/device-tree",
-        "shortTitle": "适配设备树",
+        "shortTitle": "检查设备树",
         "stage": "drivers"
       },
       {
-        "title": "适配 LT6911C 驱动",
+        "title": "检查 LT6911C 驱动",
         "number": 10,
         "href": "/docs/course/drivers/lt6911c-driver",
-        "shortTitle": "适配 LT6911C 驱动",
+        "shortTitle": "检查 LT6911C 驱动",
         "stage": "drivers"
       },
       {
-        "title": "判断 HDMI 是否真的有输入",
+        "title": "核对 HDMI 输入是否正常",
         "number": 11,
         "href": "/docs/course/drivers/hdmi-signal",
         "shortTitle": "检查 HDMI 输入",
@@ -282,5 +282,5 @@ export const stages = [
 ];
 export const stageLabels = ['阶段一', '阶段二', '阶段三', '阶段四', '阶段五', '阶段六', '阶段七', '拓展学习'];
 export const lessons = stages.flatMap(stage => stage.lessons);
-export const shortStageNames = ["硬件准备", "驱动适配", "图像采集", "视频编码", "USB 键鼠", "服务集成", "部署验收", "进阶专题"];
+export const shortStageNames = ["硬件准备", "核对采集", "图像采集", "视频编码", "USB 键鼠", "服务集成", "部署验收", "进阶专题"];
 

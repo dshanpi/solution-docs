@@ -1,5 +1,35 @@
 # Web KVM 文档维护记录
 
+## 2026-10-28：第 08 课改为版本核对
+
+- 按用户指出，第 05 课已恢复 SDK、第 07 课运行参考镜像，08 再构建/烧录基础镜像既重复又容易改坏预配置系统；08 改为“核对 SDK 与开发板版本”，不执行 `./build.sh`、不烧录、不替换服务。
+- 核对项：`.buildconfig`（`demo_linux_aiot`、`5.15.147`、`202205`）、GCC 10.3.1、target 四个参考程序；板端 `uname -r`、`sun55iw3`、四个进程、UDC、`platform.env`；本次四个程序 SHA-256 在 SDK target 与板端完全一致。
+- 完整构建步骤保留在第 05 课；用户态程序替换、备份和回滚移到第 25 课。05、09、10 的相关链接同步；阶段描述改为“核对 SDK 与镜像版本，再检查设备树、采集驱动和 HDMI 输入”。
+- Docusaurus 构建通过。
+
+## 2026-10-28：第 06 课改为传输与校验文件
+
+- 第 06 课标题改为“通过 HTTP 传输并校验文件”，不再在准备阶段替换四个生产核心程序；用交叉编译的 `hello` 做样本：开发主机起 HTTP、板端 `wget` 到 `/tmp`、两端 `sha256sum` 对比、`chmod +x` 运行。
+- 原“备份旧程序、停 S99kvm、install、重启、回滚”流程移到第 25 课“替换用户态程序”，保留完整命令和备份路径；第 25 课链接第 06 课的传输方法。
+- 补充 HTTP 服务/SHA-256 预期、`Connection refused`/404/哈希不一致/权限/架构错误的排查；当前第 06 课不碰 `/userdata`，不停止 KVM。
+- 标题、sidebar、catalog 和前后章链接同步；Docusaurus 构建通过。
+
+## 2026-10-28：阶段二 09–11 改为核对预配置
+
+- 按用户要求，SDK 已配置好 LT6911C、I2C、GPIO、VIN 和启动脚本，09–11 不再教“从头适配”，改为检查预配置是否生效；正常流程不改设备树、驱动或内核。
+- 09 改为“核对设备树里的采集配置”：核对 `sensor0` 字段、TWI3/PE3/PE4、PE15、24MHz、`0x56→0x2b`、S91camera 参数和反编译 DTB；换板/换模块才进入修改分支。
+- 10 改为“检查 LT6911C 驱动”：检查 `CONFIG_SENSOR_LT6911C=m`、`.ko`、`lsmod`、`3-002b`、模块参数 `Y/24000000`、`vin_video0`；源码只作为检查点阅读，换芯片/协议才改。
+- 11 改为“核对 HDMI 输入是否正常”：源设备 1080p、模块供电/HPD、驱动日志反复 `locked 1920x1080@60`、生产网页实际画面；删掉旧的“检测锁未修复、不提供时序 ioctl”说法，改为以日志和实际帧为准。
+- 阶段名改为“核对 HDMI 采集配置”，顶部短标签改为“核对采集”；`catalog.js`、`_category_.json`、sidebar_label 和 H1 同步；实测输出来自 2026-10-28 板端状态，构建通过。
+
+## 2026-10-28：第 05 课补 SDK 分卷归档恢复
+
+- 在“准备开发环境”新增“如果 SDK 是分卷归档”：6 卷 tar.gz + SHA256SUMS 的校验、`cat | tar` 流式合并解压、磁盘空间（压缩 21G + 解压 39G）、FAT32 单文件 4GiB 限制、Windows 解压丢符号链接/权限的注意事项，以及 `socket ignored` 属正常的说明。
+- 第 08 课“从 SDK 入口构建”补链接：SDK 未恢复时先回第 05 课处理。
+- 补“新 Ubuntu 虚拟机的依赖”：Ubuntu 24.04 apt 包（Buildroot/内核/设备树/打包/Python）、SDK 自带交叉编译器不用 apt 版本、重新编译 Go 后端所需的 Go 1.23.4；补“编译 SDK 和课件程序”：`source build/envsetup.sh` + `./build.sh` 完整编译、`./build.sh pack` 打包、`pack_out` 产物、课件 `make SDK_ROOT=...`。
+- 按用户澄清，课程不提供开发主机或虚拟机镜像；第 05、06 课等“配套 Ubuntu 虚拟机”表述统一为“Ubuntu 开发主机”，并明确开发主机可以是读者自己的物理机、虚拟机或 WSL。
+- 已用本次实际归档核对卷数、大小和 `sha256sum`/`tar -tzf` 校验结果；Docusaurus 构建通过。
+
 ## 2026-10-27：第 24 课 C HID 服务接入 Go 后端
 
 - 第 24 课从“测试客户端发 HID IPC”改为“读者自己的 C HID 服务替换正式 kvm_hid”：新增 `06-integration/24-control-hid/kvm_hid_service.c`、`Makefile`、`run-hid-service.sh`、README；Python 课件从主线删除。

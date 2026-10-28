@@ -102,6 +102,50 @@ out/t527/demo_linux_aiot/buildroot/buildroot/target/userdata/100ask_kvm/
 
 前者用于后续构建安装，后者是当前 Buildroot target。同步这些目录不等于已经生成新烧录镜像；完整镜像还需要重新打包与校验。内核、DTB 和 `.ko` 则须按板卡分区及内核版本成套部署。
 
+### 替换用户态程序
+
+只更新用户态程序时，不必重刷整机。开发主机把本次构建的四个程序放入临时目录并提供 HTTP 下载：
+
+```bash
+cd ~/T527_Tina5.0_SDK
+RELEASE_DIR=$(mktemp -d /tmp/kvm-release.XXXXXX)
+for name in kvm_app kvm_hid kvm_platform kvm_video; do
+    cp "out/t527/demo_linux_aiot/buildroot/buildroot/target/userdata/100ask_kvm/bin/$name" "$RELEASE_DIR/"
+done
+sha256sum "$RELEASE_DIR"/*
+python3 -m http.server 8000 --bind 0.0.0.0 --directory "$RELEASE_DIR"
+```
+
+文件传输和 SHA-256 对比的方法见[传输与校验文件](../preparation/file-transfer.md)。保持 HTTP 服务运行，在串口终端给板端下载并核对：
+
+```sh
+rm -rf /tmp/kvm-update
+mkdir -p /tmp/kvm-update
+for name in kvm_app kvm_hid kvm_platform kvm_video; do
+    wget -q -O "/tmp/kvm-update/$name" "http://192.168.1.69:8000/$name" || exit 1
+done
+sha256sum /tmp/kvm-update/*
+```
+
+两端散列逐项一致后，备份旧文件、停止整套服务、替换并重启：
+
+```sh
+cd /userdata/100ask_kvm/bin
+mkdir -p /userdata/100ask_kvm/backup
+for name in kvm_app kvm_hid kvm_platform kvm_video; do
+    cp "$name" "/userdata/100ask_kvm/backup/$name.$(date +%Y%m%d-%H%M%S)"
+done
+
+/etc/init.d/S99kvm stop
+for name in kvm_app kvm_hid kvm_platform kvm_video; do
+    install -m 0755 "/tmp/kvm-update/$name" "/userdata/100ask_kvm/bin/$name"
+done
+/etc/init.d/S99kvm start
+sync
+```
+
+停止服务后网页、视频和 USB HID 会暂时断开，必须用串口或独立终端操作，不能依赖即将被停止的网页终端。启动后检查进程、日志和实际画面；异常时用 `backup/` 里的旧文件按同样顺序恢复。前端已经内嵌到 `kvm_app`，不能只替换网页源码。
+
 ## 重启后检查哪份日志
 
 ```sh

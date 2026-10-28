@@ -1,11 +1,11 @@
 {
-  "label": "适配 HDMI 采集驱动",
+  "label": "核对 HDMI 采集配置",
   "position": 4,
   "collapsed": true,
   "link": {
     "type": "generated-index",
-    "title": "适配 HDMI 采集驱动",
-  "description": "依次完成底层构建、设备树配置、LT6911C 驱动加载和 HDMI 输入验证。",
+    "title": "核对 HDMI 采集配置",
+  "description": "先核对 SDK 与镜像版本，再检查设备树、LT6911C 驱动和 HDMI 输入。",
     "slug": "/course/stages/drivers"
   }
 }
